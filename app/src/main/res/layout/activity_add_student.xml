@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0F7FA"
+    tools:context=".screens.AddStudentActivity">
+
+
+    <TextView
+        android:id="@+id/addStudentTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="הוספת תלמיד"
+        android:textColor="#0B4F86"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/round_font"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="100dp"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="6dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.85">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="36dp"
+                android:gravity="center_horizontal"
+                android:background="#9DAFFAFA">
+
+                <EditText
+                    android:id="@+id/studentName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="שם התלמיד"
+                    android:layout_margin="5dp" />
+
+                <EditText
+                    android:id="@+id/studentBirth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="תאריך לידה"
+                    android:layout_margin="5dp"
+                    android:inputType="date" />
+
+                <EditText
+                    android:id="@+id/studentAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="כתובת מגורים"
+                    android:layout_margin="5dp" />
+
+                <EditText
+                    android:id="@+id/studentPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="מספר טלפון"
+                    android:layout_margin="5dp"
+                    android:inputType="phone" />
+
+                <EditText
+                    android:id="@+id/studentPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="קבע סיסמא לתלמיד"
+                    android:layout_margin="5dp" />
+
+
+                <Switch
+                    android:id="@+id/switchTheory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="תיאוריה"
+                    android:layout_margin="5dp" />
+
+                <Switch
+                    android:id="@+id/switchEyes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="בדיקת עיניים"
+                    android:layout_margin="5dp" />
+
+                <Switch
+                    android:id="@+id/switchHealth"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="הצהרת בריאות"
+                    android:layout_margin="5dp" />
+                <Button
+                    android:id="@+id/btn_AddStudent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="הוספה"
+                    android:layout_marginTop="5dp"
+                    android:backgroundTint="#388FC3"
+                    android:fontFamily="@font/round_font"/>
+
+            </LinearLayout>
+        </ScrollView>
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="26dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+
+
+        <Button
+            android:id="@+id/addstudentTOmain"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:text="בית"
+            android:backgroundTint="#388FC3"
+            android:fontFamily="@font/round_font"/>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "807861681723",
+    "firebase_url": "https://siduraboda-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "siduraboda",
+    "storage_bucket": "siduraboda.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:807861681723:android:e3296919dff5102404a61e",
+        "android_client_info": {
+          "package_name": "com.example.siduraboda"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbRSXJHWU0z2HWN1fCkE7HS2d_HeABusY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
