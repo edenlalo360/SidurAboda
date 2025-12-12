@@ -33,7 +33,7 @@
             android:name=".screens.LogInActivity"
             android:exported="false" />
         <activity
-            android:name=".screens.Studets_listActivity"
+            android:name=".screens.StudentsListActivity"
             android:exported="false" />
         <activity
             android:name=".screens.LandingActivity"
