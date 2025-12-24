@@ -186,7 +186,7 @@ public class SharedPreferencesUtil {
     /// @return true if the Student is logged in, false otherwise
     /// @see #contains(Context, String)
     public static boolean isStudentLoggedIn(Context context) {
-        return contains(context, "Student");
+        return contains(context, "student");
     }
 
     /// Get the Student id of the logged in Student

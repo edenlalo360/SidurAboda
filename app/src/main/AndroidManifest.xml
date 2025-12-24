@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SidurAboda">
         <activity
+            android:name=".screens.UpDateActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.ImStudentActivity"
             android:exported="false" />
         <activity

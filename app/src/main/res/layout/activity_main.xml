@@ -49,7 +49,7 @@
                 android:id="@+id/mainTOsiduryomavoda"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="24dp"
+                android:layout_margin="15dp"
                 android:backgroundTint="#388FC3"
                 android:fontFamily="@font/round_font"
                 android:text="סידור יום עבודה" />
@@ -58,7 +58,7 @@
                 android:id="@+id/mainTOstudentslist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="24dp"
+                android:layout_margin="15dp"
                 android:backgroundTint="#388FC3"
                 android:fontFamily="@font/round_font"
                 android:text="רשימת תלמידים" />
@@ -67,7 +67,7 @@
                 android:id="@+id/mainTOtestslist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="24dp"
+                android:layout_margin="15dp"
                 android:backgroundTint="#388FC3"
                 android:fontFamily="@font/round_font"
                 android:text="רשימת טסטים" />
@@ -76,7 +76,7 @@
                 android:id="@+id/mainTOaddstudent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="24dp"
+                android:layout_margin="15dp"
                 android:backgroundTint="#388FC3"
                 android:fontFamily="@font/round_font"
                 android:text="הוספת תלמיד" />
@@ -85,10 +85,20 @@
                 android:id="@+id/mainTOinfocar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="24dp"
+                android:layout_margin="15dp"
                 android:backgroundTint="#388FC3"
                 android:fontFamily="@font/round_font"
                 android:text="ניהול רכב" />
+
+            <Button
+                android:id="@+id/mainTOupdate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:backgroundTint="#388FC3"
+                android:fontFamily="@font/round_font"
+                android:text="עדכון פרטים" />
+
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

@@ -12,8 +12,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.siduraboda.R;
+import com.example.siduraboda.models.Student;
+import com.example.siduraboda.models.User;
+import com.example.siduraboda.utils.SharedPreferencesUtil;
 
 public class LandingActivity extends AppCompatActivity {
+
+    User user;
+    Student student;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +31,19 @@ public class LandingActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        //משתמשים נשארים מחוברים
+        user= SharedPreferencesUtil.getUser(LandingActivity.this);
+        if(SharedPreferencesUtil.isUserLoggedIn(LandingActivity.this)){
+            Intent intent = new Intent(LandingActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
+        student= SharedPreferencesUtil.getStudent(LandingActivity.this);
+        if(SharedPreferencesUtil.isStudentLoggedIn(LandingActivity.this)){
+            Intent intent = new Intent(LandingActivity.this, ImStudentActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+        }
 
         Button button12 = findViewById(R.id.landingTOregister); //דף נחיתה להרשמה
         button12.setOnClickListener(new View.OnClickListener() {
@@ -35,7 +54,6 @@ public class LandingActivity extends AppCompatActivity {
             }
         }
         );
-
 
         Button button13 = findViewById(R.id.landingTOlogin); //דף נחיתה להתחברות
         button13.setOnClickListener(new View.OnClickListener() {

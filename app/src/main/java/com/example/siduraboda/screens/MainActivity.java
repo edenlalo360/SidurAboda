@@ -83,9 +83,19 @@ public class MainActivity extends AppCompatActivity {
            }
         );
 
-
-        ImageButton button15 = findViewById(R.id.btn_sign_out); //התנתקות
+        Button button15 = findViewById(R.id.mainTOupdate); //עדכון פרטים
         button15.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   Intent intent = new Intent(MainActivity.this, UpDateActivity.class);
+                   startActivity(intent);
+               }
+           }
+        );
+
+
+        ImageButton button16 = findViewById(R.id.btn_sign_out); //התנתקות
+        button16.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signOut();
