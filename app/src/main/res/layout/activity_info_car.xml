@@ -44,6 +44,7 @@
             android:padding="36dp">
 
             <EditText
+                android:id="@+id/type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -54,14 +55,14 @@
                 android:textSize="18sp" />
 
             <Spinner
-                android:id="@+id/spinnerview"
+                android:id="@+id/spinnerRank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:backgroundTint="#0B4F86" />
 
             <EditText
-                android:id="@+id/editTextNumber2"
+                android:id="@+id/carNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -75,7 +76,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/editTextDate2"
+                android:id="@+id/insuranceDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -88,14 +89,14 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/editTextDate3"
+                android:id="@+id/licensecarDate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:hint="תאריך רישיון רכב אחרון"
-                android:gravity="right"
-                android:fontFamily="@font/round_font"
                 android:backgroundTint="#0B4F86"
+                android:fontFamily="@font/round_font"
+                android:gravity="right"
+                android:hint="תאריך רישיון רכב אחרון"
                 android:inputType="date"
                 android:textColorHint="#0B4F86"
                 android:textSize="18sp" />
@@ -112,7 +113,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <Button
-        android:id="@+id/infocarTOmain"
+        android:id="@+id/updateTOmain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"

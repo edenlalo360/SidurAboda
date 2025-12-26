@@ -11,10 +11,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.siduraboda.R;
+import com.example.siduraboda.models.Car;
 import com.example.siduraboda.models.User;
 import com.example.siduraboda.services.DatabaseService;
 import com.example.siduraboda.utils.SharedPreferencesUtil;
 import com.example.siduraboda.utils.Validator;
+
+import java.util.ArrayList;
 
 public class RegisterTeacherActivity extends BaseActivity implements View.OnClickListener {
     private EditText firstName, lastName, Phone, License, Password;
@@ -36,7 +39,7 @@ public class RegisterTeacherActivity extends BaseActivity implements View.OnClic
         Phone = findViewById(R.id.et_register_phone);
         License = findViewById(R.id.et_register_num_license);
         Password = findViewById(R.id.et_register_password);
-        btnRegister = findViewById(R.id.btn_register);
+        btnRegister = findViewById(R.id.btnupdate);
         btnRegister.setOnClickListener(this);
     }
 
@@ -100,7 +103,7 @@ public class RegisterTeacherActivity extends BaseActivity implements View.OnClic
         String uid = databaseService.generateUserId();
 
         /// create a new user object
-        User user = new User(uid, password, fName, lName, license, phone, false);
+        User user = new User(uid, password, fName, lName, license, phone, false,  new ArrayList<>());
 
         databaseService.checkIfPhoneExists(phone, new DatabaseService.DatabaseCallback<Boolean>() {
             @Override

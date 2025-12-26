@@ -2,11 +2,11 @@ package com.example.siduraboda.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,11 +15,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.siduraboda.R;
+import com.example.siduraboda.utils.Validator;
+
+import java.util.Date;
 
 public class InfoCarActivity extends AppCompatActivity {
 
     Spinner spinner;
-    EditText carNumber, insuranceDate, licenseDate;
+    EditText typeCar, carNumber, insuranceDate, licenseDate;
     Button editBtn;
     boolean isEditing = false; // למעקב אם במצב עריכה
 
@@ -37,17 +40,20 @@ public class InfoCarActivity extends AppCompatActivity {
         });
 
         // איתור רכיבים
-        spinner = findViewById(R.id.spinnerview);
-        carNumber = findViewById(R.id.editTextNumber2);
-        insuranceDate = findViewById(R.id.editTextDate2);
-        licenseDate = findViewById(R.id.editTextDate3);
+        typeCar = findViewById(R.id.type);
+        spinner = findViewById(R.id.spinnerRank);
+        carNumber = findViewById(R.id.carNumber);
+        insuranceDate = findViewById(R.id.insuranceDate);
+        licenseDate = findViewById(R.id.licensecarDate);
         editBtn = findViewById(R.id.editBtn);
 
         // *** כאן השדות נעולים כברירת מחדל ***
+        typeCar.setEnabled(false);
+        spinner.setEnabled(false);
         carNumber.setEnabled(false);
         insuranceDate.setEnabled(false);
         licenseDate.setEnabled(false);
-        spinner.setEnabled(false);
+
 
         // מילוי ספינר
         String[] options = {
@@ -63,7 +69,7 @@ public class InfoCarActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
         // כפתור בית
-        Button button10 = findViewById(R.id.infocarTOmain);
+        Button button10 = findViewById(R.id.updateTOmain);
         button10.setOnClickListener(v -> {
             Intent intent = new Intent(InfoCarActivity.this, MainActivity.class);
             startActivity(intent);
@@ -77,6 +83,7 @@ public class InfoCarActivity extends AppCompatActivity {
                 isEditing = true;
                 editBtn.setText("שמירה");
 
+                typeCar.setEnabled(true);
                 carNumber.setEnabled(true);
                 insuranceDate.setEnabled(true);
                 licenseDate.setEnabled(true);
@@ -84,9 +91,19 @@ public class InfoCarActivity extends AppCompatActivity {
 
             } else {
                 // --- מצב שמירה ---
+//
+//
+//                checkInput()
+//                if (!updateCar()) {
+//
+//                }
+
+
+
                 isEditing = false;
                 editBtn.setText("עריכה");
 
+                typeCar.setEnabled(false);
                 carNumber.setEnabled(false);
                 insuranceDate.setEnabled(false);
                 licenseDate.setEnabled(false);
@@ -96,4 +113,40 @@ public class InfoCarActivity extends AppCompatActivity {
             }
         });
     }
-}
+    /// Check if the input is valid
+    /// @return true if the input is valid, false otherwise
+    private boolean checkInput(String type, String rank, String number, Date insurancedate, Date licensecardate) {
+
+        if (!Validator.isTypeValid(type)) {
+            typeCar.setError("Car type must be at least 2 characters long");
+            typeCar.requestFocus();
+            return false;
+        }
+
+        if (!Validator.isCarNumberValid(number)) {
+            carNumber.setError("Car number must be between 7-8 characters long");
+            carNumber.requestFocus();
+            return false;
+        }
+
+        if (!Validator.isInsuranceDateValid(insurancedate)) {
+            insuranceDate.setError("Please enter the last insurance date");
+            insuranceDate.requestFocus();
+            return false;
+        }
+
+        if (!Validator.isLicenseDateValid(licensecardate)) {
+            licenseDate.setError("Please enter the last license date");
+            licenseDate.requestFocus();
+            return false;
+        }
+
+        if (!Validator.isSpinnerValid(rank)) {
+            Toast.makeText(InfoCarActivity.this, "Please select license rank", Toast.LENGTH_SHORT).show();
+            spinner.requestFocus();
+            return false;
+        }
+
+        return true;
+    }}
+

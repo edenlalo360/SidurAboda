@@ -28,7 +28,7 @@
             android:background="#9DAFFAFA"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:padding="36dp">
+            android:padding="20dp">
 
             <EditText
                 android:id="@+id/et_register_first_name"
@@ -94,7 +94,7 @@
                 android:textSize="18sp" />
 
             <Button
-                android:id="@+id/btn_register"
+                android:id="@+id/btnupdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"

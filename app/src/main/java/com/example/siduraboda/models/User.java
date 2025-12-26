@@ -2,6 +2,8 @@ package com.example.siduraboda.models;
 
 import androidx.annotation.NonNull;
 
+import java.util.ArrayList;
+
 public class User {
     private String uid;
     private String password;
@@ -9,11 +11,13 @@ public class User {
     private String lastName;
     private String licenseId;
     private String phone;
+    private ArrayList<Car> cars;
 
     boolean isAdmin;
     public User() {}
 
-    public User(String uid, String password, String firstName, String lastName, String licenseId, String phone, boolean isAdmin) {
+    public User(String uid, String password, String firstName,
+                String lastName, String licenseId, String phone, boolean isAdmin, ArrayList<Car> cars) {
         this.uid = uid;
         this.password = password;
         this.firstName = firstName;
@@ -21,6 +25,8 @@ public class User {
         this.licenseId = licenseId;
         this.phone = phone;
         this.isAdmin = isAdmin;
+        this.cars = cars;
+
     }
 
     public String getUid() {
@@ -79,6 +85,17 @@ public class User {
         isAdmin = admin;
     }
 
+    @NonNull
+    public ArrayList<Car> getCars() {
+        if (this.cars == null) {
+            this.cars = new ArrayList<>();
+        }
+        return cars;
+    }
+
+    public void setCars(ArrayList<Car> cars) {
+        this.cars = cars;
+    }
 
     @NonNull
     @Override
@@ -91,6 +108,7 @@ public class User {
                 ", licenseId='" + licenseId + '\'' +
                 ", phone='" + phone + '\'' +
                 ", isAdmin=" + isAdmin +
+                ", cars=" + cars +
                 '}';
     }
 }

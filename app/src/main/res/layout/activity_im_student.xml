@@ -12,4 +12,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="דף תלמיד אישי" />
+
+    <Button
+        android:id="@+id/signoutStudent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="התנתקות"
+        tools:layout_editor_absoluteX="279dp"
+        tools:layout_editor_absoluteY="43dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
