@@ -55,6 +55,8 @@ public class InfoCarActivity extends AppCompatActivity {
         licenseDate.setEnabled(false);
 
 
+
+
         // מילוי ספינר
         String[] options = {
                 "דרגת רישיון", "A אופנוע", "B רכב פרטי עד 3.5 טון",
@@ -83,6 +85,11 @@ public class InfoCarActivity extends AppCompatActivity {
                 isEditing = true;
                 editBtn.setText("שמירה");
 
+                if (insuranceDate.getText().toString().isEmpty()) {
+                    insuranceDate.setError("יש להזין תאריך ביטוח");
+                    return;
+                }
+
                 typeCar.setEnabled(true);
                 carNumber.setEnabled(true);
                 insuranceDate.setEnabled(true);
@@ -97,8 +104,6 @@ public class InfoCarActivity extends AppCompatActivity {
 //                if (!updateCar()) {
 //
 //                }
-
-
 
                 isEditing = false;
                 editBtn.setText("עריכה");
@@ -148,5 +153,6 @@ public class InfoCarActivity extends AppCompatActivity {
         }
 
         return true;
+
     }}
 

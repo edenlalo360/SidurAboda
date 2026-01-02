@@ -87,7 +87,8 @@ public class User {
 
     @NonNull
     public ArrayList<Car> getCars() {
-        if (this.cars == null) {
+        if (this.cars == null
+          ) {
             this.cars = new ArrayList<>();
         }
         return cars;
