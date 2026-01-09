@@ -112,4 +112,12 @@ public class User {
                 ", cars=" + cars +
                 '}';
     }
+
+
+    public void addCar(Car car) {
+        if (this.cars == null) {
+            this.cars = new ArrayList<>();
+        }
+        this.cars.add(car);
+    }
 }

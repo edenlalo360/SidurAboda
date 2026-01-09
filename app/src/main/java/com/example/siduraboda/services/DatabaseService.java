@@ -312,8 +312,8 @@
             });
         }
 
-        public void updateUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
-            runTransaction(USERS_PATH + "/" + user.getUid(), User.class, currentUser -> user, new DatabaseCallback<User>() {
+        public void updateUser(@NotNull final String userId, @NotNull UnaryOperator<User> function, @Nullable final DatabaseCallback<Void> callback) {
+            runTransaction(USERS_PATH + "/" + userId, User.class, function, new DatabaseCallback<User>() {
                 @Override
                 public void onCompleted(User object) {
                     if (callback != null) {

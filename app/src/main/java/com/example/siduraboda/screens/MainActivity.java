@@ -45,52 +45,52 @@ public class MainActivity extends AppCompatActivity {
 
         Button button2 = findViewById(R.id.mainTOstudentslist); //רשימת תלמידים
         button2.setOnClickListener(new View.OnClickListener() {
-                                       @Override
-                                       public void onClick(View v) {
-                                           Intent intent = new Intent(MainActivity.this, StudentsListActivity.class);
-                                           startActivity(intent);
-                                       }
-                                   }
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(MainActivity.this, StudentsListActivity.class);
+               startActivity(intent);
+           }
+        }
         );
 
         Button button3 = findViewById(R.id.mainTOtestslist); //רשימת טסטים
         button3.setOnClickListener(new View.OnClickListener() {
-                                       @Override
-                                       public void onClick(View v) {
-                                           Intent intent = new Intent(MainActivity.this, TestsListActivity.class);
-                                           startActivity(intent);
-                                       }
-                                   }
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(MainActivity.this, TestsListActivity.class);
+               startActivity(intent);
+           }
+        }
         );
 
         Button button4 = findViewById(R.id.mainTOaddstudent); //הוספת תלמיד
         button4.setOnClickListener(new View.OnClickListener() {
-                                       @Override
-                                       public void onClick(View v) {
-                                           Intent intent = new Intent(MainActivity.this, AddStudentActivity.class);
-                                           startActivity(intent);
-                                       }
-                                   }
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(MainActivity.this, AddStudentActivity.class);
+               startActivity(intent);
+           }
+        }
         );
 
         Button button5 = findViewById(R.id.mainTOinfocar); //ניהול רכב
         button5.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   Intent intent = new Intent(MainActivity.this, InfoCarActivity.class);
-                   startActivity(intent);
-               }
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(MainActivity.this, InfoCarActivity.class);
+               startActivity(intent);
            }
+        }
         );
 
         Button button15 = findViewById(R.id.mainTOupdate); //עדכון פרטים
         button15.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   Intent intent = new Intent(MainActivity.this, UpDateActivity.class);
-                   startActivity(intent);
-               }
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(MainActivity.this, UpDateActivity.class);
+               startActivity(intent);
            }
+        }
         );
 
 
@@ -99,6 +99,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 signOut();
+            }
+        }
+        );
+
+        Button button20 = findViewById(R.id.mainTOaddcar); //הוספת רכב
+        button20.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddCarActivity.class);
+                startActivity(intent);
             }
         }
         );

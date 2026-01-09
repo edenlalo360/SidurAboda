@@ -4,29 +4,21 @@ import androidx.annotation.NonNull;
 
 public class Car {
 
-    private String id;
     private String type;
-    private String spinnerRank;
+    private String rank;
     private String carNumber;
-    private String licenseId;
+    private String licenseDate;
+    private String insuranceDate;
 
     public Car() {
     }
 
-    public Car(String id, String type, String spinnerRank, String carNumber, String licenseId) {
-        this.id = id;
+    public Car(String type, String rank, String carNumber, String licenseDate, String insuranceDate) {
         this.type = type;
-        this.spinnerRank = spinnerRank;
+        this.rank = rank;
         this.carNumber = carNumber;
-        this.licenseId = licenseId;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        this.licenseDate = licenseDate;
+        this.insuranceDate = insuranceDate;
     }
 
     public String getType() {
@@ -37,12 +29,12 @@ public class Car {
         this.type = type;
     }
 
-    public String getSpinnerRank() {
-        return spinnerRank;
+    public String getRank() {
+        return rank;
     }
 
-    public void setSpinnerRank(String spinnerRank) {
-        this.spinnerRank = spinnerRank;
+    public void setRank(String rank) {
+        this.rank = rank;
     }
 
     public String getCarNumber() {
@@ -53,23 +45,31 @@ public class Car {
         this.carNumber = carNumber;
     }
 
-    public String getLicenseId() {
-        return licenseId;
+    public String getLicenseDate() {
+        return licenseDate;
     }
 
-    public void setLicenseId(String licenseId) {
-        this.licenseId = licenseId;
+    public void setLicenseDate(String licenseDate) {
+        this.licenseDate = licenseDate;
+    }
+
+    public String getInsuranceDate() {
+        return insuranceDate;
+    }
+
+    public void setInsuranceDate(String insuranceDate) {
+        this.insuranceDate = insuranceDate;
     }
 
     @NonNull
     @Override
     public String toString() {
         return "Car{" +
-                "id='" + id + '\'' +
-                ", type='" + type + '\'' +
-                ", spinnerRank='" + spinnerRank + '\'' +
+                "type='" + type + '\'' +
+                ", rank='" + rank + '\'' +
                 ", carNumber='" + carNumber + '\'' +
-                ", licenseId='" + licenseId + '\'' +
+                ", licenseId='" + licenseDate + '\'' +
+                ", insuranceDate='" + insuranceDate + '\'' +
                 '}';
     }
 }

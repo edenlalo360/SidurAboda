@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.siduraboda.R;
 import com.example.siduraboda.utils.Validator;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class InfoCarActivity extends AppCompatActivity {
@@ -118,9 +119,27 @@ public class InfoCarActivity extends AppCompatActivity {
             }
         });
     }
+
+//    private void loadUserDetailsFromSharedPref() {
+//        typeCar.setText(user.getFullName());
+//        carNumber.setText(user.getFirstName());
+//        insuranceDate.setText(user.getLastName());
+//        licenseDate.setText(user.getEmail());
+//        spinner.setText(user.getPassword());
+//
+//        if (user.getProfileImage() != null && !user.getProfileImage().isEmpty()) {
+//            Bitmap bmp = ImageUtil.convertFrom64base(user.getProfileImage());
+//            if (bmp != null) {
+//                imgUserProfile.setImageBitmap(bmp);
+//            }
+//        } else {
+//            imgUserProfile.setImageResource(R.drawable.ic_user);
+//        }
+//    }
+
     /// Check if the input is valid
     /// @return true if the input is valid, false otherwise
-    private boolean checkInput(String type, String rank, String number, Date insurancedate, Date licensecardate) {
+    private boolean checkInput(String type, String rank, String number, LocalDate insurancedate, LocalDate licensecardate) {
 
         if (!Validator.isTypeValid(type)) {
             typeCar.setError("Car type must be at least 2 characters long");
@@ -151,8 +170,7 @@ public class InfoCarActivity extends AppCompatActivity {
             spinner.requestFocus();
             return false;
         }
-
         return true;
-
-    }}
+    }
+}
 

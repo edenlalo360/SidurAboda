@@ -27,14 +27,14 @@
         android:id="@+id/card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="24dp"
         app:cardCornerRadius="28dp"
         app:cardElevation="6dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="110dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.8">
 
         <LinearLayout
@@ -99,6 +99,15 @@
                 android:fontFamily="@font/round_font"
                 android:text="עדכון פרטים" />
 
+            <Button
+                android:id="@+id/mainTOaddcar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:backgroundTint="#388FC3"
+                android:fontFamily="@font/round_font"
+                android:text="הוספת רכב" />
+
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
@@ -107,9 +116,14 @@
         android:id="@+id/btn_sign_out"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="41dp"
         android:background="#E0F7FA"
-        app:srcCompat="@drawable/logout"
-        tools:layout_editor_absoluteX="338dp"
-        tools:layout_editor_absoluteY="40dp" />
+        app:layout_constraintBottom_toBottomOf="@+id/mainTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/mainTitle"
+        app:layout_constraintTop_toTopOf="@+id/mainTitle"
+        app:layout_constraintVertical_bias="0.437"
+        app:srcCompat="@drawable/logout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

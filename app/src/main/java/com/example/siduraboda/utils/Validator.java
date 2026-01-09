@@ -4,7 +4,7 @@ import android.util.Patterns;
 
 import androidx.annotation.Nullable;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 /// Validator class to validate user input.
 /// This class contains static methods to validate user input,
@@ -31,7 +31,7 @@ public class Validator {
         return license != null && license.length() >= 7 && license != null && license.length() <= 9;
     }
 
-    ///תקינות קלט אודות רכב
+    ///תקינות קלט הוספת רכב וגם אודות רכב
 
     public static boolean isTypeValid(@Nullable String type) {
         return type != null && type.length() >= 2;
@@ -39,14 +39,13 @@ public class Validator {
     public static boolean isCarNumberValid(@Nullable String carnumber) {
         return carnumber != null && carnumber.length() >= 7 && carnumber.length() <= 8;
     }
-    public static boolean isInsuranceDateValid(@Nullable Date insurance) {
+    public static boolean isInsuranceDateValid(@Nullable LocalDate insurance) {
         return insurance != null ;
     }
-    public static boolean isLicenseDateValid(@Nullable Date license) {
+    public static boolean isLicenseDateValid(@Nullable LocalDate license) {
         return license != null;
     }
     public static boolean isSpinnerValid(@Nullable String spinner) {
         return !spinner.equals("דרגת רישיון");
     }
-
 }
