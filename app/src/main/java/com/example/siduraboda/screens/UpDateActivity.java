@@ -96,11 +96,11 @@ public class UpDateActivity extends AppCompatActivity {
             public void onCompleted(User user) {
                 currentUser = user;
 
-                firstName.setText(user.getFirstName());
-                lastName.setText(user.getLastName());
-                phoneNumber.setText(user.getPhone());
-                licenseNum.setText(user.getLicenseId());
-                password.setText(user.getPassword());
+                firstName.setText(currentUser.getFirstName());
+                lastName.setText(currentUser.getLastName());
+                phoneNumber.setText(currentUser.getPhone());
+                licenseNum.setText(currentUser.getLicenseId());
+                password.setText(currentUser.getPassword());
             }
 
             @Override
@@ -115,7 +115,7 @@ public class UpDateActivity extends AppCompatActivity {
     // עדכון נתוני המשתמש
     // =========================
     private void updateUserDetails() {
-        /*
+
         currentUser.setFirstName(firstName.getText().toString());
         currentUser.setLastName(lastName.getText().toString());
         currentUser.setPhone(phoneNumber.getText().toString());
@@ -126,11 +126,11 @@ public class UpDateActivity extends AppCompatActivity {
         databaseService.updateUser(
                 currentUser.getUid(),
                 user -> {
-                    user.setFirstName(newFirstName);
-                    user.setLastName(newLastName);
-                    user.setPhone(newPhone);
-                    user.setLicenseId(newLicense);
-                    user.setPassword(newPassword);
+                    user.setFirstName(currentUser.getFirstName());
+                    user.setLastName(currentUser.getLastName());
+                    user.setPhone(currentUser.getPhone());
+                    user.setLicenseId(currentUser.getLicenseId());
+                    user.setPassword(currentUser.getPassword());
                     return user;
                 },
                 new DatabaseService.DatabaseCallback<Void>() {
@@ -149,8 +149,8 @@ public class UpDateActivity extends AppCompatActivity {
                     }
                 }
         );
-        
-         */
+
+
     }
     // =========================
     // נעילה / פתיחה של שדות
