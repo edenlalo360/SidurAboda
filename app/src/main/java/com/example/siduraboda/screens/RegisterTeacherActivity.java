@@ -102,25 +102,39 @@ public class RegisterTeacherActivity extends BaseActivity implements View.OnClic
     private void registerUser(String fName, String lName, String phone, String license, String password) {
         String uid = databaseService.generateUserId();
 
-        /// create a new user object
-        User user = new User(uid, password, fName, lName, license, phone, false,  new ArrayList<>());
+        User user = new User(uid, password, fName, lName, license, phone, false, new ArrayList<>());
 
         databaseService.checkIfPhoneExists(phone, new DatabaseService.DatabaseCallback<Boolean>() {
             @Override
-            public void onCompleted(Boolean exists) {
-                if (exists) {
-                    /// show error message to user
-                    Toast.makeText(RegisterTeacherActivity.this, "Phone already exists", Toast.LENGTH_SHORT).show();
-                } else {
-                    /// proceed to create the user
-                    createUserInDatabase(user);
+            public void onCompleted(Boolean phoneExists) {
+
+                if (phoneExists) {
+                    Toast.makeText(RegisterTeacherActivity.this, "מספר טלפון כבר קיים", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+
+                databaseService.checkIfLicenseNum(license, new DatabaseService.DatabaseCallback<Boolean>() {
+                    @Override
+                    public void onCompleted(Boolean licenseExists) {
+
+                        if (licenseExists) {
+                            Toast.makeText(RegisterTeacherActivity.this, "מספר רישיון כבר קיים", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        createUserInDatabase(user);
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+                        Toast.makeText(RegisterTeacherActivity.this, "שגיאה בבדיקת מספר רישיון", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override
             public void onFailed(Exception e) {
-                /// show error message to user
-                Toast.makeText(RegisterTeacherActivity.this, "Failed to register user", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterTeacherActivity.this, "שגיאה בבדיקת מספר טלפון", Toast.LENGTH_SHORT).show();
             }
         });
     }
