@@ -42,6 +42,15 @@ public class UpDateActivity extends AppCompatActivity {
             return insets;
         });
 
+        // כפתור חזרה לבית
+        Button button18 = findViewById(R.id.updateTOmain);
+        button18.setOnClickListener(v ->
+        {
+            Intent intent = new Intent(UpDateActivity.this, MainActivity.class);
+            startActivity(intent);
+        });
+
+
         // שירות DB
         databaseService = DatabaseService.getInstance();
 
@@ -63,17 +72,13 @@ public class UpDateActivity extends AppCompatActivity {
 
         lockFields();
 
-        // כפתור חזרה לבית
-        Button button18 = findViewById(R.id.updateTOmain);
-        button18.setOnClickListener(v ->
-        {
-            Intent intent = new Intent(UpDateActivity.this, MainActivity.class);
-            startActivity(intent);
-        });
-
 
         // טעינת נתוני המשתמש
         showUserDetails();
+
+        //קריאה לשתי פונקציות שבודקת שהמספר טלפון ורישיון רק של בן אדם אחד
+
+
 
         // כפתור עריכה / שמירה
         updateBtn.setOnClickListener(v -> {
@@ -87,9 +92,9 @@ public class UpDateActivity extends AppCompatActivity {
         });
     }
 
-    // =========================
+
     // הצגת נתוני המשתמש
-    // =========================
+
     private void showUserDetails() {
         databaseService.getUser(currentUser.getUid(), new DatabaseService.DatabaseCallback<User>() {
             @Override
@@ -178,9 +183,9 @@ public class UpDateActivity extends AppCompatActivity {
         });
     }
 
-    // =========================
+
     // עדכון נתוני המשתמש
-    // =========================
+
     private void updateUserDetails() {
         currentUser.setFirstName(firstName.getText().toString());
         currentUser.setLastName(lastName.getText().toString());
@@ -216,9 +221,9 @@ public class UpDateActivity extends AppCompatActivity {
         );
     }
 
-    // =========================
+
     // נעילה / פתיחה של שדות
-    // =========================
+
     private void lockFields() {
         firstName.setEnabled(false);
         lastName.setEnabled(false);
