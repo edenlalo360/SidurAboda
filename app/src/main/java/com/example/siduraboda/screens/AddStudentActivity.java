@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -25,6 +26,8 @@ import java.util.Locale;
 
 public class AddStudentActivity extends AppCompatActivity{
     private EditText Name, address, phone, date, password;
+    private Switch switchTheory,switchEyes,switchHealth;
+
     private Button btnAddStudent;
 
     @Override
@@ -53,6 +56,9 @@ public class AddStudentActivity extends AppCompatActivity{
         phone = findViewById(R.id.studentPhone);
         password = findViewById(R.id.studentPassword);
         btnAddStudent = findViewById(R.id.btn_AddStudent);
+        switchTheory = findViewById(R.id.switchTheory);
+        switchEyes = findViewById(R.id.switchEyes);
+        switchHealth = findViewById(R.id.switchHealth);
 
         date.setOnClickListener(v -> {
             final Calendar calendar = Calendar.getInstance();
@@ -71,6 +77,10 @@ public class AddStudentActivity extends AppCompatActivity{
             String addressStr = address.getText().toString().trim();
             String dateStr = date.getText().toString().trim();
             String passwordStr = password.getText().toString().trim();
+            boolean theoryIsChecked = switchTheory.isChecked();
+            boolean eyesIsChecked = switchEyes.isChecked();
+            boolean healthIsChecked = switchHealth.isChecked();
+
 
 
             if (check(nameStr, phoneStr, addressStr, dateStr, passwordStr)) {
@@ -95,9 +105,9 @@ public class AddStudentActivity extends AppCompatActivity{
                         addressStr,
                         phoneStr,
                         passwordStr,
-                        false,   // theory
-                        false,   // checkeye
-                        false    // healthdec
+                        theoryIsChecked,   // theory
+                        eyesIsChecked,   // checkeye
+                        healthIsChecked    // healthdec
                 );
 
                 DatabaseService.getInstance().createNewStudent(newStudent, new DatabaseService.DatabaseCallback<Void>() {
@@ -106,6 +116,7 @@ public class AddStudentActivity extends AppCompatActivity{
                         runOnUiThread(() -> {
                             Toast.makeText(AddStudentActivity.this, "Student added successfully!", Toast.LENGTH_SHORT).show();
                         });
+                        ClearFields();
                     }
 
                     @Override
@@ -153,6 +164,18 @@ public class AddStudentActivity extends AppCompatActivity{
 
 
         return true;
+    }
+    public void ClearFields(){
+        Name.setText("");
+        date.setText("");
+        address.setText("");
+        phone.setText("");
+        password.setText("");
+        switchTheory.setChecked(false);
+        switchEyes.setChecked(false);
+        switchHealth.setChecked(false);
+
+
     }
 
 }
