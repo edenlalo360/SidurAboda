@@ -312,6 +312,26 @@
             });
         }
 
+        public void checkIfLicenseNum(@NotNull final String license, @NotNull final DatabaseCallback<Boolean> callback) {
+            getUserList(new DatabaseCallback<List<User>>() {
+                @Override
+                public void onCompleted(List<User> users) {
+                    for (User user : users) {
+                        if (Objects.equals(user.getLicenseId(), license)) {
+                            callback.onCompleted(true);
+                            return;
+                        }
+                    }
+                    callback.onCompleted(false);
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+                    callback.onFailed(e);
+                }
+            });
+        }
+
         public void updateUser(@NotNull final String userId, @NotNull UnaryOperator<User> function, @Nullable final DatabaseCallback<Void> callback) {
             runTransaction(USERS_PATH + "/" + userId, User.class, function, new DatabaseCallback<User>() {
                 @Override

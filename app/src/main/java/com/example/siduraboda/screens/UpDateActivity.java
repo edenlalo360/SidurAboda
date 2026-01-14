@@ -82,7 +82,7 @@ public class UpDateActivity extends AppCompatActivity {
                 updateBtn.setText("שמירה");
                 unlockFields();
             } else {
-                updateUserDetails();
+                validateAndUpdate();
             }
         });
     }
@@ -111,17 +111,82 @@ public class UpDateActivity extends AppCompatActivity {
         });
     }
 
+    private void checkPhoneNumber(String phone, DatabaseService.DatabaseCallback<Boolean> callback) {
+        databaseService.checkIfPhoneExists(phone, new DatabaseService.DatabaseCallback<Boolean>() {
+            @Override
+            public void onCompleted(Boolean exists) {
+                callback.onCompleted(exists);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                callback.onFailed(e);
+            }
+        });
+    }
+
+    private void checkLicenseNum(String license, DatabaseService.DatabaseCallback<Boolean> callback) {
+        databaseService.checkIfLicenseNum(license, new DatabaseService.DatabaseCallback<Boolean>() {
+            @Override
+            public void onCompleted(Boolean exists) {
+                callback.onCompleted(exists);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                callback.onFailed(e);
+            }
+        });
+    }
+
+    private void validateAndUpdate() {
+        String newPhone = phoneNumber.getText().toString().trim();
+        String newLicense = licenseNum.getText().toString().trim();
+
+        checkPhoneNumber(newPhone, new DatabaseService.DatabaseCallback<Boolean>() {
+            @Override
+            public void onCompleted(Boolean phoneExists) {
+
+                if (phoneExists && !newPhone.equals(currentUser.getPhone())) {
+                    Toast.makeText(UpDateActivity.this, "מספר טלפון כבר קיים", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                checkLicenseNum(newLicense, new DatabaseService.DatabaseCallback<Boolean>() {
+                    @Override
+                    public void onCompleted(Boolean licenseExists) {
+
+                        if (licenseExists && !newLicense.equals(currentUser.getLicenseId())) {
+                            Toast.makeText(UpDateActivity.this, "מספר רישיון כבר קיים", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        updateUserDetails();
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+                        Toast.makeText(UpDateActivity.this, "שגיאה בבדיקת רישיון", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(UpDateActivity.this, "שגיאה בבדיקת טלפון", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
     // =========================
     // עדכון נתוני המשתמש
     // =========================
     private void updateUserDetails() {
-
         currentUser.setFirstName(firstName.getText().toString());
         currentUser.setLastName(lastName.getText().toString());
         currentUser.setPhone(phoneNumber.getText().toString());
         currentUser.setLicenseId(licenseNum.getText().toString());
         currentUser.setPassword(password.getText().toString());
-
 
         databaseService.updateUser(
                 currentUser.getUid(),
@@ -149,9 +214,8 @@ public class UpDateActivity extends AppCompatActivity {
                     }
                 }
         );
-
-
     }
+
     // =========================
     // נעילה / פתיחה של שדות
     // =========================
