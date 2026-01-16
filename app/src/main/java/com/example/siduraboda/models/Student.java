@@ -16,6 +16,7 @@ public class Student {
     public Student() {}
 
     public Student(String id, String Name, Date birthdate, String address, String phone, String password, boolean theory, boolean checkeye, boolean healthdec) {
+        this.id = id;
         this.Name = Name;
         this.birthdate = birthdate;
         this.address = address;

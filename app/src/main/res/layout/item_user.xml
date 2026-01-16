@@ -10,7 +10,8 @@
     app:cardElevation="2dp"
     android:clickable="true"
     android:focusable="true"
-    android:foreground="?attr/selectableItemBackground">
+
+    android:foreground="@drawable/ic_launcher_foreground">
 
     <LinearLayout
         android:layout_width="match_parent"
