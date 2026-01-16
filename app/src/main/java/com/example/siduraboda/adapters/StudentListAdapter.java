@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.siduraboda.R;
 import com.example.siduraboda.models.Student;
-import com.example.siduraboda.models.User;
-import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -18,7 +18,6 @@ import com.example.siduraboda.R;
 import com.example.siduraboda.utils.Validator;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public class InfoCarActivity extends AppCompatActivity {
 

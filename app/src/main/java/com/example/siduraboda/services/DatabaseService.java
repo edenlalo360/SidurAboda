@@ -5,8 +5,8 @@
     import androidx.annotation.NonNull;
     import androidx.annotation.Nullable;
 
-    import com.example.siduraboda.models.User;
     import com.example.siduraboda.models.Student;
+    import com.example.siduraboda.models.User;
     import com.google.firebase.database.DataSnapshot;
     import com.google.firebase.database.DatabaseError;
     import com.google.firebase.database.DatabaseReference;

@@ -16,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.siduraboda.R;
 import com.example.siduraboda.adapters.StudentListAdapter;
 import com.example.siduraboda.models.Student;
-import com.example.siduraboda.models.User;
 import com.example.siduraboda.services.DatabaseService;
 
 import java.util.List;
