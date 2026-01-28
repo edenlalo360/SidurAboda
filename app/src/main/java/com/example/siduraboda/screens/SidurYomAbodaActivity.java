@@ -32,7 +32,6 @@ public class SidurYomAbodaActivity extends AppCompatActivity {
                 Intent intent = new Intent(SidurYomAbodaActivity.this, MainActivity.class);
                 startActivity(intent);
             }
-        }
-        );
+        });
     }
 }
