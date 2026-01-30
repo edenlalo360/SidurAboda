@@ -48,4 +48,18 @@ public class Validator {
     public static boolean isSpinnerValid(@Nullable String spinner) {
         return !spinner.equals("דרגת רישיון");
     }
+
+    /// תקינות קלט קביעת שיעור
+    public static boolean isLessonDateValid(@Nullable LocalDate lesson) {
+        return lesson != null;
+    }
+    public static boolean isTimeValid(@Nullable String time) {
+        return time != null && time.length() >= 40;
+    }
+    public static boolean isSpinnerStudentValid(@Nullable String spinnerstudent) {
+        return !spinnerstudent.equals("בחר תלמיד לקביעת שיעור");
+    }public static boolean isSpinnerCarValid(@Nullable String spinnercar) {
+        return !spinnercar.equals("בחר רכב לשיעור זה");
+    }
+
 }

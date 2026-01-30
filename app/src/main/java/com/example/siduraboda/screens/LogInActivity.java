@@ -15,7 +15,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.siduraboda.R;
 import com.example.siduraboda.models.Student;
-import com.example.siduraboda.models.User;
+import com.example.siduraboda.models.Teacher;
 import com.example.siduraboda.services.DatabaseService;
 import com.example.siduraboda.utils.SharedPreferencesUtil;
 import com.example.siduraboda.utils.Validator;
@@ -55,8 +55,8 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
                 return;
             }
 
-            /// Login user
-            loginUser(phone, password);
+            /// Login teacher
+            loginTeacher(phone, password);
         }
     }
 
@@ -75,19 +75,19 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         return true;
     }
 
-    private void loginUser(String phone, String password) {
-        DatabaseService.getInstance().getUserByPhoneAndPassword(phone, password, new DatabaseService.DatabaseCallback<User>() {
+    private void loginTeacher(String phone, String password) {
+        DatabaseService.getInstance().getUserByPhoneAndPassword(phone, password, new DatabaseService.DatabaseCallback<Teacher>() {
             /// Callback method called when the operation is completed
-            /// @param user the user object that is logged in
+            /// @param teacher the teacher object that is logged in
             @Override
-            public void onCompleted(User user) {
-                if (user == null) {
+            public void onCompleted(Teacher teacher) {
+                if (teacher == null) {
                     getStudentByPhoneAndPassword(phone, password);
                     return;
                 }
-                /// save the user data to shared preferences
-                SharedPreferencesUtil.saveUser(LogInActivity.this, user);
-                /// Redirect to main activity and clear back stack to prevent user from going back to login screen
+                /// save the teacher data to shared preferences
+                SharedPreferencesUtil.saveTeacher(LogInActivity.this, teacher);
+                /// Redirect to main activity and clear back stack to prevent teacher from going back to login screen
                 Intent mainIntent = new Intent(LogInActivity.this, MainActivity.class);
                 /// Clear the back stack (clear history) and start the MainActivity
                 mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -96,12 +96,12 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onFailed(Exception e) {
-                /// Show error message to user
+                /// Show error message to teacher
                 etPassword.setError("Invalid phone or password");
                 etPassword.requestFocus();
-                /// Sign out the user if failed to retrieve user data
-                /// This is to prevent the user from being logged in again
-                SharedPreferencesUtil.signOutUser(LogInActivity.this);
+                /// Sign out the teacher if failed to retrieve teacher data
+                /// This is to prevent the teacher from being logged in again
+                SharedPreferencesUtil.signOutTeacher(LogInActivity.this);
             }
         });
     }
@@ -111,13 +111,13 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onCompleted(Student student) {
                 if (student == null) {
-                    Toast.makeText(LogInActivity.this, "User not found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LogInActivity.this, "Teacher not found", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                /// save the user data to shared preferences
+                /// save the teacher data to shared preferences
                 SharedPreferencesUtil.saveStudent(LogInActivity.this, student);
-                /// Redirect to main activity and clear back stack to prevent user from going back to login screen
+                /// Redirect to main activity and clear back stack to prevent teacher from going back to login screen
                 Intent mainIntent = new Intent(LogInActivity.this, ImStudentActivity.class);
                 /// Clear the back stack (clear history) and start the MainActivity
                 mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -126,12 +126,12 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onFailed(Exception e) {
-                /// Show error message to user
+                /// Show error message to teacher
                 etPassword.setError("Invalid phone or password");
                 etPassword.requestFocus();
-                /// Sign out the user if failed to retrieve user data
-                /// This is to prevent the user from being logged in again
-                SharedPreferencesUtil.signOutUser(LogInActivity.this);
+                /// Sign out the teacher if failed to retrieve teacher data
+                /// This is to prevent the teacher from being logged in again
+                SharedPreferencesUtil.signOutTeacher(LogInActivity.this);
             }
         });
     }

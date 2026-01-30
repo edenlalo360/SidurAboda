@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import androidx.annotation.Nullable;
 
 import com.example.siduraboda.models.Student;
-import com.example.siduraboda.models.User;
+import com.example.siduraboda.models.Teacher;
 import com.google.gson.Gson;
 
 /// Utility class for shared preferences operations
@@ -115,12 +115,12 @@ public class SharedPreferencesUtil {
 
     // Add more utility methods as needed
 
-    /// Save a user object to shared preferences
+    /// Save a teacher object to shared preferences
     /// @param context The context to use
-    /// @param user The user object to save
-    /// @see User
-    public static void saveUser(Context context, User user) {
-        saveObject(context, "user", user);
+    /// @param teacher The teacher object to save
+    /// @see Teacher
+    public static void saveTeacher(Context context, Teacher teacher) {
+        saveObject(context, "teacher", teacher);
     }
 
     public static void saveStudent(Context context, Student student) {
@@ -130,37 +130,37 @@ public class SharedPreferencesUtil {
     /// Get the user object from shared preferences
     /// @param context The context to use
     /// @return The user object stored in shared preferences
-    /// @see User
-    /// @see #isUserLoggedIn(Context)
-    public static User getUser(Context context) {
-        if (!isUserLoggedIn(context)) {
+    /// @see Teacher
+    /// @see #isTeacherLoggedIn(Context)
+    public static Teacher getTeacher(Context context) {
+        if (!isTeacherLoggedIn(context)) {
             return null;
         }
-        return getObject(context, "user", User.class);
+        return getObject(context, "teacher", Teacher.class);
     }
 
     /// Sign out the user by removing user data from shared preferences
     /// @param context The context to use
-    public static void signOutUser(Context context) {
-        remove(context, "user");
+    public static void signOutTeacher(Context context) {
+        remove(context, "teacher");
     }
 
     /// Check if a user is logged in by checking if the user id is present in shared preferences
     /// @param context The context to use
     /// @return true if the user is logged in, false otherwise
     /// @see #contains(Context, String)
-    public static boolean isUserLoggedIn(Context context) {
-        return contains(context, "user");
+    public static boolean isTeacherLoggedIn(Context context) {
+        return contains(context, "teacher");
     }
 
-    /// Get the user id of the logged in user
+    /// Get the user id of the logged in teacher
     /// @param context The context to use
-    /// @return The user id of the logged in user, or null if no user is logged in
+    /// @return The user id of the logged in user, or null if no teacher is logged in
     @Nullable
-    public static String getUserId(Context context) {
-        User user = getUser(context);
-        if (user != null) {
-            return user.getUid();
+    public static String getTeacherId(Context context) {
+        Teacher teacher = getTeacher(context);
+        if (teacher != null) {
+            return teacher.getUid();
         }
         return null;
     }

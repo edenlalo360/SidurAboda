@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        SharedPreferencesUtil.getUser(this).getFirstName();
+        SharedPreferencesUtil.getTeacher(this).getFirstName();
 
         Button button1 = findViewById(R.id.mainTOsiduryomavoda); //סידור יום עבודה
         button1.setOnClickListener(new View.OnClickListener() {
@@ -116,9 +116,9 @@ public class MainActivity extends AppCompatActivity {
 
         private void signOut() {
             Log.d(TAG, "Sign out button clicked");
-            SharedPreferencesUtil.signOutUser(MainActivity.this);
+            SharedPreferencesUtil.signOutTeacher(MainActivity.this);
 
-            Log.d(TAG, "User signed out, redirecting to LandingActivity");
+            Log.d(TAG, "Teacher signed out, redirecting to LandingActivity");
             Intent landingIntent = new Intent(MainActivity.this, LandingActivity.class);
             landingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(landingIntent);

@@ -5,8 +5,9 @@
     import androidx.annotation.NonNull;
     import androidx.annotation.Nullable;
 
+    import com.example.siduraboda.models.Lesson;
     import com.example.siduraboda.models.Student;
-    import com.example.siduraboda.models.User;
+    import com.example.siduraboda.models.Teacher;
     import com.google.firebase.database.DataSnapshot;
     import com.google.firebase.database.DatabaseError;
     import com.google.firebase.database.DatabaseReference;
@@ -34,8 +35,10 @@
 
         /// paths for different data types in the database
         /// @see DatabaseService#readData(String)
-        private static final String USERS_PATH = "users",
-                STUDENTS_PATH = "students";
+        private static final String
+                USERS_PATH = "users",
+                STUDENTS_PATH = "students",
+                LESSONS_PATH = "lessons";
 
         /// callback interface for database operations
         /// @param <T> the type of the object to return
@@ -212,25 +215,25 @@
 
         // public methods to interact with the database
 
-        // region User Section
+        // region Teacher Section
 
         /// generate a new id for a new user in the database
         /// @return a new id for the user
         /// @see #generateNewId(String)
-        /// @see User
+        /// @see Teacher
         public String generateUserId() {
             return generateNewId(USERS_PATH);
         }
 
-        /// create a new user in the database
-        /// @param user the user object to create
+        /// create a new teacher in the database
+        /// @param teacher the teacher object to create
         /// @param callback the callback to call when the operation is completed
         ///              the callback will receive void
         ///            if the operation fails, the callback will receive an exception
         /// @see DatabaseCallback
-        /// @see User
-        public void createNewUser(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
-            writeData(USERS_PATH + "/" + user.getUid(), user, callback);
+        /// @see Teacher
+        public void createNewUser(@NotNull final Teacher teacher, @Nullable final DatabaseCallback<Void> callback) {
+            writeData(USERS_PATH + "/" + teacher.getUid(), teacher, callback);
         }
 
         /// get a user from the database
@@ -239,9 +242,9 @@
         ///               the callback will receive the user object
         ///             if the operation fails, the callback will receive an exception
         /// @see DatabaseCallback
-        /// @see User
-        public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<User> callback) {
-            getData(USERS_PATH + "/" + uid, User.class, callback);
+        /// @see Teacher
+        public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<Teacher> callback) {
+            getData(USERS_PATH + "/" + uid, Teacher.class, callback);
         }
 
         /// get all the users from the database
@@ -250,9 +253,9 @@
         ///            if the operation fails, the callback will receive an exception
         /// @see DatabaseCallback
         /// @see List
-        /// @see User
-        public void getUserList(@NotNull final DatabaseCallback<List<User>> callback) {
-            getDataList(USERS_PATH, User.class, callback);
+        /// @see Teacher
+        public void getUserList(@NotNull final DatabaseCallback<List<Teacher>> callback) {
+            getDataList(USERS_PATH, Teacher.class, callback);
         }
 
         /// delete a user from the database
@@ -269,14 +272,14 @@
         ///            the callback will receive the user object
         ///          if the operation fails, the callback will receive an exception
         /// @see DatabaseCallback
-        /// @see User
-        public void getUserByPhoneAndPassword(@NotNull final String phone, @NotNull final String password, @NotNull final DatabaseCallback<User> callback) {
-            getUserList(new DatabaseCallback<List<User>>() {
+        /// @see Teacher
+        public void getUserByPhoneAndPassword(@NotNull final String phone, @NotNull final String password, @NotNull final DatabaseCallback<Teacher> callback) {
+            getUserList(new DatabaseCallback<List<Teacher>>() {
                 @Override
-                public void onCompleted(List<User> users) {
-                    for (User user : users) {
-                        if (Objects.equals(user.getPhone(), phone) && Objects.equals(user.getPassword(), password)) {
-                            callback.onCompleted(user);
+                public void onCompleted(List<Teacher> teachers) {
+                    for (Teacher teacher : teachers) {
+                        if (Objects.equals(teacher.getPhone(), phone) && Objects.equals(teacher.getPassword(), password)) {
+                            callback.onCompleted(teacher);
                             return;
                         }
                     }
@@ -293,11 +296,11 @@
         /// @param phone the email to check
         /// @param callback the callback to call when the operation is completed
         public void checkIfPhoneExists(@NotNull final String phone, @NotNull final DatabaseCallback<Boolean> callback) {
-            getUserList(new DatabaseCallback<List<User>>() {
+            getUserList(new DatabaseCallback<List<Teacher>>() {
                 @Override
-                public void onCompleted(List<User> users) {
-                    for (User user : users) {
-                        if (Objects.equals(user.getPhone(), phone)) {
+                public void onCompleted(List<Teacher> teachers) {
+                    for (Teacher teacher : teachers) {
+                        if (Objects.equals(teacher.getPhone(), phone)) {
                             callback.onCompleted(true);
                             return;
                         }
@@ -313,11 +316,11 @@
         }
 
         public void checkIfLicenseNum(@NotNull final String license, @NotNull final DatabaseCallback<Boolean> callback) {
-            getUserList(new DatabaseCallback<List<User>>() {
+            getUserList(new DatabaseCallback<List<Teacher>>() {
                 @Override
-                public void onCompleted(List<User> users) {
-                    for (User user : users) {
-                        if (Objects.equals(user.getLicenseId(), license)) {
+                public void onCompleted(List<Teacher> teachers) {
+                    for (Teacher teacher : teachers) {
+                        if (Objects.equals(teacher.getLicenseId(), license)) {
                             callback.onCompleted(true);
                             return;
                         }
@@ -332,22 +335,9 @@
             });
         }
 
-        public void updateUser(@NotNull final String userId, @NotNull UnaryOperator<User> function, @Nullable final DatabaseCallback<Void> callback) {
-            runTransaction(USERS_PATH + "/" + userId, User.class, function, new DatabaseCallback<User>() {
-                @Override
-                public void onCompleted(User object) {
-                    if (callback != null) {
-                        callback.onCompleted(null);
-                    }
-                }
-
-                @Override
-                public void onFailed(Exception e) {
-                    if (callback != null) {
-                        callback.onFailed(e);
-                    }
-                }
-            });
+        public void updateTeacher(@NotNull final String teacherId, @NotNull UnaryOperator<Teacher> function,
+                                  @NotNull final DatabaseCallback<Teacher> callback) {
+            runTransaction(USERS_PATH + "/" + teacherId, Teacher.class, function, callback);
         }
 
         //endregion
@@ -357,7 +347,7 @@
         /// generate a new id for a new user in the database
         /// @return a new id for the user
         /// @see #generateNewId(String)
-        /// @see User
+        /// @see Teacher
         public String generateStudentId() {
             return generateNewId(STUDENTS_PATH);
         }
@@ -453,10 +443,10 @@
             });
         }
 
-        public void updateStudent(@NotNull final User user, @Nullable final DatabaseCallback<Void> callback) {
-            runTransaction(STUDENTS_PATH + "/" + user.getUid(), User.class, currentUser -> user, new DatabaseCallback<User>() {
+        public void updateStudent(@NotNull final Teacher teacher, @Nullable final DatabaseCallback<Void> callback) {
+            runTransaction(STUDENTS_PATH + "/" + teacher.getUid(), Teacher.class, currentUser -> teacher, new DatabaseCallback<Teacher>() {
                 @Override
-                public void onCompleted(User object) {
+                public void onCompleted(Teacher object) {
                     if (callback != null) {
                         callback.onCompleted(null);
                     }
@@ -469,6 +459,63 @@
                     }
                 }
             });
+        }
+
+        //endregion
+
+        // region Lesson Section
+
+        /// generate a new id for a new lesson in the database
+        /// @return a new id for the lesson
+        /// @see #generateNewId(String)
+        /// @see Lesson
+        public String generateLessonId() {
+            return generateNewId(LESSONS_PATH);
+        }
+
+        /// create a new lesson in the database
+        /// @param lesson the Lesson object to create
+        /// @param callback the callback to call when the operation is completed
+        ///              the callback will receive void
+        ///            if the operation fails, the callback will receive an exception
+        /// @see DatabaseCallback
+        /// @see Lesson
+        public void createNewLesson(@NotNull final Lesson lesson, @Nullable final DatabaseCallback<Void> callback) {
+            writeData(LESSONS_PATH + "/" + lesson.getId(), lesson, callback);
+        }
+
+        /// get a user from the database
+        /// @param id the id of the lesson to get
+        /// @param callback the callback to call when the operation is completed
+        ///               the callback will receive the user object
+        ///             if the operation fails, the callback will receive an exception
+        /// @see DatabaseCallback
+        /// @see Lesson
+        public void getLesson(@NotNull final String id, @NotNull final DatabaseCallback<Lesson> callback) {
+            getData(LESSONS_PATH + "/" + id, Lesson.class, callback);
+        }
+
+        /// get all the users from the database
+        /// @param callback the callback to call when the operation is completed
+        ///              the callback will receive a list of user objects
+        ///            if the operation fails, the callback will receive an exception
+        /// @see DatabaseCallback
+        /// @see List
+        /// @see Lesson
+        public void getLessonList(@NotNull final DatabaseCallback<List<Lesson>> callback) {
+            getDataList(LESSONS_PATH, Lesson.class, callback);
+        }
+
+        /// delete a user from the database
+        /// @param id the user id to delete
+        /// @param callback the callback to call when the operation is completed
+        public void deleteLesson(@NotNull final String id, @Nullable final DatabaseCallback<Void> callback) {
+            deleteData(LESSONS_PATH + "/" + id, callback);
+        }
+
+
+        public void updateLesson(@NotNull final String lessonId, UnaryOperator<Lesson> operator, @NotNull final DatabaseCallback<Lesson> callback) {
+            runTransaction(LESSONS_PATH + "/" + lessonId, Lesson.class, operator, callback);
         }
 
         //endregion

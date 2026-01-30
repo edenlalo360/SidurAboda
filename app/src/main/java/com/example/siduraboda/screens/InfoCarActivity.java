@@ -120,14 +120,14 @@ public class InfoCarActivity extends AppCompatActivity {
     }
 
 //    private void loadUserDetailsFromSharedPref() {
-//        typeCar.setText(user.getFullName());
-//        carNumber.setText(user.getFirstName());
-//        insuranceDate.setText(user.getLastName());
-//        licenseDate.setText(user.getEmail());
-//        spinner.setText(user.getPassword());
+//        typeCar.setText(teacher.getFullName());
+//        carNumber.setText(teacher.getFirstName());
+//        insuranceDate.setText(teacher.getLastName());
+//        licenseDate.setText(teacher.getEmail());
+//        spinner.setText(teacher.getPassword());
 //
-//        if (user.getProfileImage() != null && !user.getProfileImage().isEmpty()) {
-//            Bitmap bmp = ImageUtil.convertFrom64base(user.getProfileImage());
+//        if (teacher.getProfileImage() != null && !teacher.getProfileImage().isEmpty()) {
+//            Bitmap bmp = ImageUtil.convertFrom64base(teacher.getProfileImage());
 //            if (bmp != null) {
 //                imgUserProfile.setImageBitmap(bmp);
 //            }

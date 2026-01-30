@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.siduraboda.R;
 import com.example.siduraboda.models.Lesson;
-import com.example.siduraboda.models.Student;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +41,7 @@ public class SidurYomAbodaAdapter extends RecyclerView.Adapter<SidurYomAbodaAdap
         Lesson lesson = SidurYomAboda.get(position);
         if (lesson == null) return;
 
-        holder.tvUserId.setText(lesson.getUserId());
+        holder.tvTeacherId.setText(lesson.getTeacherId());
 
         holder.itemView.setOnClickListener(v -> {
             if (onClickListener != null) {
@@ -64,9 +63,9 @@ public class SidurYomAbodaAdapter extends RecyclerView.Adapter<SidurYomAbodaAdap
         return SidurYomAboda.size();
     }
 
-    public void setList(List<Lesson> users) {
+    public void setList(List<Lesson> lessons) {
         SidurYomAboda.clear();
-        SidurYomAboda.addAll(users);
+        SidurYomAboda.addAll(lessons);
         notifyDataSetChanged();
     }
 
@@ -89,11 +88,11 @@ public class SidurYomAbodaAdapter extends RecyclerView.Adapter<SidurYomAbodaAdap
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvUserId;
+        TextView tvTeacherId;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvUserId = itemView.findViewById(R.id.tv_item_lesson_userid);
+            tvTeacherId = itemView.findViewById(R.id.tv_item_lesson_teacher_id);
         }
     }
 }

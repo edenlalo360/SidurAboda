@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.siduraboda.R;
 import com.example.siduraboda.models.Car;
-import com.example.siduraboda.models.User;
+import com.example.siduraboda.models.Teacher;
 import com.example.siduraboda.services.DatabaseService;
 import com.example.siduraboda.utils.SharedPreferencesUtil;
 import com.example.siduraboda.utils.Validator;
@@ -97,18 +97,18 @@ public class AddCarActivity extends AppCompatActivity {
 
                 Car car = new Car(type, rank, carNumber, licenseDate, insuranceDate);
 
-                String userId = SharedPreferencesUtil.getUserId(AddCarActivity.this);
-                DatabaseService.getInstance().updateUser(userId, new UnaryOperator<User>() {
+                String teacherId = SharedPreferencesUtil.getTeacherId(AddCarActivity.this);
+                DatabaseService.getInstance().updateTeacher(teacherId, new UnaryOperator<Teacher>() {
                     @Override
-                    public User apply(User user) {
-                        if (user == null) return user;
-                        user.addCar(car);
-                        return user;
+                    public Teacher apply(Teacher teacher) {
+                        if (teacher == null) return null;
+                        teacher.addCar(car);
+                        return teacher;
                     }
-                }, new DatabaseService.DatabaseCallback<Void>() {
+                }, new DatabaseService.DatabaseCallback<Teacher>() {
                     @Override
-                    public void onCompleted(Void v) {
-                        Toast.makeText(AddCarActivity.this, "Car successfully added!", Toast.LENGTH_SHORT);
+                    public void onCompleted(Teacher teacher) {
+                        Toast.makeText(AddCarActivity.this, "Car successfully added!", Toast.LENGTH_SHORT).show();
                         finish();
                     }
 
@@ -159,7 +159,7 @@ public class AddCarActivity extends AppCompatActivity {
     }
 
     private LocalDate convertStringToDate(String dateStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
         return LocalDate.parse(dateStr, formatter);
     }
 }

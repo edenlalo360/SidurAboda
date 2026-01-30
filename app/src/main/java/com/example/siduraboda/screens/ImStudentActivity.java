@@ -44,7 +44,7 @@ public class ImStudentActivity extends AppCompatActivity {
         Log.d(TAG, "Sign out button clicked");
         SharedPreferencesUtil.signOutStudent(ImStudentActivity.this);
 
-        Log.d(TAG, "User signed out, redirecting to LandingActivity");
+        Log.d(TAG, "Teacher signed out, redirecting to LandingActivity");
         Intent landingIntent = new Intent(ImStudentActivity.this, LandingActivity.class);
         landingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(landingIntent);

@@ -10,10 +10,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.siduraboda.R;
+import com.example.siduraboda.adapters.SidurYomAbodaAdapter;
+import com.example.siduraboda.models.Lesson;
 
 public class SidurYomAbodaActivity extends AppCompatActivity {
+
+    SidurYomAbodaAdapter adapter;
+    RecyclerView rvWorkday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +32,23 @@ public class SidurYomAbodaActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        rvWorkday = findViewById(R.id.rv_sidur_yom_aboda);
+        rvWorkday.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new SidurYomAbodaAdapter(new SidurYomAbodaAdapter.OnClickListener() {
+            @Override
+            public void onClick(Lesson lesson) {
+
+            }
+
+            @Override
+            public void onLongClick(Lesson lesson) {
+
+            }
+        });
+
+        rvWorkday.setAdapter(adapter);
+
         Button button6 = findViewById(R.id.siduryomavodaTOmain); //סידור יום עבודה לבית
         button6.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,5 +57,12 @@ public class SidurYomAbodaActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 }

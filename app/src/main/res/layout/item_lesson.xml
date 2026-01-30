@@ -30,7 +30,7 @@
         tools:text="@tools:sample/us_zipcodes" />
 
     <TextView
-        android:id="@+id/tv_item_lesson_userid"
+        android:id="@+id/tv_item_lesson_teacher_id"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

@@ -33,7 +33,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
     @NonNull
     @Override
     public StudentListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_student, parent, false);
         return new ViewHolder(view);
     }
 
@@ -64,9 +64,9 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
         return studentList.size();
     }
 
-    public void setList(List<Student> users) {
+    public void setList(List<Student> students) {
         studentList.clear();
-        studentList.addAll(users);
+        studentList.addAll(students);
         notifyDataSetChanged();
     }
 

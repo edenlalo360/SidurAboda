@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 
-public class User {
+public class Teacher {
     private String uid;
     private String password;
     private String firstName;
@@ -14,10 +14,10 @@ public class User {
     private ArrayList<Car> cars;
 
     boolean isAdmin;
-    public User() {}
+    public Teacher() {}
 
-    public User(String uid, String password, String firstName,
-                String lastName, String licenseId, String phone, boolean isAdmin, ArrayList<Car> cars) {
+    public Teacher(String uid, String password, String firstName,
+                   String lastName, String licenseId, String phone, boolean isAdmin, ArrayList<Car> cars) {
         this.uid = uid;
         this.password = password;
         this.firstName = firstName;
@@ -101,7 +101,7 @@ public class User {
     @NonNull
     @Override
     public String toString() {
-        return "User{" +
+        return "Teacher{" +
                 "uid='" + uid + '\'' +
                 ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +

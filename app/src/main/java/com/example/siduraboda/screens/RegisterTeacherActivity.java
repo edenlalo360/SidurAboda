@@ -13,7 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.siduraboda.R;
-import com.example.siduraboda.models.User;
+import com.example.siduraboda.models.Teacher;
 import com.example.siduraboda.services.DatabaseService;
 import com.example.siduraboda.utils.SharedPreferencesUtil;
 import com.example.siduraboda.utils.Validator;
@@ -48,7 +48,7 @@ public class RegisterTeacherActivity extends BaseActivity implements View.OnClic
     public void onClick(View v) {
         if (v.getId() == btnRegister.getId()) {
 
-            /// get the input from the user
+            /// get the input from the teacher
             String fName = firstName.getText().toString();
             String lName = lastName.getText().toString();
             String phone = Phone.getText().toString();
@@ -56,7 +56,7 @@ public class RegisterTeacherActivity extends BaseActivity implements View.OnClic
             String password = Password.getText().toString();
 
             if (checkInput(fName,lName,phone,license,password)) {
-                registerUser(fName, lName, phone, license, password);
+                registerTeacher(fName, lName, phone, license, password);
             }
 
         }
@@ -99,11 +99,11 @@ public class RegisterTeacherActivity extends BaseActivity implements View.OnClic
         return true;
     }
 
-    /// Register the user
-    private void registerUser(String fName, String lName, String phone, String license, String password) {
+    /// Register the teacher
+    private void registerTeacher(String fName, String lName, String phone, String license, String password) {
         String uid = databaseService.generateUserId();
 
-        User user = new User(uid, password, fName, lName, license, phone, false, new ArrayList<>());
+        Teacher teacher = new Teacher(uid, password, fName, lName, license, phone, false, new ArrayList<>());
 
         databaseService.checkIfPhoneExists(phone, new DatabaseService.DatabaseCallback<Boolean>() {
             @Override
@@ -123,7 +123,7 @@ public class RegisterTeacherActivity extends BaseActivity implements View.OnClic
                             return;
                         }
 
-                        createUserInDatabase(user);
+                        createTeacherInDatabase(teacher);
                     }
 
                     @Override
@@ -140,13 +140,13 @@ public class RegisterTeacherActivity extends BaseActivity implements View.OnClic
         });
     }
 
-    private void createUserInDatabase(User user) {
-        databaseService.createNewUser(user, new DatabaseService.DatabaseCallback<Void>() {
+    private void createTeacherInDatabase(Teacher teacher) {
+        databaseService.createNewUser(teacher, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
-                /// save the user to shared preferences
-                SharedPreferencesUtil.saveUser(RegisterTeacherActivity.this, user);
-                /// Redirect to MainActivity and clear back stack to prevent user from going back to register screen
+                /// save the teacher to shared preferences
+                SharedPreferencesUtil.saveTeacher(RegisterTeacherActivity.this, teacher);
+                /// Redirect to MainActivity and clear back stack to prevent teacher from going back to register screen
                 Intent mainIntent = new Intent(RegisterTeacherActivity.this, MainActivity.class);
                 /// clear the back stack (clear history) and start the MainActivity
                 mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -155,10 +155,10 @@ public class RegisterTeacherActivity extends BaseActivity implements View.OnClic
 
             @Override
             public void onFailed(Exception e) {
-                /// show error message to user
-                Toast.makeText(RegisterTeacherActivity.this, "Failed to register user", Toast.LENGTH_SHORT).show();
-                /// sign out the user if failed to register
-                SharedPreferencesUtil.signOutUser(RegisterTeacherActivity.this);
+                /// show error message to teacher
+                Toast.makeText(RegisterTeacherActivity.this, "Failed to register teacher", Toast.LENGTH_SHORT).show();
+                /// sign out the teacher if failed to register
+                SharedPreferencesUtil.signOutTeacher(RegisterTeacherActivity.this);
             }
         });
     }

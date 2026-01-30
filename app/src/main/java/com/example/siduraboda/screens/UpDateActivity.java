@@ -14,9 +14,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.siduraboda.R;
-import com.example.siduraboda.models.User;
+import com.example.siduraboda.models.Teacher;
 import com.example.siduraboda.services.DatabaseService;
 import com.example.siduraboda.utils.SharedPreferencesUtil;
+
+import java.util.function.UnaryOperator;
 
 public class UpDateActivity extends AppCompatActivity {
 
@@ -28,7 +30,7 @@ public class UpDateActivity extends AppCompatActivity {
     boolean isEditing = false;
 
     DatabaseService databaseService;
-    User currentUser;
+    Teacher currentTeacher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +57,9 @@ public class UpDateActivity extends AppCompatActivity {
         databaseService = DatabaseService.getInstance();
 
         // משתמש מחובר
-        currentUser = SharedPreferencesUtil.getUser(this);
-        if (currentUser == null) {
-            Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
+        currentTeacher = SharedPreferencesUtil.getTeacher(this);
+        if (currentTeacher == null) {
+            Toast.makeText(this, "Teacher not logged in", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
@@ -74,7 +76,7 @@ public class UpDateActivity extends AppCompatActivity {
 
 
         // טעינת נתוני המשתמש
-        showUserDetails();
+        showTeacherDetails();
 
         //קריאה לשתי פונקציות שבודקת שהמספר טלפון ורישיון רק של בן אדם אחד
 
@@ -95,23 +97,23 @@ public class UpDateActivity extends AppCompatActivity {
 
     // הצגת נתוני המשתמש
 
-    private void showUserDetails() {
-        databaseService.getUser(currentUser.getUid(), new DatabaseService.DatabaseCallback<User>() {
+    private void showTeacherDetails() {
+        databaseService.getUser(currentTeacher.getUid(), new DatabaseService.DatabaseCallback<Teacher>() {
             @Override
-            public void onCompleted(User user) {
-                currentUser = user;
+            public void onCompleted(Teacher teacher) {
+                currentTeacher = teacher;
 
-                firstName.setText(currentUser.getFirstName());
-                lastName.setText(currentUser.getLastName());
-                phoneNumber.setText(currentUser.getPhone());
-                licenseNum.setText(currentUser.getLicenseId());
-                password.setText(currentUser.getPassword());
+                firstName.setText(currentTeacher.getFirstName());
+                lastName.setText(currentTeacher.getLastName());
+                phoneNumber.setText(currentTeacher.getPhone());
+                licenseNum.setText(currentTeacher.getLicenseId());
+                password.setText(currentTeacher.getPassword());
             }
 
             @Override
             public void onFailed(Exception e) {
-                Log.e(TAG, "Failed to load user", e);
-                Toast.makeText(UpDateActivity.this, "Failed to load user data", Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "Failed to load teacher", e);
+                Toast.makeText(UpDateActivity.this, "Failed to load teacher data", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -152,7 +154,7 @@ public class UpDateActivity extends AppCompatActivity {
             @Override
             public void onCompleted(Boolean phoneExists) {
 
-                if (phoneExists && !newPhone.equals(currentUser.getPhone())) {
+                if (phoneExists && !newPhone.equals(currentTeacher.getPhone())) {
                     Toast.makeText(UpDateActivity.this, "מספר טלפון כבר קיים", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -161,12 +163,12 @@ public class UpDateActivity extends AppCompatActivity {
                     @Override
                     public void onCompleted(Boolean licenseExists) {
 
-                        if (licenseExists && !newLicense.equals(currentUser.getLicenseId())) {
+                        if (licenseExists && !newLicense.equals(currentTeacher.getLicenseId())) {
                             Toast.makeText(UpDateActivity.this, "מספר רישיון כבר קיים", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
-                        updateUserDetails();
+                        updateTeacherDetails();
                     }
 
                     @Override
@@ -186,26 +188,29 @@ public class UpDateActivity extends AppCompatActivity {
 
     // עדכון נתוני המשתמש
 
-    private void updateUserDetails() {
-        currentUser.setFirstName(firstName.getText().toString());
-        currentUser.setLastName(lastName.getText().toString());
-        currentUser.setPhone(phoneNumber.getText().toString());
-        currentUser.setLicenseId(licenseNum.getText().toString());
-        currentUser.setPassword(password.getText().toString());
+    private void updateTeacherDetails() {
+        currentTeacher.setFirstName(firstName.getText().toString());
+        currentTeacher.setLastName(lastName.getText().toString());
+        currentTeacher.setPhone(phoneNumber.getText().toString());
+        currentTeacher.setLicenseId(licenseNum.getText().toString());
+        currentTeacher.setPassword(password.getText().toString());
 
-        databaseService.updateUser(
-                currentUser.getUid(),
-                user -> {
-                    user.setFirstName(currentUser.getFirstName());
-                    user.setLastName(currentUser.getLastName());
-                    user.setPhone(currentUser.getPhone());
-                    user.setLicenseId(currentUser.getLicenseId());
-                    user.setPassword(currentUser.getPassword());
-                    return user;
-                },
-                new DatabaseService.DatabaseCallback<Void>() {
+        databaseService.updateTeacher(
+                currentTeacher.getUid(),
+                new UnaryOperator<Teacher>() {
                     @Override
-                    public void onCompleted(Void result) {
+                    public Teacher apply(Teacher teacher) {
+                        teacher.setFirstName(currentTeacher.getFirstName());
+                        teacher.setLastName(currentTeacher.getLastName());
+                        teacher.setPhone(currentTeacher.getPhone());
+                        teacher.setLicenseId(currentTeacher.getLicenseId());
+                        teacher.setPassword(currentTeacher.getPassword());
+                        return teacher;
+                    }
+                },
+                new DatabaseService.DatabaseCallback<Teacher>() {
+                    @Override
+                    public void onCompleted(Teacher teacher) {
                         Toast.makeText(UpDateActivity.this, "הפרטים עודכנו בהצלחה", Toast.LENGTH_SHORT).show();
                         isEditing = false;
                         updateBtn.setText("עריכה");

@@ -13,12 +13,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.siduraboda.R;
 import com.example.siduraboda.models.Student;
-import com.example.siduraboda.models.User;
+import com.example.siduraboda.models.Teacher;
 import com.example.siduraboda.utils.SharedPreferencesUtil;
 
 public class LandingActivity extends AppCompatActivity {
 
-    User user;
+    Teacher teacher;
     Student student;
 
     @Override
@@ -32,8 +32,8 @@ public class LandingActivity extends AppCompatActivity {
             return insets;
         });
         //משתמשים נשארים מחוברים
-        user= SharedPreferencesUtil.getUser(LandingActivity.this);
-        if(SharedPreferencesUtil.isUserLoggedIn(LandingActivity.this)){
+        teacher = SharedPreferencesUtil.getTeacher(LandingActivity.this);
+        if(SharedPreferencesUtil.isTeacherLoggedIn(LandingActivity.this)){
             Intent intent = new Intent(LandingActivity.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
