@@ -112,6 +112,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         );
+
+        Button button21 = findViewById(R.id.mainTOaddcar); //קביעת שיעור
+        button21.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AddLessonActivity.class);
+                startActivity(intent);
+            }
+        }
+        );
     }
 
         private void signOut() {

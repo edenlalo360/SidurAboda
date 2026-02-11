@@ -108,6 +108,15 @@
                 android:fontFamily="@font/round_font"
                 android:text="הוספת רכב" />
 
+            <Button
+                android:id="@+id/mainTOaddlesson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:backgroundTint="#388FC3"
+                android:fontFamily="@font/round_font"
+                android:text="קביעת שיעור" />
+
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>

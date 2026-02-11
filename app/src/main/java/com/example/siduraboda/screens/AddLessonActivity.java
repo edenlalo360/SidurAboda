@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -40,6 +41,7 @@ public class AddLessonActivity extends AppCompatActivity {
     EditText etLessonDate, etStartLesson;
     Spinner spStudent, spCar;
     Button btnSubmitLesson;
+    String teacherId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +59,10 @@ public class AddLessonActivity extends AppCompatActivity {
         spCar = findViewById(R.id.sp_choose_car);
         btnSubmitLesson = findViewById(R.id.btn_add_lesson_submit);
 
+        teacherId = SharedPreferencesUtil.getTeacherId(this);
+
         //מציג לוח שנה
-        View.OnClickListener dateClickListener = v -> {
+        etLessonDate.setOnClickListener(v -> {
             EditText target = (EditText) v;
             Calendar cal = Calendar.getInstance();
             DatePickerDialog dialog = new DatePickerDialog(
@@ -72,8 +76,7 @@ public class AddLessonActivity extends AppCompatActivity {
                     cal.get(Calendar.DAY_OF_MONTH)
             );
             dialog.show();
-        };
-        etLessonDate.setOnClickListener(dateClickListener);
+        });
 
         DatabaseService.getInstance().getStudentList(new DatabaseService.DatabaseCallback<List<Student>>() {
             @Override
@@ -89,61 +92,65 @@ public class AddLessonActivity extends AppCompatActivity {
 
 
 
-        // מילוי ספינר רכב
-        String[] options = {
-                "בחר רכב לשיעור זה"
-        };
+        // get list of cars that we will show in the spinner
+        DatabaseService.getInstance().getUser(teacherId, new DatabaseService.DatabaseCallback<Teacher>() {
+            @Override
+            public void onCompleted(Teacher teacher) {
+                ArrayList<Car> cars = teacher.getCars();
+                setupCarSpinner(cars);
+            }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, options
-        );
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spCar.setAdapter(adapter);
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+        });
 
         btnSubmitLesson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 1. Convert String to LocalDate (using your previous formatter)
-                String dateInput = etLessonDate.getText().toString();
-                DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-                LocalDate lessonDate = LocalDate.parse(dateInput, dateFormatter);
+                CreateLesson();
+            }
+        });
+    }
 
-                // 2. Convert String to LocalTime
-                String timeInput = etStartLesson.getText().toString();
-                // Assumes input is "14:30" or "2:30". Use "H:mm" for 24hr or "h:mm a" for AM/PM
-                DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H:mm");
-                LocalTime lessonTime = LocalTime.parse(timeInput, timeFormatter);
+    private void CreateLesson() {
+        // 1. Convert String to LocalDate (using your previous formatter)
+        String dateInput = etLessonDate.getText().toString();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+        LocalDate lessonDate = LocalDate.parse(dateInput, dateFormatter);
 
-                String student = spStudent.getSelectedItem().toString() + "";
-                String car = spCar.getSelectedItem().toString() + "";
+        // 2. Convert String to LocalTime
+        String timeInput = etStartLesson.getText().toString();
+        // Assumes input is "14:30" or "2:30". Use "H:mm" for 24hr or "h:mm a" for AM/PM
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H:mm");
+        LocalTime lessonTime = LocalTime.parse(timeInput, timeFormatter);
+
+        // Get the actual objects from the Spinners
+        Student selectedStudent = (Student) spStudent.getSelectedItem();
+        Car selectedCar = (Car) spCar.getSelectedItem();
 
 
-                if(!checkInputlesson(lessonDate, etStartLesson, student,car)) {
-                    return;
-                }
+        // Pass the objects to validation
+        if(!checkInputLesson(lessonDate, lessonTime, selectedStudent, selectedCar)) {
+            return;
+        }
 
-                Lesson lesson = new Lesson(lessonDate, etStartLesson, student, car);
+        String lessonId = DatabaseService.getInstance().generateLessonId();
 
-                String studentId = SharedPreferencesUtil.getTeacherId(AddLessonActivity.this);
-                DatabaseService.getInstance().updateTeacher(studentId, new UnaryOperator<Student>() {
-                    @Override
-                    public Teacher apply(Student student) {
-                        if (student == null) return null;
-                        student.addLesson(lesson);
-                        return student;
-                    }
-                }, new DatabaseService.DatabaseCallback<Student>() {
-                    @Override
-                    public void onCompleted(Student student) {
-                        Toast.makeText(AddLessonActivity.this, "Lesson successfully added!", Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
 
-                    @Override
-                    public void onFailed(Exception e) {
+        // Create lesson using the student name and car number/ID
+        Lesson lesson = new Lesson(lessonId, lessonDate, lessonTime, teacherId, selectedStudent.getId(), selectedCar);
 
-                    }
-                });
+        DatabaseService.getInstance().createNewLesson(lesson, new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void object) {
+
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
             }
         });
     }
@@ -171,49 +178,54 @@ public class AddLessonActivity extends AppCompatActivity {
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spStudent.setAdapter(adapter);
-
-        spStudent.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Student selectedStudent = (Student) parent.getItemAtPosition(position);
-                String selectedId = selectedStudent.getId(); // Success!
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
     }
 
     /// Check if the input is valid
     /// @return true if the input is valid, false otherwise
-    private boolean checkInputlesson(LocalDate lessonDate, etStartLesson, student,car) {
+    private boolean checkInputLesson(LocalDate lessonDate, LocalTime lessonTime, Student student, Car car) {
 
         if (!Validator.isLessonDateValid(lessonDate)) {
-            etLessonDate.setError("Please enter the lesson date");
-            etLessonDate.requestFocus();
+            etLessonDate.setError("Please select a valid date");
             return false;
         }
 
-        if (!Validator.isTimeValid(Startlesson)) {
-            etStartLesson.setError("Car number must be between 7-8 characters long");
-            etStartLesson.requestFocus();
+        if (!Validator.isTimeValid(lessonTime)) {
+            etStartLesson.setError("Please enter a valid time (H:mm)");
             return false;
         }
 
-        if (!Validator.isLicenseDateValid(student)) {
-            Toast.makeText(AddLessonActivity.this, "Please select student", Toast.LENGTH_SHORT).show();
-            spStudent.requestFocus();
+        if (student == null) {
+            Toast.makeText(this, "Please select a student", Toast.LENGTH_SHORT).show();
             return false;
         }
 
-        if (!Validator.isSpinnerCarValid(car)) {
-            Toast.makeText(AddLessonActivity.this, "Please select car", Toast.LENGTH_SHORT).show();
-            spCar.requestFocus();
+        if (car == null) {
+            Toast.makeText(this, "Please select a car", Toast.LENGTH_SHORT).show();
             return false;
         }
 
         return true;
+    }
 
+    private void setupCarSpinner(List<Car> cars) {
+        ArrayAdapter<Car> adapter = new ArrayAdapter<Car>(this, android.R.layout.simple_spinner_item, cars) {
+            @NonNull
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView label = (TextView) super.getView(position, convertView, parent);
+                label.setText(getItem(position).getType() + " (" + getItem(position).getCarNumber() + ")");
+                return label;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                TextView label = (TextView) super.getDropDownView(position, convertView, parent);
+                label.setText(getItem(position).getType() + " - " + getItem(position).getCarNumber());
+                return label;
+            }
+        };
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spCar.setAdapter(adapter);
     }
 
 }

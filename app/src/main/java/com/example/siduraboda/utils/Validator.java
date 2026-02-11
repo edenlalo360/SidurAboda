@@ -5,6 +5,7 @@ import android.util.Patterns;
 import androidx.annotation.Nullable;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 /// Validator class to validate user input.
 /// This class contains static methods to validate user input,
@@ -50,11 +51,11 @@ public class Validator {
     }
 
     /// תקינות קלט קביעת שיעור
-    public static boolean isLessonDateValid(@Nullable LocalDate lesson) {
-        return lesson != null;
+    public static boolean isLessonDateValid(@Nullable LocalDate date) {
+        return date != null;
     }
-    public static boolean isTimeValid(@Nullable String time) {
-        return time != null && time.length() >= 40;
+    public static boolean isTimeValid(@Nullable LocalTime time) {
+        return time != null;
     }
     public static boolean isSpinnerStudentValid(@Nullable String spinnerstudent) {
         return !spinnerstudent.equals("בחר תלמיד לקביעת שיעור");

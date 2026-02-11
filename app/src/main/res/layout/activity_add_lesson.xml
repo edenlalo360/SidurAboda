@@ -49,13 +49,14 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:backgroundTint="#0B4F86"
+                    android:clickable="true"
+                    android:focusable="false"
                     android:fontFamily="@font/round_font"
                     android:gravity="right"
                     android:hint="מועד שיעור רצוי"
+                    android:inputType="date"
                     android:textColorHint="#0B4F86"
-                    android:textSize="18sp"
-                    android:focusable="false"
-                    android:clickable="true"/>
+                    android:textSize="18sp" />
 
                 <EditText
                     android:id="@+id/et_long_lesson"
