@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
         }
         );
 
-        Button button21 = findViewById(R.id.mainTOaddcar); //קביעת שיעור
+        Button button21 = findViewById(R.id.mainTOaddlesson); //קביעת שיעור
         button21.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

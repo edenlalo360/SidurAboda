@@ -55,6 +55,15 @@
                 android:text="סידור יום עבודה" />
 
             <Button
+                android:id="@+id/mainTOaddlesson"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:backgroundTint="#388FC3"
+                android:fontFamily="@font/round_font"
+                android:text="קביעת שיעור" />
+
+            <Button
                 android:id="@+id/mainTOstudentslist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -90,14 +99,7 @@
                 android:fontFamily="@font/round_font"
                 android:text="ניהול רכב" />
 
-            <Button
-                android:id="@+id/mainTOupdate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:backgroundTint="#388FC3"
-                android:fontFamily="@font/round_font"
-                android:text="עדכון פרטים" />
+
 
             <Button
                 android:id="@+id/mainTOaddcar"
@@ -108,14 +110,16 @@
                 android:fontFamily="@font/round_font"
                 android:text="הוספת רכב" />
 
+
+
             <Button
-                android:id="@+id/mainTOaddlesson"
+                android:id="@+id/mainTOupdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
                 android:backgroundTint="#388FC3"
                 android:fontFamily="@font/round_font"
-                android:text="קביעת שיעור" />
+                android:text="עדכון פרטים" />
 
 
         </LinearLayout>
