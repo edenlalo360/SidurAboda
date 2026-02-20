@@ -33,13 +33,13 @@ public class LandingActivity extends AppCompatActivity {
         });
         //משתמשים נשארים מחוברים
         teacher = SharedPreferencesUtil.getTeacher(LandingActivity.this);
-        if(SharedPreferencesUtil.isTeacherLoggedIn(LandingActivity.this)){
+        if (SharedPreferencesUtil.isTeacherLoggedIn(LandingActivity.this)) {
             Intent intent = new Intent(LandingActivity.this, MainActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
-        student= SharedPreferencesUtil.getStudent(LandingActivity.this);
-        if(SharedPreferencesUtil.isStudentLoggedIn(LandingActivity.this)){
+        student = SharedPreferencesUtil.getStudent(LandingActivity.this);
+        if (SharedPreferencesUtil.isStudentLoggedIn(LandingActivity.this)) {
             Intent intent = new Intent(LandingActivity.this, ImStudentActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -47,22 +47,22 @@ public class LandingActivity extends AppCompatActivity {
 
         Button button12 = findViewById(R.id.landingTOregister); //דף נחיתה להרשמה
         button12.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LandingActivity.this, RegisterTeacherActivity.class);
-                startActivity(intent);
-            }
-        }
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(LandingActivity.this, RegisterTeacherActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    }
         );
 
         Button button13 = findViewById(R.id.landingTOlogin); //דף נחיתה להתחברות
         button13.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LandingActivity.this, LogInActivity.class);
-                startActivity(intent);
-            }
-        }
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(LandingActivity.this, LogInActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    }
         );
     }
 }

@@ -55,7 +55,7 @@ public class RegisterTeacherActivity extends BaseActivity implements View.OnClic
             String license = License.getText().toString();
             String password = Password.getText().toString();
 
-            if (checkInput(fName,lName,phone,license,password)) {
+            if (checkInput(fName, lName, phone, license, password)) {
                 registerTeacher(fName, lName, phone, license, password);
             }
 
@@ -63,6 +63,7 @@ public class RegisterTeacherActivity extends BaseActivity implements View.OnClic
     }
 
     /// Check if the input is valid
+    ///
     /// @return true if the input is valid, false otherwise
     private boolean checkInput(String fName, String lName, String phone, String license, String password) {
 

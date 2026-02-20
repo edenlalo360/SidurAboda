@@ -20,7 +20,7 @@
         android:textSize="36sp"
         android:textStyle="bold"
         android:fontFamily="@font/round_font"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
@@ -38,8 +38,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -107,6 +106,7 @@
                     android:layout_height="wrap_content"
                     android:text="הצהרת בריאות"
                     android:layout_margin="5dp" />
+
                 <Button
                     android:id="@+id/btn_AddStudent"
                     android:layout_width="match_parent"
@@ -114,7 +114,7 @@
                     android:text="הוספה"
                     android:layout_marginTop="5dp"
                     android:backgroundTint="#388FC3"
-                    android:fontFamily="@font/round_font"/>
+                    android:fontFamily="@font/round_font" />
 
             </LinearLayout>
         </ScrollView>
@@ -129,7 +129,6 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
 
-
         <Button
             android:id="@+id/addstudentTOmain"
             android:layout_width="0dp"
@@ -138,7 +137,7 @@
             android:layout_margin="5dp"
             android:text="בית"
             android:backgroundTint="#388FC3"
-            android:fontFamily="@font/round_font"/>
+            android:fontFamily="@font/round_font" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,12 +27,12 @@ public class TestsListActivity extends AppCompatActivity {
         });
         Button button8 = findViewById(R.id.testslistTOmain); //רשימת טסטים לבית
         button8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TestsListActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        }
+                                       @Override
+                                       public void onClick(View v) {
+                                           Intent intent = new Intent(TestsListActivity.this, MainActivity.class);
+                                           startActivity(intent);
+                                       }
+                                   }
         );
     }
 }

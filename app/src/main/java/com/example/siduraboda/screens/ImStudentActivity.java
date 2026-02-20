@@ -32,14 +32,15 @@ public class ImStudentActivity extends AppCompatActivity {
 
         Button button17 = findViewById(R.id.signoutStudent); //התנתקות
         button17.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+                                        @Override
+                                        public void onClick(View v) {
                                             signOut();
                                         }
                                     }
         );
 
     }
+
     private void signOut() {
         Log.d(TAG, "Sign out button clicked");
         SharedPreferencesUtil.signOutStudent(ImStudentActivity.this);

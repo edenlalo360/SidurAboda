@@ -14,7 +14,9 @@ public class Teacher {
     private ArrayList<Car> cars;
 
     boolean isAdmin;
-    public Teacher() {}
+
+    public Teacher() {
+    }
 
     public Teacher(String uid, String password, String firstName,
                    String lastName, String licenseId, String phone, boolean isAdmin, ArrayList<Car> cars) {
@@ -88,7 +90,7 @@ public class Teacher {
     @NonNull
     public ArrayList<Car> getCars() {
         if (this.cars == null
-          ) {
+        ) {
             this.cars = new ArrayList<>();
         }
         return cars;

@@ -81,7 +81,6 @@ public class UpDateActivity extends AppCompatActivity {
         //קריאה לשתי פונקציות שבודקת שהמספר טלפון ורישיון רק של בן אדם אחד
 
 
-
         // כפתור עריכה / שמירה
         updateBtn.setOnClickListener(v -> {
             if (!isEditing) {

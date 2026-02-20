@@ -11,6 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SidurAboda">
         <activity
+            android:name=".screens.DatePickerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.TimePickerActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.AddLessonActivity"
             android:exported="false" />
         <activity

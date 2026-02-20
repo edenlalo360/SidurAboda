@@ -12,17 +12,20 @@ import com.google.gson.Gson;
 /// Utility class for shared preferences operations
 /// Contains methods for saving and retrieving data from shared preferences
 /// Also contains methods for clearing and removing data from shared preferences
+///
 /// @see SharedPreferences
 public class SharedPreferencesUtil {
 
     /// The name of the shared preferences file
+    ///
     /// @see Context#getSharedPreferences(String, int)
     private static final String PREF_NAME = "com.example.siduraboda.PREFERENCE_FILE_KEY";
 
     /// Save a string to shared preferences
+    ///
     /// @param context The context to use
-    /// @param key The key to save the string with
-    /// @param value The string to save
+    /// @param key     The key to save the string with
+    /// @param value   The string to save
     /// @see SharedPreferences.Editor#putString(String, String)
     private static void saveString(Context context, String key, String value) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -32,8 +35,9 @@ public class SharedPreferencesUtil {
     }
 
     /// Get a string from shared preferences
-    /// @param context The context to use
-    /// @param key The key to get the string with
+    ///
+    /// @param context      The context to use
+    /// @param key          The key to get the string with
     /// @param defaultValue The default value to return if the key is not found
     /// @return The string value stored in shared preferences
     /// @see SharedPreferences#getString(String, String)
@@ -43,9 +47,10 @@ public class SharedPreferencesUtil {
     }
 
     /// Save an integer to shared preferences
+    ///
     /// @param context The context to use
-    /// @param key The key to save the integer with
-    /// @param value The integer to save
+    /// @param key     The key to save the integer with
+    /// @param value   The integer to save
     /// @see SharedPreferences.Editor#putInt(String, int)
     private static void saveInt(Context context, String key, int value) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -55,8 +60,9 @@ public class SharedPreferencesUtil {
     }
 
     /// Get an integer from shared preferences
-    /// @param context The context to use
-    /// @param key The key to get the integer with
+    ///
+    /// @param context      The context to use
+    /// @param key          The key to get the integer with
     /// @param defaultValue The default value to return if the key is not found
     /// @return The integer value stored in shared preferences
     /// @see SharedPreferences#getInt(String, int)
@@ -68,6 +74,7 @@ public class SharedPreferencesUtil {
     // Add more methods for other data types as needed
 
     /// Clear all data from shared preferences
+    ///
     /// @param context The context to use
     /// @see SharedPreferences.Editor#clear()
     public static void clear(Context context) {
@@ -78,8 +85,9 @@ public class SharedPreferencesUtil {
     }
 
     /// Remove a specific key from shared preferences
+    ///
     /// @param context The context to use
-    /// @param key The key to remove
+    /// @param key     The key to remove
     /// @see SharedPreferences.Editor#remove(String)
     private static void remove(Context context, String key) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
@@ -89,8 +97,9 @@ public class SharedPreferencesUtil {
     }
 
     /// Check if a key exists in shared preferences
+    ///
     /// @param context The context to use
-    /// @param key The key to check
+    /// @param key     The key to check
     /// @return true if the key exists, false otherwise
     /// @see SharedPreferences#contains(String)
     private static boolean contains(Context context, String key) {
@@ -116,6 +125,7 @@ public class SharedPreferencesUtil {
     // Add more utility methods as needed
 
     /// Save a teacher object to shared preferences
+    ///
     /// @param context The context to use
     /// @param teacher The teacher object to save
     /// @see Teacher
@@ -128,6 +138,7 @@ public class SharedPreferencesUtil {
     }
 
     /// Get the user object from shared preferences
+    ///
     /// @param context The context to use
     /// @return The user object stored in shared preferences
     /// @see Teacher
@@ -140,12 +151,14 @@ public class SharedPreferencesUtil {
     }
 
     /// Sign out the user by removing user data from shared preferences
+    ///
     /// @param context The context to use
     public static void signOutTeacher(Context context) {
         remove(context, "teacher");
     }
 
     /// Check if a user is logged in by checking if the user id is present in shared preferences
+    ///
     /// @param context The context to use
     /// @return true if the user is logged in, false otherwise
     /// @see #contains(Context, String)
@@ -154,6 +167,7 @@ public class SharedPreferencesUtil {
     }
 
     /// Get the user id of the logged in teacher
+    ///
     /// @param context The context to use
     /// @return The user id of the logged in user, or null if no teacher is logged in
     @Nullable
@@ -166,8 +180,6 @@ public class SharedPreferencesUtil {
     }
 
 
-
-
     public static Student getStudent(Context context) {
         if (!isStudentLoggedIn(context)) {
             return null;
@@ -176,12 +188,14 @@ public class SharedPreferencesUtil {
     }
 
     /// Sign out the Student by removing Student data from shared preferences
+    ///
     /// @param context The context to use
     public static void signOutStudent(Context context) {
         remove(context, "student");
     }
 
     /// Check if a Student is logged in by checking if the Student id is present in shared preferences
+    ///
     /// @param context The context to use
     /// @return true if the Student is logged in, false otherwise
     /// @see #contains(Context, String)
@@ -190,6 +204,7 @@ public class SharedPreferencesUtil {
     }
 
     /// Get the Student id of the logged in Student
+    ///
     /// @param context The context to use
     /// @return The Student id of the logged in Student, or null if no Student is logged in
     @Nullable

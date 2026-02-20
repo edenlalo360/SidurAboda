@@ -24,9 +24,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class AddStudentActivity extends AppCompatActivity{
+public class AddStudentActivity extends AppCompatActivity {
     private EditText Name, address, phone, date, password;
-    private Switch switchTheory,switchEyes,switchHealth;
+    private Switch switchTheory, switchEyes, switchHealth;
 
     private Button btnAddStudent;
 
@@ -42,12 +42,12 @@ public class AddStudentActivity extends AppCompatActivity{
         });
         Button button14 = findViewById(R.id.addstudentTOmain); //הוספת תלמיד לדף הבית
         button14.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(AddStudentActivity.this, MainActivity.class);
-               startActivity(intent);
-           }
-        }
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(AddStudentActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    }
         );
 
         Name = findViewById(R.id.studentName);
@@ -80,7 +80,6 @@ public class AddStudentActivity extends AppCompatActivity{
             boolean theoryIsChecked = switchTheory.isChecked();
             boolean eyesIsChecked = switchEyes.isChecked();
             boolean healthIsChecked = switchHealth.isChecked();
-
 
 
             if (check(nameStr, phoneStr, addressStr, dateStr, passwordStr)) {
@@ -131,6 +130,7 @@ public class AddStudentActivity extends AppCompatActivity{
         });
 
     }
+
     private boolean check(String name, String phoneNumber, String addressText, String dateText, String Password) {
         if (!Validator.isNameValid(name)) {
             Name.setError("Name must be at least 2 characters long");
@@ -162,10 +162,10 @@ public class AddStudentActivity extends AppCompatActivity{
         }
 
 
-
         return true;
     }
-    public void ClearFields(){
+
+    public void ClearFields() {
         Name.setText("");
         date.setText("");
         address.setText("");

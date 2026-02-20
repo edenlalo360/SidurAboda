@@ -100,7 +100,6 @@
                 android:text="ניהול רכב" />
 
 
-
             <Button
                 android:id="@+id/mainTOaddcar"
                 android:layout_width="match_parent"
@@ -109,7 +108,6 @@
                 android:backgroundTint="#388FC3"
                 android:fontFamily="@font/round_font"
                 android:text="הוספת רכב" />
-
 
 
             <Button

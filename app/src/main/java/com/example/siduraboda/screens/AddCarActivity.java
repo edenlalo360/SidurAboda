@@ -32,6 +32,7 @@ public class AddCarActivity extends AppCompatActivity {
     EditText etType, etNumber, etInsuranceDate, etLicenseDate;
     Spinner spRank;
     Button btnSubmit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,7 +92,7 @@ public class AddCarActivity extends AppCompatActivity {
                 String licenseDate = etLicenseDate.getText().toString() + "";
                 String rank = spRank.getSelectedItem().toString() + "";
 
-                if(!checkInput(type, rank, carNumber, convertStringToDate(insuranceDate), convertStringToDate(licenseDate))) {
+                if (!checkInput(type, rank, carNumber, convertStringToDate(insuranceDate), convertStringToDate(licenseDate))) {
                     return;
                 }
 
@@ -120,7 +121,9 @@ public class AddCarActivity extends AppCompatActivity {
             }
         });
     }
+
     /// Check if the input is valid
+    ///
     /// @return true if the input is valid, false otherwise
     private boolean checkInput(String type, String rank, String number, LocalDate insurancedate, LocalDate licensecardate) {
 

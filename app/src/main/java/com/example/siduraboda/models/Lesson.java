@@ -8,8 +8,7 @@ import java.time.LocalTime;
 
 public class Lesson {
     private String id;
-    private LocalDate date;
-    private LocalTime startTime;
+
     private String teacherId; // driving teacher id
     private String studentId; // student id
     private Car car;
@@ -18,10 +17,9 @@ public class Lesson {
     public Lesson() {
     }
 
-    public Lesson(String id, LocalDate date, LocalTime startTime, String teacherId, String studentId, Car car) {
+    public Lesson(String id, String teacherId, String studentId, Car car) {
         this.id = id;
-        this.date = date;
-        this.startTime = startTime;
+
         this.teacherId = teacherId;
         this.studentId = studentId;
         this.car = car;
@@ -35,21 +33,6 @@ public class Lesson {
         this.id = id;
     }
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public LocalTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalTime startTime) {
-        this.startTime = startTime;
-    }
 
     public String getTeacherId() {
         return teacherId;
@@ -80,8 +63,6 @@ public class Lesson {
     public String toString() {
         return "Lesson{" +
                 "id='" + id + '\'' +
-                ", date=" + date +
-                ", startTime=" + startTime +
                 ", teacherId='" + teacherId + '\'' +
                 ", studentId='" + studentId + '\'' +
                 ", car=" + car +

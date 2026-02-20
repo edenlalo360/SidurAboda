@@ -25,7 +25,7 @@
             android:textSize="36sp"
             android:textStyle="bold"
             android:layout_marginTop="30dp"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/landingTOregister"
@@ -43,6 +43,6 @@
             android:text="התחבר"
             android:layout_margin="50dp"
             android:backgroundTint="#388FC3"
-            android:fontFamily="@font/round_font"/>
+            android:fontFamily="@font/round_font" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

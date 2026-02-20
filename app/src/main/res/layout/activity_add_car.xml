@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#E0F7FA"
-        tools:context=".screens.InfoCarActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0F7FA"
+    tools:context=".screens.InfoCarActivity">
 
     <TextView
         android:id="@+id/textView5"
@@ -82,7 +82,7 @@
                 android:focusable="false"
                 android:clickable="true"
                 android:hint="תאריך ביטוח אחרון"
-                android:textSize="18sp"/>
+                android:textSize="18sp" />
 
             <EditText
                 android:id="@+id/et_add_car_license_car_date"
@@ -96,7 +96,7 @@
                 android:textColorHint="#0B4F86"
                 android:textSize="18sp"
                 android:focusable="false"
-                android:clickable="true"/>
+                android:clickable="true" />
 
 
             <Button

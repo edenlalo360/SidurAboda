@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -18,119 +17,80 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.siduraboda.R;
 import com.example.siduraboda.utils.SharedPreferencesUtil;
 
-public class MainActivity extends AppCompatActivity {
+// שינוי קריטי: יורשים מ-BaseActivity כדי לקבל את תפריט הצד
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+
+        // setContentView של BaseActivity יזריק את activity_main לתוך ה-content_frame
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
-        SharedPreferencesUtil.getTeacher(this).getFirstName();
-
-        Button button1 = findViewById(R.id.mainTOsiduryomavoda); //סידור יום עבודה
-        button1.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   Intent intent = new Intent(MainActivity.this, SidurYomAbodaActivity.class);
-                   startActivity(intent);
-               }
-           }
-        );
-
-        Button button2 = findViewById(R.id.mainTOstudentslist); //רשימת תלמידים
-        button2.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(MainActivity.this, StudentsListActivity.class);
-               startActivity(intent);
-           }
+        // טיפול ב-System Bars (Insets) - וודאי שה-ID ב-XML הוא 'main'
+        View mainView = findViewById(R.id.main);
+        if (mainView != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(mainView, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                return insets;
+            });
         }
-        );
 
-        Button button3 = findViewById(R.id.mainTOtestslist); //רשימת טסטים
-        button3.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(MainActivity.this, TestsListActivity.class);
-               startActivity(intent);
-           }
-        }
-        );
-
-        Button button4 = findViewById(R.id.mainTOaddstudent); //הוספת תלמיד
-        button4.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(MainActivity.this, AddStudentActivity.class);
-               startActivity(intent);
-           }
-        }
-        );
-
-        Button button5 = findViewById(R.id.mainTOinfocar); //ניהול רכב
-        button5.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(MainActivity.this, InfoCarActivity.class);
-               startActivity(intent);
-           }
-        }
-        );
-
-        Button button15 = findViewById(R.id.mainTOupdate); //עדכון פרטים
-        button15.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
-               Intent intent = new Intent(MainActivity.this, UpDateActivity.class);
-               startActivity(intent);
-           }
-        }
-        );
-
-
-        ImageButton button16 = findViewById(R.id.btn_sign_out); //התנתקות
-        button16.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signOut();
-            }
-        }
-        );
-
-        Button button20 = findViewById(R.id.mainTOaddcar); //הוספת רכב
-        button20.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddCarActivity.class);
-                startActivity(intent);
-            }
-        }
-        );
-
-        Button button21 = findViewById(R.id.mainTOaddlesson); //קביעת שיעור
-        button21.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddLessonActivity.class);
-                startActivity(intent);
-            }
-        }
-        );
+        // אתחול הכפתורים הקיימים שלך
+        setupButtons();
     }
 
-        private void signOut() {
-            Log.d(TAG, "Sign out button clicked");
-            SharedPreferencesUtil.signOutTeacher(MainActivity.this);
+    private void setupButtons() {
+        // סידור יום עבודה
+        findViewById(R.id.mainTOsiduryomavoda).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, SidurYomAbodaActivity.class)));
 
-            Log.d(TAG, "Teacher signed out, redirecting to LandingActivity");
-            Intent landingIntent = new Intent(MainActivity.this, LandingActivity.class);
-            landingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            startActivity(landingIntent);
+        // רשימת תלמידים
+        findViewById(R.id.mainTOstudentslist).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, StudentsListActivity.class)));
+
+        // רשימת טסטים
+        findViewById(R.id.mainTOtestslist).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, TestsListActivity.class)));
+
+        // הוספת תלמיד
+        findViewById(R.id.mainTOaddstudent).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, AddStudentActivity.class)));
+
+        // ניהול רכב
+        findViewById(R.id.mainTOinfocar).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, InfoCarActivity.class)));
+
+        // עדכון פרטים
+        findViewById(R.id.mainTOupdate).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, UpDateActivity.class)));
+
+        // הוספת רכב
+        findViewById(R.id.mainTOaddcar).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, AddCarActivity.class)));
+
+        // קביעת שיעור
+        findViewById(R.id.mainTOaddlesson).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, AddLessonActivity.class)));
+
+        // התנתקות (שימוש בפונקציית signOut שנמצאת ב-BaseActivity או המקורית שלך)
+        ImageButton btnSignOut = findViewById(R.id.btn_sign_out);
+        if (btnSignOut != null) {
+            btnSignOut.setOnClickListener(v -> signOut());
         }
+    }
+
+    // פונקציית ה-signOut המקורית שלך (אופציונלי: אפשר להשתמש בזו של BaseActivity)
+    @Override
+    protected void signOut() {
+        Log.d(TAG, "Sign out button clicked");
+        SharedPreferencesUtil.signOutTeacher(MainActivity.this);
+
+        Intent landingIntent = new Intent(MainActivity.this, LandingActivity.class);
+        landingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(landingIntent);
+        finish();
+    }
 }

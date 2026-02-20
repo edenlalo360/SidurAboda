@@ -1,13 +1,10 @@
 package com.example.siduraboda.screens;
 
-import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,185 +23,195 @@ import com.example.siduraboda.models.Student;
 import com.example.siduraboda.models.Teacher;
 import com.example.siduraboda.services.DatabaseService;
 import com.example.siduraboda.utils.SharedPreferencesUtil;
-import com.example.siduraboda.utils.Validator;
+import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.timepicker.MaterialTimePicker;
+import com.google.android.material.timepicker.TimeFormat;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.function.UnaryOperator;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class AddLessonActivity extends AppCompatActivity {
 
-    EditText etLessonDate, etStartLesson;
     Spinner spStudent, spCar;
     Button btnSubmitLesson;
+    Button btnDatePicker, btnStartTime, btnEndTime;
+    TextView tvDuration; // ה-TextView החדש למשך השיעור
+
     String teacherId;
+
+    private String selectedDateStr = "";
+    private String selectedStartTimeStr = "";
+    private String selectedEndTimeStr = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_lesson);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        etLessonDate = findViewById(R.id.et_add_lesson_date);
-        etStartLesson = findViewById(R.id.et_long_lesson);
+
+        // אתחול רכיבים
         spStudent = findViewById(R.id.sp_choose_student);
         spCar = findViewById(R.id.sp_choose_car);
         btnSubmitLesson = findViewById(R.id.btn_add_lesson_submit);
+        btnDatePicker = findViewById(R.id.btn_date_picker);
+        btnStartTime = findViewById(R.id.btn_start_time_picker);
+        btnEndTime = findViewById(R.id.btn_end_time_picker);
+        tvDuration = findViewById(R.id.tv_lesson_duration); // אתחול משך השיעור
 
         teacherId = SharedPreferencesUtil.getTeacherId(this);
 
-        //מציג לוח שנה
-        etLessonDate.setOnClickListener(v -> {
-            EditText target = (EditText) v;
-            Calendar cal = Calendar.getInstance();
-            DatePickerDialog dialog = new DatePickerDialog(
-                    this,
-                    (view, year, month, day) -> {
-                        String date = day + "/" + (month + 1) + "/" + year;
-                        target.setText(date);
-                    },
-                    cal.get(Calendar.YEAR),
-                    cal.get(Calendar.MONTH),
-                    cal.get(Calendar.DAY_OF_MONTH)
-            );
-            dialog.show();
-        });
+        // מאזינים
+        btnDatePicker.setOnClickListener(v -> showDatePicker());
+        btnStartTime.setOnClickListener(v -> showTimePicker(btnStartTime, "שעת התחלה", true));
+        btnEndTime.setOnClickListener(v -> showTimePicker(btnEndTime, "שעת סיום", false));
 
-        DatabaseService.getInstance().getStudentList(new DatabaseService.DatabaseCallback<List<Student>>() {
-            @Override
-            public void onCompleted(List<Student> students) {
-                setupStudentSpinner(students);
-            }
+        loadSpinnersData();
+        btnSubmitLesson.setOnClickListener(v -> CreateLesson());
+    }
 
-            @Override
-            public void onFailed(Exception e) {
+    private void showDatePicker() {
+        MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
+                .setTitleText("בחר תאריך לשיעור")
+                .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .build();
 
-            }
-        });
-
-
-
-        // get list of cars that we will show in the spinner
-        DatabaseService.getInstance().getUser(teacherId, new DatabaseService.DatabaseCallback<Teacher>() {
-            @Override
-            public void onCompleted(Teacher teacher) {
-                ArrayList<Car> cars = teacher.getCars();
-                setupCarSpinner(cars);
-            }
-
-            @Override
-            public void onFailed(Exception e) {
-
-            }
-        });
-
-        btnSubmitLesson.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CreateLesson();
-            }
+        datePicker.show(getSupportFragmentManager(), "DATE_PICKER");
+        datePicker.addOnPositiveButtonClickListener(selection -> {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+            selectedDateStr = sdf.format(new Date(selection));
+            btnDatePicker.setText("תאריך: " + selectedDateStr);
         });
     }
 
+    private void showTimePicker(Button btn, String title, boolean isStart) {
+        MaterialTimePicker timePicker = new MaterialTimePicker.Builder()
+                .setTimeFormat(TimeFormat.CLOCK_24H)
+                .setHour(12)
+                .setMinute(0)
+                .setTitleText(title)
+                .build();
+
+        timePicker.show(getSupportFragmentManager(), "TIME_PICKER");
+        timePicker.addOnPositiveButtonClickListener(v -> {
+            String time = String.format(Locale.getDefault(), "%02d:%02d", timePicker.getHour(), timePicker.getMinute());
+            if (isStart) selectedStartTimeStr = time;
+            else selectedEndTimeStr = time;
+
+            btn.setText(title + ": " + time);
+            calculateDuration(); // חישוב משך השיעור בכל בחירת שעה
+        });
+    }
+
+    // פונקציה לחישוב משך השיעור
+    private void calculateDuration() {
+        if (!selectedStartTimeStr.isEmpty() && !selectedEndTimeStr.isEmpty()) {
+            try {
+                String[] startParts = selectedStartTimeStr.split(":");
+                String[] endParts = selectedEndTimeStr.split(":");
+
+                int startTotalMinutes = (Integer.parseInt(startParts[0]) * 60) + Integer.parseInt(startParts[1]);
+                int endTotalMinutes = (Integer.parseInt(endParts[0]) * 60) + Integer.parseInt(endParts[1]);
+
+                int durationMinutes = endTotalMinutes - startTotalMinutes;
+
+                if (durationMinutes > 0) {
+                    int hours = durationMinutes / 60;
+                    int mins = durationMinutes % 60;
+                    String text = "משך השיעור: ";
+                    if (hours > 0) text += hours + " שעות ו-";
+                    text += mins + " דקות";
+                    tvDuration.setText(text);
+                } else {
+                    tvDuration.setText("שעת סיום חייבת להיות אחרי שעת התחלה");
+                }
+            } catch (Exception e) {
+                tvDuration.setText("שגיאה בחישוב המשך");
+            }
+        }
+    }
+
     private void CreateLesson() {
-        // 1. Convert String to LocalDate (using your previous formatter)
-        String dateInput = etLessonDate.getText().toString();
-        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-        LocalDate lessonDate = LocalDate.parse(dateInput, dateFormatter);
-
-        // 2. Convert String to LocalTime
-        String timeInput = etStartLesson.getText().toString();
-        // Assumes input is "14:30" or "2:30". Use "H:mm" for 24hr or "h:mm a" for AM/PM
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H:mm");
-        LocalTime lessonTime = LocalTime.parse(timeInput, timeFormatter);
-
-        // Get the actual objects from the Spinners
         Student selectedStudent = (Student) spStudent.getSelectedItem();
         Car selectedCar = (Car) spCar.getSelectedItem();
 
-
-        // Pass the objects to validation
-        if(!checkInputLesson(lessonDate, lessonTime, selectedStudent, selectedCar)) {
-            return;
-        }
+        if (!checkInputLesson(selectedStudent, selectedCar)) return;
 
         String lessonId = DatabaseService.getInstance().generateLessonId();
+        Lesson lesson = new Lesson(lessonId, teacherId, selectedStudent.getId(), selectedCar);
 
-
-        // Create lesson using the student name and car number/ID
-        Lesson lesson = new Lesson(lessonId, lessonDate, lessonTime, teacherId, selectedStudent.getId(), selectedCar);
+        // כאן תוסיפי את הלוגיקה לשמירת התאריך והשעות בתוך ה-Lesson אם יש לך שדות כאלו
+        // למשל: lesson.setDate(selectedDateStr);
 
         DatabaseService.getInstance().createNewLesson(lesson, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
-
+                Toast.makeText(AddLessonActivity.this, "השיעור נוסף בהצלחה!", Toast.LENGTH_SHORT).show();
+                finish();
             }
-
             @Override
             public void onFailed(Exception e) {
-
+                Toast.makeText(AddLessonActivity.this, "שגיאה בשמירה", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void setupStudentSpinner(List<Student> students) {
+    private boolean checkInputLesson(Student student, Car car) {
+        if (student == null || car == null) {
+            Toast.makeText(this, "אנא בחר סטודנט ורכב", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (selectedDateStr.isEmpty() || selectedStartTimeStr.isEmpty() || selectedEndTimeStr.isEmpty()) {
+            Toast.makeText(this, "אנא בחר תאריך ושעות", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        return true;
+    }
 
+    private void loadSpinnersData() {
+        DatabaseService.getInstance().getStudentList(new DatabaseService.DatabaseCallback<List<Student>>() {
+            @Override
+            public void onCompleted(List<Student> students) { setupStudentSpinner(students); }
+            @Override
+            public void onFailed(Exception e) {}
+        });
+
+        DatabaseService.getInstance().getUser(teacherId, new DatabaseService.DatabaseCallback<Teacher>() {
+            @Override
+            public void onCompleted(Teacher teacher) {
+                if (teacher != null && teacher.getCars() != null) setupCarSpinner(teacher.getCars());
+            }
+            @Override
+            public void onFailed(Exception e) {}
+        });
+    }
+
+    private void setupStudentSpinner(List<Student> students) {
         ArrayAdapter<Student> adapter = new ArrayAdapter<Student>(this, android.R.layout.simple_spinner_item, students) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView label = (TextView) super.getView(position, convertView, parent);
-                Student student = getItem(position);
-                label.setText(student.getName());
+                label.setText(getItem(position).getName());
                 return label;
             }
-
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 TextView label = (TextView) super.getDropDownView(position, convertView, parent);
-                // You can customize the dropdown text specifically here
-                Student student = getItem(position);
-                label.setText(student.getName());
+                label.setText(getItem(position).getName());
                 return label;
             }
         };
-
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spStudent.setAdapter(adapter);
-    }
-
-    /// Check if the input is valid
-    /// @return true if the input is valid, false otherwise
-    private boolean checkInputLesson(LocalDate lessonDate, LocalTime lessonTime, Student student, Car car) {
-
-        if (!Validator.isLessonDateValid(lessonDate)) {
-            etLessonDate.setError("Please select a valid date");
-            return false;
-        }
-
-        if (!Validator.isTimeValid(lessonTime)) {
-            etStartLesson.setError("Please enter a valid time (H:mm)");
-            return false;
-        }
-
-        if (student == null) {
-            Toast.makeText(this, "Please select a student", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (car == null) {
-            Toast.makeText(this, "Please select a car", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        return true;
     }
 
     private void setupCarSpinner(List<Car> cars) {
@@ -216,7 +223,6 @@ public class AddLessonActivity extends AppCompatActivity {
                 label.setText(getItem(position).getType() + " (" + getItem(position).getCarNumber() + ")");
                 return label;
             }
-
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 TextView label = (TextView) super.getDropDownView(position, convertView, parent);
@@ -227,5 +233,4 @@ public class AddLessonActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCar.setAdapter(adapter);
     }
-
 }

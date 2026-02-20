@@ -23,6 +23,7 @@ import java.util.List;
 public class StudentsListActivity extends AppCompatActivity {
 
     StudentListAdapter listAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,12 +53,12 @@ public class StudentsListActivity extends AppCompatActivity {
 
         Button button7 = findViewById(R.id.studentslistTOmain); //רשימת תלמידים לבית
         button7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(StudentsListActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        }
+                                       @Override
+                                       public void onClick(View v) {
+                                           Intent intent = new Intent(StudentsListActivity.this, MainActivity.class);
+                                           startActivity(intent);
+                                       }
+                                   }
         );
 
         Button button11 = findViewById(R.id.plusstudents); //הוספת תלמיד ברשימת תלמידים

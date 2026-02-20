@@ -23,6 +23,7 @@ import com.example.siduraboda.utils.Validator;
 public class LogInActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText etPhone, etPassword;
     private Button btnLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

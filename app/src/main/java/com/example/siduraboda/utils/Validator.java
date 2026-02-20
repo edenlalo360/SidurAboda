@@ -32,20 +32,24 @@ public class Validator {
         return license != null && license.length() >= 7 && license != null && license.length() <= 9;
     }
 
-    ///תקינות קלט הוספת רכב וגם אודות רכב
+    /// תקינות קלט הוספת רכב וגם אודות רכב
 
     public static boolean isTypeValid(@Nullable String type) {
         return type != null && type.length() >= 2;
     }
+
     public static boolean isCarNumberValid(@Nullable String carnumber) {
         return carnumber != null && carnumber.length() >= 7 && carnumber.length() <= 8;
     }
+
     public static boolean isInsuranceDateValid(@Nullable LocalDate insurance) {
-        return insurance != null ;
+        return insurance != null;
     }
+
     public static boolean isLicenseDateValid(@Nullable LocalDate license) {
         return license != null;
     }
+
     public static boolean isSpinnerValid(@Nullable String spinner) {
         return !spinner.equals("דרגת רישיון");
     }
@@ -54,12 +58,16 @@ public class Validator {
     public static boolean isLessonDateValid(@Nullable LocalDate date) {
         return date != null;
     }
+
     public static boolean isTimeValid(@Nullable LocalTime time) {
         return time != null;
     }
+
     public static boolean isSpinnerStudentValid(@Nullable String spinnerstudent) {
         return !spinnerstudent.equals("בחר תלמיד לקביעת שיעור");
-    }public static boolean isSpinnerCarValid(@Nullable String spinnercar) {
+    }
+
+    public static boolean isSpinnerCarValid(@Nullable String spinnercar) {
         return !spinnercar.equals("בחר רכב לשיעור זה");
     }
 

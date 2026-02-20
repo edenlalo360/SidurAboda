@@ -19,11 +19,13 @@ public class SidurYomAbodaAdapter extends RecyclerView.Adapter<SidurYomAbodaAdap
 
     public interface OnClickListener {
         void onClick(Lesson lesson);
+
         void onLongClick(Lesson lesson);
     }
 
     private final List<Lesson> SidurYomAboda;
     private final SidurYomAbodaAdapter.OnClickListener onClickListener;
+
     public SidurYomAbodaAdapter(@Nullable final SidurYomAbodaAdapter.OnClickListener onClickListener) {
         SidurYomAboda = new ArrayList<>();
         this.onClickListener = onClickListener;
@@ -73,6 +75,7 @@ public class SidurYomAbodaAdapter extends RecyclerView.Adapter<SidurYomAbodaAdap
         SidurYomAboda.add(lesson);
         notifyItemInserted(SidurYomAboda.size() - 1);
     }
+
     public void update(Lesson lesson) {
         int index = SidurYomAboda.indexOf(lesson);
         if (index == -1) return;

@@ -20,11 +20,13 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
 
     public interface OnClickListener {
         void onClick(Student student);
+
         void onLongClick(Student student);
     }
 
     private final List<Student> studentList;
     private final OnClickListener onClickListener;
+
     public StudentListAdapter(@Nullable final OnClickListener onClickListener) {
         studentList = new ArrayList<>();
         this.onClickListener = onClickListener;
@@ -74,6 +76,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
         studentList.add(student);
         notifyItemInserted(studentList.size() - 1);
     }
+
     public void update(Student student) {
         int index = studentList.indexOf(student);
         if (index == -1) return;

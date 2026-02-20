@@ -55,8 +55,6 @@ public class InfoCarActivity extends AppCompatActivity {
         licenseDate.setEnabled(false);
 
 
-
-
         // מילוי ספינר
         String[] options = {
                 "דרגת רישיון", "A אופנוע", "B רכב פרטי עד 3.5 טון",
@@ -137,6 +135,7 @@ public class InfoCarActivity extends AppCompatActivity {
 //    }
 
     /// Check if the input is valid
+    ///
     /// @return true if the input is valid, false otherwise
     private boolean checkInput(String type, String rank, String number, LocalDate insurancedate, LocalDate licensecardate) {
 
