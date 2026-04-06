@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SidurAboda">
         <activity
+            android:name=".screens.LandingActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.DatePickerActivity"
             android:exported="false" />
         <activity
@@ -50,7 +53,7 @@
             android:name=".screens.StudentsListActivity"
             android:exported="false" />
         <activity
-            android:name=".screens.LandingActivity"
+            android:name=".screens.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
