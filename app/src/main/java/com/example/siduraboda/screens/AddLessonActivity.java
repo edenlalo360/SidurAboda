@@ -28,10 +28,16 @@ import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import com.example.siduraboda.models.DayAndHours;
+import com.example.siduraboda.models.HourMinute;
+import com.example.siduraboda.models.Weekday;
+
 
 public class AddLessonActivity extends AppCompatActivity {
 
@@ -146,16 +152,25 @@ public class AddLessonActivity extends AppCompatActivity {
 
         if (!checkInputLesson(selectedStudent, selectedCar)) return;
 
-        String lessonId = DatabaseService.getInstance().generateLessonId();
-        Lesson lesson = new Lesson(lessonId, teacherId, selectedStudent.getId(), selectedCar);
+        // המרת התאריך ליום בשבוע
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate localDate = LocalDate.parse(selectedDateStr, formatter);
+        Weekday weekday = Weekday.valueOf(localDate.getDayOfWeek().name());
 
-        // כאן תוסיפי את הלוגיקה לשמירת התאריך והשעות בתוך ה-Lesson אם יש לך שדות כאלו
-        // למשל: lesson.setDate(selectedDateStr);
+        // יצירת זמן
+        HourMinute startTime = new HourMinute(selectedStartTimeStr);
+        HourMinute endTime = new HourMinute(selectedEndTimeStr);
+        DayAndHours dayAndHours = new DayAndHours(weekday, startTime, endTime);
+
+        String lessonId = DatabaseService.getInstance().generateLessonId();
+
+        // יצירת האובייקט המלא
+        Lesson lesson = new Lesson(lessonId, teacherId, selectedStudent.getId(), selectedCar, dayAndHours, selectedDateStr);
 
         DatabaseService.getInstance().createNewLesson(lesson, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
-                Toast.makeText(AddLessonActivity.this, "השיעור נוסף בהצלחה!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddLessonActivity.this, "השיעור נקבע בהצלחה!", Toast.LENGTH_SHORT).show();
                 finish();
             }
             @Override

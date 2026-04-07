@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.siduraboda.R;
 import com.example.siduraboda.models.Lesson;
+import com.example.siduraboda.models.Student;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class SidurYomAbodaAdapter extends RecyclerView.Adapter<SidurYomAbodaAdapter.ViewHolder> {
 
@@ -24,10 +26,12 @@ public class SidurYomAbodaAdapter extends RecyclerView.Adapter<SidurYomAbodaAdap
     }
 
     private final List<Lesson> SidurYomAboda;
+    private final List<Student> studentList;
     private final SidurYomAbodaAdapter.OnClickListener onClickListener;
 
     public SidurYomAbodaAdapter(@Nullable final SidurYomAbodaAdapter.OnClickListener onClickListener) {
         SidurYomAboda = new ArrayList<>();
+        studentList = new ArrayList<>();
         this.onClickListener = onClickListener;
     }
 
@@ -43,7 +47,16 @@ public class SidurYomAbodaAdapter extends RecyclerView.Adapter<SidurYomAbodaAdap
         Lesson lesson = SidurYomAboda.get(position);
         if (lesson == null) return;
 
-        holder.tvTeacherId.setText(lesson.getTeacherId());
+        Optional<Student> student = studentList
+                .stream()
+                .filter(s -> s.getId().equals(lesson.getStudentId()))
+                .findFirst();
+
+        student.ifPresent(s -> holder.tvStudentName.setText(s.getName()));
+        holder.tv_start_time.setText(lesson.getDayAndHours().getStartTime().toString());
+        holder.tv_end_time.setText(lesson.getDayAndHours().getEndTime().toString());
+
+
 
         holder.itemView.setOnClickListener(v -> {
             if (onClickListener != null) {
@@ -62,12 +75,19 @@ public class SidurYomAbodaAdapter extends RecyclerView.Adapter<SidurYomAbodaAdap
 
     @Override
     public int getItemCount() {
+        if (studentList.isEmpty()) return 0;
         return SidurYomAboda.size();
     }
 
     public void setList(List<Lesson> lessons) {
         SidurYomAboda.clear();
         SidurYomAboda.addAll(lessons);
+        notifyDataSetChanged();
+    }
+
+    public void setStudentList(List<Student> students) {
+        this.studentList.clear();
+        this.studentList.addAll(students);
         notifyDataSetChanged();
     }
 
@@ -91,11 +111,15 @@ public class SidurYomAbodaAdapter extends RecyclerView.Adapter<SidurYomAbodaAdap
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTeacherId;
+        TextView tvStudentName;
+        TextView tv_start_time;
+        TextView tv_end_time;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTeacherId = itemView.findViewById(R.id.tv_item_lesson_teacher_id);
+            tvStudentName = itemView.findViewById(R.id.tv_item_lesson_teacher_id);
+            tv_start_time = itemView.findViewById(R.id.tv_start_time);
+            tv_end_time = itemView.findViewById(R.id.tv_end_time);
         }
     }
 }

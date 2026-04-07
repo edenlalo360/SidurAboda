@@ -2,6 +2,7 @@ package com.example.siduraboda.screens;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -93,12 +94,14 @@ public class AddCarActivity extends AppCompatActivity {
                 String rank = spRank.getSelectedItem().toString() + "";
 
                 if (!checkInput(type, rank, carNumber, convertStringToDate(insuranceDate), convertStringToDate(licenseDate))) {
+                    Log.d("AddCarActivity", "checkInput returned false");
                     return;
                 }
 
                 Car car = new Car(type, rank, carNumber, licenseDate, insuranceDate);
 
                 String teacherId = SharedPreferencesUtil.getTeacherId(AddCarActivity.this);
+                assert teacherId != null;
                 DatabaseService.getInstance().updateTeacher(teacherId, new UnaryOperator<Teacher>() {
                     @Override
                     public Teacher apply(Teacher teacher) {
@@ -108,8 +111,9 @@ public class AddCarActivity extends AppCompatActivity {
                     }
                 }, new DatabaseService.DatabaseCallback<Teacher>() {
                     @Override
-                    public void onCompleted(Teacher teacher) {
+                    public void onCompleted(Teacher serverTeacher) {
                         Toast.makeText(AddCarActivity.this, "Car successfully added!", Toast.LENGTH_SHORT).show();
+                        SharedPreferencesUtil.saveTeacher(AddCarActivity.this, serverTeacher);
                         finish();
                     }
 
@@ -162,7 +166,13 @@ public class AddCarActivity extends AppCompatActivity {
     }
 
     private LocalDate convertStringToDate(String dateStr) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
-        return LocalDate.parse(dateStr, formatter);
+        try {
+            // שימוש בפורמט שמתאים למה שה-DatePickerDialog מחזיר (d/M/yyyy)
+            java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("d/M/yyyy");
+            return LocalDate.parse(dateStr, formatter);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null; // אם יש שגיאה בפורמט
+        }
     }
 }

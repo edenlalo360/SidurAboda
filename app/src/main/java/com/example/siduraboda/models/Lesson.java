@@ -12,17 +12,23 @@ public class Lesson {
     private String teacherId; // driving teacher id
     private String studentId; // student id
     private Car car;
+    private DayAndHours dayAndHours;
+    private String date;
 
 
     public Lesson() {
     }
 
-    public Lesson(String id, String teacherId, String studentId, Car car) {
+    public Lesson(String id, String teacherId, String studentId, Car car, DayAndHours dayAndHours, String date) {
         this.id = id;
 
         this.teacherId = teacherId;
         this.studentId = studentId;
         this.car = car;
+        this.dayAndHours = dayAndHours;
+        this.date = date;
+
+
     }
 
     public String getId() {
@@ -57,6 +63,12 @@ public class Lesson {
     public void setCar(Car car) {
         this.car = car;
     }
+    public DayAndHours getDayAndHours() {return dayAndHours;}
+    public void setDayAndHours(DayAndHours dayAndHours) {this.dayAndHours = dayAndHours;}
+
+    public String getDate() {return date;}
+    public void setDate(String date) {this.date = date;}
+
 
     @NonNull
     @Override

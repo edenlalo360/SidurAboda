@@ -38,7 +38,7 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 // יצירת Intent כדי לעבור ל-MainActivity
                 // שים לב: ודא שיש לך Activity בשם MainActivity (או שנה את השם למה שקיים אצלך)
-                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, LandingActivity.class);
 
                 // הוספת הדגלים החשובים כדי שלא יהיה ניתן לחזור לספלאש
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

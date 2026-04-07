@@ -83,7 +83,6 @@ public class MainActivity extends BaseActivity {
     }
 
     // פונקציית ה-signOut המקורית שלך (אופציונלי: אפשר להשתמש בזו של BaseActivity)
-    @Override
     protected void signOut() {
         Log.d(TAG, "Sign out button clicked");
         SharedPreferencesUtil.signOutTeacher(MainActivity.this);

@@ -14,6 +14,7 @@ public class Teacher {
     private ArrayList<Car> cars;
 
     boolean isAdmin;
+    private String profileImage;
 
     public Teacher() {
     }
@@ -28,6 +29,7 @@ public class Teacher {
         this.phone = phone;
         this.isAdmin = isAdmin;
         this.cars = cars;
+        this.profileImage = "";
 
     }
 
@@ -87,10 +89,13 @@ public class Teacher {
         isAdmin = admin;
     }
 
+    public String getProfileImage() {return profileImage;}
+    public void setProfileImage(String profileImage) {this.profileImage = profileImage;}
+
+
     @NonNull
     public ArrayList<Car> getCars() {
-        if (this.cars == null
-        ) {
+        if (this.cars == null) {
             this.cars = new ArrayList<>();
         }
         return cars;

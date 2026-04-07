@@ -5,6 +5,8 @@
     android:id="@+id/siduryom"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#E0F7FA"
+
     tools:context=".screens.SidurYomAbodaActivity">
 
     <LinearLayout
@@ -26,7 +28,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="+" />
+                android:text="+"
+                android:backgroundTint="#388FC3"
+                />
 
             <TextView
                 android:id="@+id/textView2"
@@ -34,6 +38,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="#0B4F86"
+                android:fontFamily="@font/round_font"
+                android:textSize="20sp"
                 android:text="תאריך" />
 
             <Button
@@ -41,7 +48,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="-" />
+                android:text="-"
+                android:backgroundTint="#388FC3"
+                />
 
         </LinearLayout>
 
@@ -52,45 +61,71 @@
 
             <Button
                 android:id="@+id/button13"
+                style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ו'" />
+                android:text="ו'"
+                android:fontFamily="@font/round_font"
+                android:textSize="15sp"
+                android:textColor="#388FC3"
+                app:iconPadding="0dp"
+                app:iconTint="#E91E63" />
 
             <Button
                 android:id="@+id/button14"
+                style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ה'" />
+                android:text="ה'"
+                android:fontFamily="@font/round_font"
+                android:textSize="15sp"
+                android:textColor="#388FC3" />
 
             <Button
                 android:id="@+id/button15"
+                style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ד'" />
+                android:text="ד'"
+                android:fontFamily="@font/round_font"
+                android:textSize="15sp"
+                android:textColor="#388FC3" />
 
             <Button
                 android:id="@+id/button18"
+                style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ג'" />
+                android:text="ג'"
+                android:fontFamily="@font/round_font"
+                android:textSize="15sp"
+                android:textColor="#388FC3" />
 
             <Button
                 android:id="@+id/button19"
+                style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ב'" />
+                android:text="ב'"
+                android:fontFamily="@font/round_font"
+                android:textSize="15sp"
+                android:textColor="#388FC3" />
 
             <Button
                 android:id="@+id/button20"
+                style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="א'" />
+                android:text="א'"
+                android:fontFamily="@font/round_font"
+                android:textSize="15sp"
+                android:textColor="#388FC3" />
         </LinearLayout>
 
         <LinearLayout
@@ -113,7 +148,9 @@
         android:id="@+id/siduryomavodaTOmain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="בית"
+        android:backgroundTint="#388FC3"
+
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.example.siduraboda.models;
 
+import androidx.annotation.NonNull;
+
 import java.util.Date;
 
 public class Student {
@@ -101,6 +103,7 @@ public class Student {
         this.healthdec = healthdec;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Student{" +

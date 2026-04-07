@@ -2,7 +2,9 @@ package com.example.siduraboda.models;
 
 import androidx.annotation.NonNull;
 
-public class Car {
+import java.io.Serializable;
+
+public class Car implements Serializable {
 
     private String type;
     private String rank;

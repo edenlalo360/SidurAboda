@@ -15,6 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.siduraboda.R;
+import com.example.siduraboda.models.Car;
 import com.example.siduraboda.utils.Validator;
 
 import java.time.LocalDate;
@@ -38,6 +39,9 @@ public class InfoCarActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Car car = getIntent().getSerializableExtra("car", Car.class);
+
 
         // איתור רכיבים
         typeCar = findViewById(R.id.type);
@@ -117,22 +121,6 @@ public class InfoCarActivity extends AppCompatActivity {
         });
     }
 
-//    private void loadUserDetailsFromSharedPref() {
-//        typeCar.setText(teacher.getFullName());
-//        carNumber.setText(teacher.getFirstName());
-//        insuranceDate.setText(teacher.getLastName());
-//        licenseDate.setText(teacher.getEmail());
-//        spinner.setText(teacher.getPassword());
-//
-//        if (teacher.getProfileImage() != null && !teacher.getProfileImage().isEmpty()) {
-//            Bitmap bmp = ImageUtil.convertFrom64base(teacher.getProfileImage());
-//            if (bmp != null) {
-//                imgUserProfile.setImageBitmap(bmp);
-//            }
-//        } else {
-//            imgUserProfile.setImageResource(R.drawable.ic_user);
-//        }
-//    }
 
     /// Check if the input is valid
     ///
