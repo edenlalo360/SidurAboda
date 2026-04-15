@@ -1,0 +1,512 @@
+@startuml
+class com.example.siduraboda.services.DatabaseService {
+- {static} String TAG
+- {static} String USERS_PATH
+- {static} DatabaseService instance
+- DatabaseReference databaseReference
++ {static} DatabaseService getInstance()
+- void writeData(String,Object,DatabaseCallback<Void>)
+- void deleteData(String,DatabaseCallback<Void>)
+- DatabaseReference readData(String)
+- void getData(String,Class<T>,DatabaseCallback<T>)
+- void getDataList(String,Class<T>,DatabaseCallback<List<T>>)
+- String generateNewId(String)
+- void runTransaction(String,Class<T>,UnaryOperator<T>,DatabaseCallback<T>)
++ String generateUserId()
++ void createNewUser(Teacher,DatabaseCallback<Void>)
++ void getUser(String,DatabaseCallback<Teacher>)
++ void getUserList(DatabaseCallback<List<Teacher>>)
++ void deleteUser(String,DatabaseCallback<Void>)
++ void getUserByPhoneAndPassword(String,String,DatabaseCallback<Teacher>)
++ void checkIfPhoneExists(String,DatabaseCallback<Boolean>)
++ void checkIfLicenseNum(String,DatabaseCallback<Boolean>)
++ void updateTeacher(String,UnaryOperator<Teacher>,DatabaseCallback<Teacher>)
++ String generateStudentId()
++ void createNewStudent(Student,DatabaseCallback<Void>)
++ void getStudent(String,DatabaseCallback<Student>)
++ void getStudentList(DatabaseCallback<List<Student>>)
++ void deleteStudent(String,DatabaseCallback<Void>)
++ void getStudentByPhoneAndPassword(String,String,DatabaseCallback<Student>)
++ void checkIfPhoneExistsForStudent(String,DatabaseCallback<Boolean>)
++ void updateStudent(Teacher,DatabaseCallback<Void>)
++ String generateLessonId()
++ void createNewLesson(Lesson,DatabaseCallback<Void>)
++ void getLesson(String,DatabaseCallback<Lesson>)
++ void getLessonList(DatabaseCallback<List<Lesson>>)
++ void deleteLesson(String,DatabaseCallback<Void>)
++ void updateLesson(String,UnaryOperator<Lesson>,DatabaseCallback<Lesson>)
+}
+
+
+interface com.example.siduraboda.services.DatabaseService$DatabaseCallback {
++ void onCompleted(T)
++ void onFailed(Exception)
+}
+
+class com.example.siduraboda.models.Teacher {
+- String uid
+- String password
+- String firstName
+- String lastName
+- String licenseId
+- String phone
+- ArrayList<Car> cars
+~ boolean isAdmin
+- String profileImage
++ String getUid()
++ void setUid(String)
++ String getPassword()
++ void setPassword(String)
++ String getFirstName()
++ void setFirstName(String)
++ String getLastName()
++ void setLastName(String)
++ String getLicenseId()
++ void setLicenseId(String)
++ String getPhone()
++ void setPhone(String)
++ boolean isAdmin()
++ void setAdmin(boolean)
++ String getProfileImage()
++ void setProfileImage(String)
++ ArrayList<Car> getCars()
++ void setCars(ArrayList<Car>)
++ String toString()
++ void addCar(Car)
+}
+
+
+class com.example.siduraboda.screens.MainActivity {
+# void onCreate(Bundle)
+- void setupButtons()
+# void signOut()
+}
+
+class com.example.siduraboda.models.DayAndHours {
++ Weekday day
++ HourMinute startTime
++ HourMinute endTime
++ Weekday getDay()
++ void setDay(Weekday)
++ HourMinute getStartTime()
++ void setStartTime(HourMinute)
++ HourMinute getEndTime()
++ void setEndTime(HourMinute)
++ boolean checkIfClosed()
+}
+
+
+class com.example.siduraboda.screens.ImStudentActivity {
+# void onCreate(Bundle)
+- void signOut()
+}
+
+class com.example.siduraboda.screens.DatePickerActivity {
+- TextView tvSelectedDate
+# void onCreate(Bundle)
+- void showDatePicker()
+}
+
+
+class com.example.siduraboda.screens.SplashActivity {
+- {static} int SPLASH_DISPLAY_TIME
+# void onCreate(Bundle)
+}
+
+
+class com.example.siduraboda.models.HourMinute {
+~ int hour
+~ int minute
+- {static} int parseHour(String)
+- {static} int parseMinute(String)
++ {static} HourMinute fromString(String)
++ int getHour()
++ int getMinute()
++ void setHour(int)
++ void setMinute(int)
++ String toString()
++ int compareTo(HourMinute)
++ boolean equals(Object)
++ int hashCode()
+}
+
+
+class com.example.siduraboda.screens.AddStudentActivity {
+- EditText Name
+- Switch switchTheory
+- Button btnAddStudent
+# void onCreate(Bundle)
+- boolean check(String,String,String,String,String)
++ void ClearFields()
+}
+
+
+class com.example.siduraboda.screens.SidurYomAbodaActivity {
+~ SidurYomAbodaAdapter adapter
+~ RecyclerView rvWorkday
+- java.time.LocalDate startOfDisplayedWeek
+- Button[] dayButtons
+- android.widget.TextView tvDateHeader
+- java.util.List<Lesson> allLessons
+# void onCreate(Bundle)
+# void onResume()
+- void loadLessons()
+- void loadUsers()
+- void updateCalendarUI()
+- void moveWeek(int)
+- void filterLessonsByDate(java.time.LocalDate)
+}
+
+
+class com.example.siduraboda.screens.LogInActivity {
+- EditText etPhone
+- Button btnLogin
+# void onCreate(Bundle)
++ void onClick(View)
+- boolean checkInput(String,String)
+- void loginTeacher(String,String)
+- void getStudentByPhoneAndPassword(String,String)
++ void onPointerCaptureChanged(boolean)
+}
+
+
+class com.example.siduraboda.models.Student {
+- String id
+- String Name
+- Date birthdate
+- String address
+- String phone
+- String password
+- Boolean theory
+- Boolean checkeye
+- Boolean healthdec
++ String getId()
++ void setId(String)
++ String getName()
++ void setName(String)
++ Date getBirthdate()
++ void setBirthdate(Date)
++ String getAddress()
++ void setAddress(String)
++ String getPhone()
++ void setPhone(String)
++ String getPassword()
++ void setPassword(String)
++ Boolean getTheory()
++ void setTheory(Boolean)
++ Boolean getCheckeye()
++ void setCheckeye(Boolean)
++ Boolean getHealthdec()
++ void setHealthdec(Boolean)
++ String toString()
+}
+
+
+class com.example.siduraboda.screens.InfoCarActivity {
+~ Spinner spinner
+~ EditText typeCar
+~ Button editBtn
+~ boolean isEditing
+# void onCreate(Bundle)
+- boolean checkInput(String,String,String,LocalDate,LocalDate)
+}
+
+
+abstract class com.example.siduraboda.screens.BaseActivity {
+- {static} String TAG
+# DatabaseService databaseService
+# DrawerLayout drawerLayout
+# Toolbar toolbar
+# NavigationView navigationView
+- ImageView profileImageView
+- ActivityResultLauncher<Intent> selectImageLauncher
+- ActivityResultLauncher<Intent> captureImageLauncher
+# void onCreate(Bundle)
+- void initImageLaunchers()
+- void updateProfileImage(Bitmap)
+- void showImageSourceDialog()
+# void onResume()
++ void setContentView(int)
+- void updateHeader()
+- void addCarsToMenu()
++ boolean onNavigationItemSelected(MenuItem)
++ void onBackPressed()
+}
+
+
+class com.example.siduraboda.adapters.StudentListAdapter {
+- List<Student> studentList
+- OnClickListener onClickListener
++ StudentListAdapter.ViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(ViewHolder,int)
++ int getItemCount()
++ void setList(List<Student>)
++ void add(Student)
++ void update(Student)
++ void remove(Student)
+}
+
+
+interface com.example.siduraboda.adapters.StudentListAdapter$OnClickListener {
+~ void onClick(Student)
+~ void onLongClick(Student)
+}
+
+class com.example.siduraboda.adapters.StudentListAdapter$ViewHolder {
+~ TextView tvName
+}
+
+class com.example.siduraboda.screens.AddCarActivity {
+~ EditText etType
+~ Spinner spRank
+~ Button btnSubmit
+# void onCreate(Bundle)
+- boolean checkInput(String,String,String,LocalDate,LocalDate)
+- LocalDate convertStringToDate(String)
+}
+
+
+class com.example.siduraboda.screens.LandingActivity {
+~ Teacher teacher
+~ Student student
+# void onCreate(Bundle)
+}
+
+
+class com.example.siduraboda.screens.TestsListActivity {
+# void onCreate(Bundle)
+}
+
+class com.example.siduraboda.screens.UpDateActivity {
+- {static} String TAG
+~ EditText firstName
+~ Button updateBtn
+~ boolean isEditing
+~ DatabaseService databaseService
+~ Teacher currentTeacher
+# void onCreate(Bundle)
+- void showTeacherDetails()
+- void checkPhoneNumber(String,DatabaseService.DatabaseCallback<Boolean>)
+- void checkLicenseNum(String,DatabaseService.DatabaseCallback<Boolean>)
+- void validateAndUpdate()
+- void updateTeacherDetails()
+- void lockFields()
+- void unlockFields()
+}
+
+
+class com.example.siduraboda.screens.StudentsListActivity {
+~ StudentListAdapter listAdapter
+# void onCreate(Bundle)
+# void onResume()
+}
+
+
+class com.example.siduraboda.adapters.SidurYomAbodaAdapter {
+- List<Lesson> SidurYomAboda
+- List<Student> studentList
+- SidurYomAbodaAdapter.OnClickListener onClickListener
++ SidurYomAbodaAdapter.ViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(SidurYomAbodaAdapter.ViewHolder,int)
++ int getItemCount()
++ void setList(List<Lesson>)
++ void setStudentList(List<Student>)
++ void add(Lesson)
++ void update(Lesson)
++ void remove(Lesson)
+}
+
+
+interface com.example.siduraboda.adapters.SidurYomAbodaAdapter$OnClickListener {
+~ void onClick(Lesson)
+~ void onLongClick(Lesson)
+}
+
+class com.example.siduraboda.adapters.SidurYomAbodaAdapter$ViewHolder {
+~ TextView tvStudentName
+~ TextView tv_start_time
+~ TextView tv_end_time
+}
+
+class com.example.siduraboda.utils.ImageUtil {
++ {static} void requestPermission(Activity)
++ {static} String convertTo64Base(ImageView)
++ {static} Bitmap convertFrom64base(String)
+}
+
+class com.example.siduraboda.utils.SharedPreferencesUtil {
+- {static} String PREF_NAME
+- {static} void saveString(Context,String,String)
+- {static} String getString(Context,String,String)
+- {static} void saveInt(Context,String,int)
+- {static} int getInt(Context,String,int)
++ {static} void clear(Context)
+- {static} void remove(Context,String)
+- {static} boolean contains(Context,String)
+- {static} void saveObject(Context,String,T)
+- {static} T getObject(Context,String,Class<T>)
++ {static} void saveTeacher(Context,Teacher)
++ {static} void saveStudent(Context,Student)
++ {static} Teacher getTeacher(Context)
++ {static} void signOutTeacher(Context)
++ {static} boolean isTeacherLoggedIn(Context)
++ {static} String getTeacherId(Context)
++ {static} Student getStudent(Context)
++ {static} void signOutStudent(Context)
++ {static} boolean isStudentLoggedIn(Context)
++ {static} String getStudentId(Context)
+}
+
+
+class com.example.siduraboda.screens.AddLessonActivity {
+~ Spinner spStudent
+~ Button btnSubmitLesson
+~ Button btnDatePicker
+~ TextView tvDuration
+~ String teacherId
+- String selectedDateStr
+- String selectedStartTimeStr
+- String selectedEndTimeStr
+# void onCreate(Bundle)
+- void showDatePicker()
+- void showTimePicker(Button,String,boolean)
+- void calculateDuration()
+- void CreateLesson()
+- boolean checkInputLesson(Student,Car)
+- void loadSpinnersData()
+- void setupStudentSpinner(List<Student>)
+- void setupCarSpinner(List<Car>)
+}
+
+
+class com.example.siduraboda.models.Lesson {
+- String id
+- String teacherId
+- String studentId
+- Car car
+- DayAndHours dayAndHours
+- String date
++ String getId()
++ void setId(String)
++ String getTeacherId()
++ void setTeacherId(String)
++ String getStudentId()
++ void setStudentId(String)
++ Car getCar()
++ void setCar(Car)
++ DayAndHours getDayAndHours()
++ void setDayAndHours(DayAndHours)
++ String getDate()
++ void setDate(String)
++ String toString()
+}
+
+
+class com.example.siduraboda.screens.RegisterTeacherActivity {
+- EditText firstName
+- Button btnRegister
+~ DatabaseService databaseService
+# void onCreate(Bundle)
++ void onClick(View)
+- boolean checkInput(String,String,String,String,String)
+- void registerTeacher(String,String,String,String,String)
+- void createTeacherInDatabase(Teacher)
+}
+
+
+class com.example.siduraboda.screens.TimePickerActivity {
+# void onCreate(Bundle)
+}
+
+enum com.example.siduraboda.models.Weekday {
++  SUNDAY
++  MONDAY
++  TUESDAY
++  WEDNESDAY
++  THURSDAY
++  FRIDAY
++  SATURDAY
+- String dayName
++ String getDayName()
++ String toString()
+}
+
+
+class com.example.siduraboda.utils.Validator {
++ {static} boolean isPasswordValid(String)
++ {static} boolean isPhoneValid(String)
++ {static} boolean isNameValid(String)
++ {static} boolean isLicenseValid(String)
++ {static} boolean isTypeValid(String)
++ {static} boolean isCarNumberValid(String)
++ {static} boolean isInsuranceDateValid(LocalDate)
++ {static} boolean isLicenseDateValid(LocalDate)
++ {static} boolean isSpinnerValid(String)
++ {static} boolean isLessonDateValid(LocalDate)
++ {static} boolean isTimeValid(LocalTime)
++ {static} boolean isSpinnerStudentValid(String)
++ {static} boolean isSpinnerCarValid(String)
+}
+
+class com.example.siduraboda.models.Car {
+- String type
+- String rank
+- String carNumber
+- String licenseDate
+- String insuranceDate
++ String getType()
++ void setType(String)
++ String getRank()
++ void setRank(String)
++ String getCarNumber()
++ void setCarNumber(String)
++ String getLicenseDate()
++ void setLicenseDate(String)
++ String getInsuranceDate()
++ void setInsuranceDate(String)
++ String toString()
+}
+
+
+class com.example.siduraboda.views.IntervalTimePicker {
+- int minuteInterval
+- void init()
++ void setMinuteInterval(int)
+}
+
+
+
+
+com.example.siduraboda.services.DatabaseService +.. com.example.siduraboda.services.DatabaseService$DatabaseCallback
+com.example.siduraboda.screens.BaseActivity <|-- com.example.siduraboda.screens.MainActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.ImStudentActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.DatePickerActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.SplashActivity
+com.example.siduraboda.models.Comparable <|.. com.example.siduraboda.models.HourMinute
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.AddStudentActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.SidurYomAbodaActivity
+com.example.siduraboda.screens.OnClickListener <|.. com.example.siduraboda.screens.LogInActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.LogInActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.InfoCarActivity
+com.example.siduraboda.screens.OnNavigationItemSelectedListener <|.. com.example.siduraboda.screens.BaseActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.BaseActivity
+com.example.siduraboda.adapters.Adapter <|-- com.example.siduraboda.adapters.StudentListAdapter
+com.example.siduraboda.adapters.StudentListAdapter +.. com.example.siduraboda.adapters.StudentListAdapter$OnClickListener
+com.example.siduraboda.adapters.StudentListAdapter +.. com.example.siduraboda.adapters.StudentListAdapter$ViewHolder
+com.example.siduraboda.adapters.ViewHolder <|-- com.example.siduraboda.adapters.StudentListAdapter$ViewHolder
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.AddCarActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.LandingActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.TestsListActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.UpDateActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.StudentsListActivity
+com.example.siduraboda.adapters.Adapter <|-- com.example.siduraboda.adapters.SidurYomAbodaAdapter
+com.example.siduraboda.adapters.SidurYomAbodaAdapter +.. com.example.siduraboda.adapters.SidurYomAbodaAdapter$OnClickListener
+com.example.siduraboda.adapters.SidurYomAbodaAdapter +.. com.example.siduraboda.adapters.SidurYomAbodaAdapter$ViewHolder
+com.example.siduraboda.adapters.ViewHolder <|-- com.example.siduraboda.adapters.SidurYomAbodaAdapter$ViewHolder
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.AddLessonActivity
+com.example.siduraboda.screens.OnClickListener <|.. com.example.siduraboda.screens.RegisterTeacherActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.RegisterTeacherActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.TimePickerActivity
+java.io.Serializable <|.. com.example.siduraboda.models.Car
+android.widget.TimePicker <|-- com.example.siduraboda.views.IntervalTimePicker
+@enduml
