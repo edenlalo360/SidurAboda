@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -20,9 +21,11 @@ import com.example.siduraboda.utils.Validator;
 
 import java.util.ArrayList;
 
-public class RegisterTeacherActivity extends BaseActivity implements View.OnClickListener {
+public class RegisterTeacherActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText firstName, lastName, Phone, License, Password;
     private Button btnRegister;
+
+    DatabaseService databaseService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,8 @@ public class RegisterTeacherActivity extends BaseActivity implements View.OnClic
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        databaseService = DatabaseService.getInstance();
 
         firstName = findViewById(R.id.et_register_first_name);
         lastName = findViewById(R.id.et_register_last_name);

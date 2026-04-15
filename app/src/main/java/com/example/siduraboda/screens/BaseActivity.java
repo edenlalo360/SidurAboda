@@ -72,10 +72,7 @@ public abstract class BaseActivity extends AppCompatActivity
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        // בקשת הרשאות למצלמה ואחסון
         ImageUtil.requestPermission(this);
-
-        // רישום ה-Launchers לבחירת תמונה
         initImageLaunchers();
     }
 
