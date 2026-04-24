@@ -5,8 +5,6 @@ import static android.content.ContentValues.TAG;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
@@ -61,29 +59,10 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.mainTOupdate).setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, UpDateActivity.class)));
 
-        // הוספת רכב
-        findViewById(R.id.mainTOaddcar).setOnClickListener(v ->
-                startActivity(new Intent(MainActivity.this, AddCarActivity.class)));
-
         // קביעת שיעור
         findViewById(R.id.mainTOaddlesson).setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, AddLessonActivity.class)));
 
-        // התנתקות (שימוש בפונקציית signOut שנמצאת ב-BaseActivity או המקורית שלך)
-        ImageButton btnSignOut = findViewById(R.id.btn_sign_out);
-        if (btnSignOut != null) {
-            btnSignOut.setOnClickListener(v -> signOut());
-        }
     }
 
-    // פונקציית ה-signOut המקורית שלך (אופציונלי: אפשר להשתמש בזו של BaseActivity)
-    protected void signOut() {
-        Log.d(TAG, "Sign out button clicked");
-        SharedPreferencesUtil.signOutTeacher(MainActivity.this);
-
-        Intent landingIntent = new Intent(MainActivity.this, LandingActivity.class);
-        landingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(landingIntent);
-        finish();
-    }
 }

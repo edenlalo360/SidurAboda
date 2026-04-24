@@ -18,11 +18,16 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.siduraboda.R;
 import com.example.siduraboda.models.Car;
+import com.example.siduraboda.models.DayAndHours;
+import com.example.siduraboda.models.HourMinute;
 import com.example.siduraboda.models.Lesson;
 import com.example.siduraboda.models.Student;
 import com.example.siduraboda.models.Teacher;
+import com.example.siduraboda.models.Weekday;
 import com.example.siduraboda.services.DatabaseService;
 import com.example.siduraboda.utils.SharedPreferencesUtil;
+import com.google.android.material.datepicker.CalendarConstraints;
+import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
@@ -30,21 +35,18 @@ import com.google.android.material.timepicker.TimeFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
-import com.example.siduraboda.models.DayAndHours;
-import com.example.siduraboda.models.HourMinute;
-import com.example.siduraboda.models.Weekday;
-
 
 public class AddLessonActivity extends AppCompatActivity {
 
     Spinner spStudent, spCar;
     Button btnSubmitLesson;
     Button btnDatePicker, btnStartTime, btnEndTime;
-    TextView tvDuration; // ה-TextView החדש למשך השיעור
+    TextView tvDuration;
 
     String teacherId;
 
@@ -64,18 +66,16 @@ public class AddLessonActivity extends AppCompatActivity {
             return insets;
         });
 
-        // אתחול רכיבים
         spStudent = findViewById(R.id.sp_choose_student);
         spCar = findViewById(R.id.sp_choose_car);
         btnSubmitLesson = findViewById(R.id.btn_add_lesson_submit);
         btnDatePicker = findViewById(R.id.btn_date_picker);
         btnStartTime = findViewById(R.id.btn_start_time_picker);
         btnEndTime = findViewById(R.id.btn_end_time_picker);
-        tvDuration = findViewById(R.id.tv_lesson_duration); // אתחול משך השיעור
+        tvDuration = findViewById(R.id.tv_lesson_duration);
 
         teacherId = SharedPreferencesUtil.getTeacherId(this);
 
-        // מאזינים
         btnDatePicker.setOnClickListener(v -> showDatePicker());
         btnStartTime.setOnClickListener(v -> showTimePicker(btnStartTime, "שעת התחלה", true));
         btnEndTime.setOnClickListener(v -> showTimePicker(btnEndTime, "שעת סיום", false));
@@ -85,12 +85,20 @@ public class AddLessonActivity extends AppCompatActivity {
     }
 
     private void showDatePicker() {
+        // 1. יצירת אילוצים (Constraints) - חסימת תאריכים שעברו
+        CalendarConstraints constraints = new CalendarConstraints.Builder()
+                .setValidator(DateValidatorPointForward.now()) // מאפשר רק מהיום והלאה
+                .build();
+
+        // 2. בניית ה-DatePicker עם האילוצים
         MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("בחר תאריך לשיעור")
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+                .setCalendarConstraints(constraints) // החלת האילוצים כאן
                 .build();
 
         datePicker.show(getSupportFragmentManager(), "DATE_PICKER");
+
         datePicker.addOnPositiveButtonClickListener(selection -> {
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
@@ -114,11 +122,10 @@ public class AddLessonActivity extends AppCompatActivity {
             else selectedEndTimeStr = time;
 
             btn.setText(title + ": " + time);
-            calculateDuration(); // חישוב משך השיעור בכל בחירת שעה
+            calculateDuration();
         });
     }
 
-    // פונקציה לחישוב משך השיעור
     private void calculateDuration() {
         if (!selectedStartTimeStr.isEmpty() && !selectedEndTimeStr.isEmpty()) {
             try {
@@ -147,42 +154,50 @@ public class AddLessonActivity extends AppCompatActivity {
     }
 
     private void CreateLesson() {
+        int studentPos = spStudent.getSelectedItemPosition();
+        int carPos = spCar.getSelectedItemPosition();
+
+        if (!checkInputLesson(studentPos, carPos)) return;
+
         Student selectedStudent = (Student) spStudent.getSelectedItem();
         Car selectedCar = (Car) spCar.getSelectedItem();
 
-        if (!checkInputLesson(selectedStudent, selectedCar)) return;
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate localDate = LocalDate.parse(selectedDateStr, formatter);
+            Weekday weekday = Weekday.valueOf(localDate.getDayOfWeek().name());
 
-        // המרת התאריך ליום בשבוע
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate localDate = LocalDate.parse(selectedDateStr, formatter);
-        Weekday weekday = Weekday.valueOf(localDate.getDayOfWeek().name());
+            HourMinute startTime = new HourMinute(selectedStartTimeStr);
+            HourMinute endTime = new HourMinute(selectedEndTimeStr);
+            DayAndHours dayAndHours = new DayAndHours(weekday, startTime, endTime);
 
-        // יצירת זמן
-        HourMinute startTime = new HourMinute(selectedStartTimeStr);
-        HourMinute endTime = new HourMinute(selectedEndTimeStr);
-        DayAndHours dayAndHours = new DayAndHours(weekday, startTime, endTime);
+            String lessonId = DatabaseService.getInstance().generateLessonId();
+            Lesson lesson = new Lesson(lessonId, teacherId, selectedStudent.getId(), selectedCar, dayAndHours, selectedDateStr);
 
-        String lessonId = DatabaseService.getInstance().generateLessonId();
+            DatabaseService.getInstance().createNewLesson(lesson, new DatabaseService.DatabaseCallback<Void>() {
+                @Override
+                public void onCompleted(Void object) {
+                    Toast.makeText(AddLessonActivity.this, "השיעור נקבע בהצלחה!", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
 
-        // יצירת האובייקט המלא
-        Lesson lesson = new Lesson(lessonId, teacherId, selectedStudent.getId(), selectedCar, dayAndHours, selectedDateStr);
-
-        DatabaseService.getInstance().createNewLesson(lesson, new DatabaseService.DatabaseCallback<Void>() {
-            @Override
-            public void onCompleted(Void object) {
-                Toast.makeText(AddLessonActivity.this, "השיעור נקבע בהצלחה!", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-            @Override
-            public void onFailed(Exception e) {
-                Toast.makeText(AddLessonActivity.this, "שגיאה בשמירה", Toast.LENGTH_SHORT).show();
-            }
-        });
+                @Override
+                public void onFailed(Exception e) {
+                    Toast.makeText(AddLessonActivity.this, "שגיאה בשמירה", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (Exception e) {
+            Toast.makeText(this, "שגיאה בעיבוד הנתונים", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    private boolean checkInputLesson(Student student, Car car) {
-        if (student == null || car == null) {
-            Toast.makeText(this, "אנא בחר סטודנט ורכב", Toast.LENGTH_SHORT).show();
+    private boolean checkInputLesson(int studentPos, int carPos) {
+        if (studentPos == 0) {
+            Toast.makeText(this, "אנא בחר תלמיד מהרשימה", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (carPos == 0) {
+            Toast.makeText(this, "אנא בחר רכב מהרשימה", Toast.LENGTH_SHORT).show();
             return false;
         }
         if (selectedDateStr.isEmpty() || selectedStartTimeStr.isEmpty() || selectedEndTimeStr.isEmpty()) {
@@ -195,7 +210,10 @@ public class AddLessonActivity extends AppCompatActivity {
     private void loadSpinnersData() {
         DatabaseService.getInstance().getStudentList(new DatabaseService.DatabaseCallback<List<Student>>() {
             @Override
-            public void onCompleted(List<Student> students) { setupStudentSpinner(students); }
+            public void onCompleted(List<Student> students) {
+                setupStudentSpinner(students);
+            }
+
             @Override
             public void onFailed(Exception e) {}
         });
@@ -203,21 +221,35 @@ public class AddLessonActivity extends AppCompatActivity {
         DatabaseService.getInstance().getUser(teacherId, new DatabaseService.DatabaseCallback<Teacher>() {
             @Override
             public void onCompleted(Teacher teacher) {
-                if (teacher != null && teacher.getCars() != null) setupCarSpinner(teacher.getCars());
+                if (teacher != null && teacher.getCars() != null) {
+                    setupCarSpinner(teacher.getCars());
+                }
             }
+
             @Override
             public void onFailed(Exception e) {}
         });
     }
 
     private void setupStudentSpinner(List<Student> students) {
-        ArrayAdapter<Student> adapter = new ArrayAdapter<Student>(this, android.R.layout.simple_spinner_item, students) {
+        List<Student> studentList = new ArrayList<>();
+
+        // יצירת אובייקט עם ערכי ברירת מחדל בלי קונסטרקטור חדש
+        Student placeholder = new Student();
+        placeholder.setName("בחר תלמיד");
+        // אם אין לך קונסטרקטור ריק, תשתמש בקיים ותשלח גרשיים ריקים: new Student("", "בחר תלמיד", ...)
+
+        studentList.add(placeholder);
+        if (students != null) studentList.addAll(students);
+
+        ArrayAdapter<Student> adapter = new ArrayAdapter<Student>(this, android.R.layout.simple_spinner_item, studentList) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView label = (TextView) super.getView(position, convertView, parent);
                 label.setText(getItem(position).getName());
                 return label;
             }
+
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 TextView label = (TextView) super.getDropDownView(position, convertView, parent);
@@ -230,18 +262,38 @@ public class AddLessonActivity extends AppCompatActivity {
     }
 
     private void setupCarSpinner(List<Car> cars) {
-        ArrayAdapter<Car> adapter = new ArrayAdapter<Car>(this, android.R.layout.simple_spinner_item, cars) {
+        List<Car> carList = new ArrayList<>();
+
+        // יצירת אובייקט ברירת מחדל לרכב
+        Car placeholder = new Car();
+        placeholder.setType("בחר רכב");
+
+        carList.add(placeholder);
+        if (cars != null) carList.addAll(cars);
+
+        ArrayAdapter<Car> adapter = new ArrayAdapter<Car>(this, android.R.layout.simple_spinner_item, carList) {
             @NonNull
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView label = (TextView) super.getView(position, convertView, parent);
-                label.setText(getItem(position).getType() + " (" + getItem(position).getCarNumber() + ")");
+                Car current = getItem(position);
+                if (position == 0) {
+                    label.setText(current.getType());
+                } else {
+                    label.setText(current.getType() + " (" + current.getCarNumber() + ")");
+                }
                 return label;
             }
+
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 TextView label = (TextView) super.getDropDownView(position, convertView, parent);
-                label.setText(getItem(position).getType() + " - " + getItem(position).getCarNumber());
+                Car current = getItem(position);
+                if (position == 0) {
+                    label.setText(current.getType());
+                } else {
+                    label.setText(current.getType() + " - " + current.getCarNumber());
+                }
                 return label;
             }
         };

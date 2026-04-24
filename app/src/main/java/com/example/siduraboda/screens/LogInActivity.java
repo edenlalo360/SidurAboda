@@ -112,7 +112,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onCompleted(Student student) {
                 if (student == null) {
-                    Toast.makeText(LogInActivity.this, "Teacher not found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LogInActivity.this, "משתמש לא נמצא", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

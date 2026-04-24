@@ -101,16 +101,6 @@
 
 
             <Button
-                android:id="@+id/mainTOaddcar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:backgroundTint="#388FC3"
-                android:fontFamily="@font/round_font"
-                android:text="הוספת רכב" />
-
-
-            <Button
                 android:id="@+id/mainTOupdate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -122,19 +112,5 @@
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
-
-    <ImageButton
-        android:id="@+id/btn_sign_out"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="41dp"
-        android:background="#E0F7FA"
-        app:layout_constraintBottom_toBottomOf="@+id/mainTitle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/mainTitle"
-        app:layout_constraintTop_toTopOf="@+id/mainTitle"
-        app:layout_constraintVertical_bias="0.437"
-        app:srcCompat="@drawable/logout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

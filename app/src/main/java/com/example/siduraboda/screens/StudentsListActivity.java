@@ -17,8 +17,10 @@ import com.example.siduraboda.R;
 import com.example.siduraboda.adapters.StudentListAdapter;
 import com.example.siduraboda.models.Student;
 import com.example.siduraboda.services.DatabaseService;
+import com.example.siduraboda.utils.SharedPreferencesUtil;
 
 import java.util.List;
+import java.util.Objects;
 
 public class StudentsListActivity extends AppCompatActivity {
 
@@ -79,6 +81,8 @@ public class StudentsListActivity extends AppCompatActivity {
         DatabaseService.getInstance().getStudentList(new DatabaseService.DatabaseCallback<List<Student>>() {
             @Override
             public void onCompleted(List<Student> students) {
+                String teacherId = SharedPreferencesUtil.getTeacherId(StudentsListActivity.this);
+                students.removeIf(student -> !Objects.equals(student.getTeacherId(), teacherId));
                 listAdapter.setList(students);
             }
 

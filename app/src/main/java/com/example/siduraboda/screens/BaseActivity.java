@@ -1,5 +1,7 @@
 package com.example.siduraboda.screens;
 
+import static android.content.ContentValues.TAG;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -116,7 +118,8 @@ public abstract class BaseActivity extends AppCompatActivity
 
                 // עדכון ב-Firebase
                 databaseService.updateTeacher(currentTeacher.getUid(), teacher -> {
-                    teacher.setProfileImage(base64Image);
+                    if (teacher != null)
+                        teacher.setProfileImage(base64Image);
                     return teacher;
                 }, new DatabaseService.DatabaseCallback<Teacher>() {
                     @Override
@@ -197,10 +200,15 @@ public abstract class BaseActivity extends AppCompatActivity
         if (teacher == null) return;
 
         Menu menu = navigationView.getMenu();
-        SubMenu carSubMenu = menu.addSubMenu("הרכבים שלי");
+        SubMenu carSubMenu = menu.addSubMenu("הרכבים שלי:");
 
         ArrayList<Car> cars = teacher.getCars();
-        if (cars != null) {
+        // בדיקה האם הרשימה ריקה או null
+        if (cars.isEmpty()) {
+            carSubMenu.add(Menu.NONE, Menu.NONE, Menu.NONE, "אין לך רכבים עדיין")
+                    .setEnabled(false); // הופך את הפריט ללא לחיץ
+        }
+        else {
             for (int i = 0; i < cars.size(); i++) {
                 Car car = cars.get(i);
                 String carTitle = "רכב " + (i + 1) + ": " + car.getType();
@@ -211,9 +219,31 @@ public abstract class BaseActivity extends AppCompatActivity
                             intent.putExtra("car", car);
                             startActivity(intent);
                             return false;
+
                         });
             }
         }
+        menu.setGroupDividerEnabled(true);
+
+        // הוספת רכב
+        menu.add("הוסף רכב").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
+                startActivity(new Intent(getApplicationContext(), AddCarActivity.class));
+                return true;
+            }
+        });
+
+        menu.add("התנתק")
+                .setIcon(R.drawable.logout)
+                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(@NonNull MenuItem item) {
+                signOut();
+                return true;
+            }
+        });
+
     }
 
     @Override
@@ -231,4 +261,15 @@ public abstract class BaseActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+    protected void signOut() {
+        Log.d(TAG, "Sign out button clicked");
+        SharedPreferencesUtil.signOutTeacher(getApplicationContext());
+
+        Intent landingIntent = new Intent(getApplicationContext(), LandingActivity.class);
+        landingIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(landingIntent);
+        finish();
+    }
+
 }

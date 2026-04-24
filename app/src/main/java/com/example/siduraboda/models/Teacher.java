@@ -20,7 +20,7 @@ public class Teacher {
     }
 
     public Teacher(String uid, String password, String firstName,
-                   String lastName, String licenseId, String phone, boolean isAdmin, ArrayList<Car> cars) {
+                   String lastName, String licenseId, String phone, boolean isAdmin, ArrayList<Car> cars, String profileImage) {
         this.uid = uid;
         this.password = password;
         this.firstName = firstName;
@@ -29,7 +29,7 @@ public class Teacher {
         this.phone = phone;
         this.isAdmin = isAdmin;
         this.cars = cars;
-        this.profileImage = "";
+        this.profileImage = profileImage;
 
     }
 

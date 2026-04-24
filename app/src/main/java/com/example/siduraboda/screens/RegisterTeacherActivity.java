@@ -22,10 +22,9 @@ import com.example.siduraboda.utils.Validator;
 import java.util.ArrayList;
 
 public class RegisterTeacherActivity extends AppCompatActivity implements View.OnClickListener {
+    DatabaseService databaseService;
     private EditText firstName, lastName, Phone, License, Password;
     private Button btnRegister;
-
-    DatabaseService databaseService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +108,7 @@ public class RegisterTeacherActivity extends AppCompatActivity implements View.O
     private void registerTeacher(String fName, String lName, String phone, String license, String password) {
         String uid = databaseService.generateUserId();
 
-        Teacher teacher = new Teacher(uid, password, fName, lName, license, phone, false, new ArrayList<>());
+        Teacher teacher = new Teacher(uid, password, fName, lName, license, phone, false, new ArrayList<>(), "");
 
         databaseService.checkIfPhoneExists(phone, new DatabaseService.DatabaseCallback<Boolean>() {
             @Override

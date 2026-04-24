@@ -15,11 +15,14 @@ public class Student {
     private Boolean theory;
     private Boolean checkeye;
     private Boolean healthdec;
+    private String teacherId;
 
     public Student() {
     }
 
-    public Student(String id, String Name, Date birthdate, String address, String phone, String password, boolean theory, boolean checkeye, boolean healthdec) {
+    public Student(String id, String Name, Date birthdate, String address,
+                   String phone, String password, boolean theory,
+                   boolean checkeye, boolean healthdec, String teacherId) {
         this.id = id;
         this.Name = Name;
         this.birthdate = birthdate;
@@ -29,6 +32,7 @@ public class Student {
         this.theory = theory;
         this.checkeye = checkeye;
         this.healthdec = healthdec;
+        this.teacherId = teacherId;
     }
 
     public String getId() {
@@ -103,6 +107,14 @@ public class Student {
         this.healthdec = healthdec;
     }
 
+    public String getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
+    }
+
     @NonNull
     @Override
     public String toString() {
@@ -116,6 +128,7 @@ public class Student {
                 ", theory=" + theory +
                 ", checkeye=" + checkeye +
                 ", healthdec=" + healthdec +
+                ", teacherId='" + teacherId + '\'' +
                 '}';
     }
 }

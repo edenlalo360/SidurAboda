@@ -1,6 +1,8 @@
 package com.example.siduraboda.screens;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,16 +10,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import android.widget.Button;
-import android.widget.TextView;
-
+import com.example.siduraboda.R;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
 import java.util.Calendar;
 import java.util.Locale;
-
-import com.example.siduraboda.R;
 
 public class TimePickerActivity extends AppCompatActivity {
 

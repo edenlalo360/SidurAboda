@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.siduraboda.R;
 import com.example.siduraboda.models.Student;
 import com.example.siduraboda.services.DatabaseService;
+import com.example.siduraboda.utils.SharedPreferencesUtil;
 import com.example.siduraboda.utils.Validator;
 
 import java.util.Calendar;
@@ -42,12 +43,12 @@ public class AddStudentActivity extends AppCompatActivity {
         });
         Button button14 = findViewById(R.id.addstudentTOmain); //הוספת תלמיד לדף הבית
         button14.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Intent intent = new Intent(AddStudentActivity.this, MainActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    }
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddStudentActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        }
         );
 
         Name = findViewById(R.id.studentName);
@@ -63,9 +64,20 @@ public class AddStudentActivity extends AppCompatActivity {
         date.setOnClickListener(v -> {
             final Calendar calendar = Calendar.getInstance();
 
+            // 1. חישוב התאריך המקסימלי (היום פחות 16 שנים ו-6 חודשים)
+            Calendar maxDate = Calendar.getInstance();
+            maxDate.add(Calendar.YEAR, -16);
+            maxDate.add(Calendar.MONTH, -6);
+
             DatePickerDialog picker = new DatePickerDialog(this, (view, y, m, d) -> {
                 date.setText(String.format(Locale.getDefault(), "%04d-%02d-%02d", y, m + 1, d));
-            }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            },
+                    maxDate.get(Calendar.YEAR),
+                    maxDate.get(Calendar.MONTH),
+                    maxDate.get(Calendar.DAY_OF_MONTH));
+
+            // 2. הגבלת הלוח כך שלא יהיה ניתן לבחור תאריך מאוחר יותר מהחישוב הנ"ל
+            picker.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
 
             picker.show();
         });
@@ -95,6 +107,7 @@ public class AddStudentActivity extends AppCompatActivity {
                 }
 
                 String studentId = DatabaseService.getInstance().generateStudentId();
+                String teacherId = SharedPreferencesUtil.getTeacherId(this);
 
                 // יצירת אובייקט תלמיד
                 Student newStudent = new Student(
@@ -106,7 +119,8 @@ public class AddStudentActivity extends AppCompatActivity {
                         passwordStr,
                         theoryIsChecked,   // theory
                         eyesIsChecked,   // checkeye
-                        healthIsChecked    // healthdec
+                        healthIsChecked,    // healthdec
+                        teacherId
                 );
 
                 DatabaseService.getInstance().createNewStudent(newStudent, new DatabaseService.DatabaseCallback<Void>() {

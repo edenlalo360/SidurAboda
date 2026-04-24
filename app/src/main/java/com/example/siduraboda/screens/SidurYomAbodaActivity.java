@@ -17,7 +17,6 @@ import com.example.siduraboda.R;
 import com.example.siduraboda.adapters.SidurYomAbodaAdapter;
 import com.example.siduraboda.models.Lesson;
 import com.example.siduraboda.models.Student;
-import com.example.siduraboda.models.Teacher;
 import com.example.siduraboda.services.DatabaseService;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public class SidurYomAbodaActivity extends AppCompatActivity {
     private java.time.LocalDate startOfDisplayedWeek; // יום ראשון של השבוע שמוצג
     private Button[] dayButtons; // מערך לכפתורי הימים
     private android.widget.TextView tvDateHeader; // התאריך למעלה
-    private java.util.List<Lesson> allLessons = new java.util.ArrayList<>(); // כל השיעורים מה-DB
+    private final java.util.List<Lesson> allLessons = new java.util.ArrayList<>(); // כל השיעורים מה-DB
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +137,7 @@ public class SidurYomAbodaActivity extends AppCompatActivity {
         });
 
     }
+
     // פונקציה שמעדכנת את הכפתורים לפי השבוע הנבחר
     private void updateCalendarUI() {
         java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("dd.MM");

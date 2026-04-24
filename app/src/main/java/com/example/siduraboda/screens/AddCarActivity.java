@@ -24,7 +24,6 @@ import com.example.siduraboda.utils.SharedPreferencesUtil;
 import com.example.siduraboda.utils.Validator;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.function.UnaryOperator;
 
@@ -87,11 +86,11 @@ public class AddCarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String type = etType.getText().toString() + "";
-                String carNumber = etNumber.getText().toString() + "";
-                String insuranceDate = etInsuranceDate.getText().toString() + "";
-                String licenseDate = etLicenseDate.getText().toString() + "";
-                String rank = spRank.getSelectedItem().toString() + "";
+                String type = etType.getText().toString();
+                String carNumber = etNumber.getText().toString();
+                String insuranceDate = etInsuranceDate.getText().toString();
+                String licenseDate = etLicenseDate.getText().toString();
+                String rank = spRank.getSelectedItem().toString();
 
                 if (!checkInput(type, rank, carNumber, convertStringToDate(insuranceDate), convertStringToDate(licenseDate))) {
                     Log.d("AddCarActivity", "checkInput returned false");
@@ -144,13 +143,13 @@ public class AddCarActivity extends AppCompatActivity {
         }
 
         if (!Validator.isInsuranceDateValid(insurancedate)) {
-            etInsuranceDate.setError("Please enter the last insurance date");
+            Toast.makeText(AddCarActivity.this, "Please enter the last insurance date", Toast.LENGTH_SHORT).show();
             etInsuranceDate.requestFocus();
             return false;
         }
 
         if (!Validator.isLicenseDateValid(licensecardate)) {
-            etLicenseDate.setError("Please enter the last license date");
+            Toast.makeText(AddCarActivity.this, "Please enter the last license date", Toast.LENGTH_SHORT).show();
             etLicenseDate.requestFocus();
             return false;
         }
