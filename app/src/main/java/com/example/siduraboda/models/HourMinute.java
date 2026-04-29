@@ -49,12 +49,12 @@ public class HourMinute implements Comparable<HourMinute> {
         return hour;
     }
 
-    public int getMinute() {
-        return minute;
-    }
-
     public void setHour(int hour) {
         this.hour = hour;
+    }
+
+    public int getMinute() {
+        return minute;
     }
 
     public void setMinute(int minute) {

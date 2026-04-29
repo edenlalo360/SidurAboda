@@ -9,7 +9,7 @@
     tools:context=".screens.InfoCarActivity">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tv_add_car"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -79,8 +79,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
-                android:focusable="false"
                 android:clickable="true"
+                android:focusable="false"
                 android:hint="תאריך ביטוח אחרון"
                 android:textSize="18sp" />
 
@@ -90,13 +90,13 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:backgroundTint="#0B4F86"
+                android:clickable="true"
+                android:focusable="false"
                 android:fontFamily="@font/round_font"
                 android:gravity="right"
                 android:hint="תאריך רישיון רכב אחרון"
                 android:textColorHint="#0B4F86"
-                android:textSize="18sp"
-                android:focusable="false"
-                android:clickable="true" />
+                android:textSize="18sp" />
 
 
             <Button

@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 public class Teacher {
+    boolean isAdmin;
     private String uid;
     private String password;
     private String firstName;
@@ -12,8 +13,6 @@ public class Teacher {
     private String licenseId;
     private String phone;
     private ArrayList<Car> cars;
-
-    boolean isAdmin;
     private String profileImage;
 
     public Teacher() {
@@ -89,8 +88,13 @@ public class Teacher {
         isAdmin = admin;
     }
 
-    public String getProfileImage() {return profileImage;}
-    public void setProfileImage(String profileImage) {this.profileImage = profileImage;}
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
 
 
     @NonNull

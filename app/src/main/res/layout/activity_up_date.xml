@@ -12,27 +12,27 @@
         android:id="@+id/titleInfoCar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="עדכון פרטים"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/round_font"
         android:gravity="center"
+        android:text="עדכון פרטים"
         android:textColor="#0B4F86"
         android:textSize="36sp"
         android:textStyle="bold"
-        android:fontFamily="@font/round_font"
-        android:layout_marginTop="30dp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="110dp"
+        android:layout_marginEnd="24dp"
         app:cardCornerRadius="28dp"
         app:cardElevation="6dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="110dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.8">
 
         <LinearLayout

@@ -10,7 +10,7 @@
     tools:context=".screens.AddLessonActivity">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tv_add_lesson"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -79,12 +79,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/round_font"
                 android:text="משך השיעור: "
                 android:textAlignment="center"
                 android:textColor="#388FC3"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:fontFamily="@font/round_font" />
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/sp_choose_student"

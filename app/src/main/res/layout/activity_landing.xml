@@ -18,13 +18,13 @@
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ברוכים הבאים"
+            android:layout_marginTop="30dp"
             android:fontFamily="@font/round_font"
             android:gravity="center"
+            android:text="ברוכים הבאים"
             android:textColor="#0B4F86"
             android:textSize="36sp"
             android:textStyle="bold"
-            android:layout_marginTop="30dp"
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
@@ -40,9 +40,9 @@
             android:id="@+id/landingTOlogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="התחבר"
             android:layout_margin="50dp"
             android:backgroundTint="#388FC3"
-            android:fontFamily="@font/round_font" />
+            android:fontFamily="@font/round_font"
+            android:text="התחבר" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,13 +23,12 @@ import java.util.List;
 
 public class SidurYomAbodaActivity extends AppCompatActivity {
 
+    private final java.util.List<Lesson> allLessons = new java.util.ArrayList<>(); // כל השיעורים מה-DB
     SidurYomAbodaAdapter adapter;
     RecyclerView rvWorkday;
-
     private java.time.LocalDate startOfDisplayedWeek; // יום ראשון של השבוע שמוצג
     private Button[] dayButtons; // מערך לכפתורי הימים
     private android.widget.TextView tvDateHeader; // התאריך למעלה
-    private final java.util.List<Lesson> allLessons = new java.util.ArrayList<>(); // כל השיעורים מה-DB
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

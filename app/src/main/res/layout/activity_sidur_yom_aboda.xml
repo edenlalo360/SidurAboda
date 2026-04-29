@@ -28,29 +28,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="+"
                 android:backgroundTint="#388FC3"
-                />
+                android:text="+" />
 
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="#0B4F86"
                 android:fontFamily="@font/round_font"
-                android:textSize="20sp"
-                android:text="תאריך" />
+                android:gravity="center"
+                android:text="תאריך"
+                android:textColor="#0B4F86"
+                android:textSize="20sp" />
 
             <Button
                 android:id="@+id/button10"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="-"
                 android:backgroundTint="#388FC3"
-                />
+                android:text="-" />
 
         </LinearLayout>
 
@@ -65,10 +63,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ו'"
                 android:fontFamily="@font/round_font"
-                android:textSize="15sp"
+                android:text="ו'"
                 android:textColor="#388FC3"
+                android:textSize="15sp"
                 app:iconPadding="0dp"
                 app:iconTint="#E91E63" />
 
@@ -78,10 +76,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ה'"
                 android:fontFamily="@font/round_font"
-                android:textSize="15sp"
-                android:textColor="#388FC3" />
+                android:text="ה'"
+                android:textColor="#388FC3"
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/button15"
@@ -89,10 +87,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ד'"
                 android:fontFamily="@font/round_font"
-                android:textSize="15sp"
-                android:textColor="#388FC3" />
+                android:text="ד'"
+                android:textColor="#388FC3"
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/button18"
@@ -100,10 +98,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ג'"
                 android:fontFamily="@font/round_font"
-                android:textSize="15sp"
-                android:textColor="#388FC3" />
+                android:text="ג'"
+                android:textColor="#388FC3"
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/button19"
@@ -111,10 +109,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="ב'"
                 android:fontFamily="@font/round_font"
-                android:textSize="15sp"
-                android:textColor="#388FC3" />
+                android:text="ב'"
+                android:textColor="#388FC3"
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/button20"
@@ -122,10 +120,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="א'"
                 android:fontFamily="@font/round_font"
-                android:textSize="15sp"
-                android:textColor="#388FC3" />
+                android:text="א'"
+                android:textColor="#388FC3"
+                android:textSize="15sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -148,8 +146,8 @@
         android:id="@+id/siduryomavodaTOmain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="בית"
         android:backgroundTint="#388FC3"
+        android:text="בית"
 
         app:layout_constraintBottom_toBottomOf="parent" />
 

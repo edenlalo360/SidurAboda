@@ -1,11 +1,7 @@
 package com.example.siduraboda.screens;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
@@ -13,7 +9,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.siduraboda.R;
-import com.example.siduraboda.utils.SharedPreferencesUtil;
 
 // שינוי קריטי: יורשים מ-BaseActivity כדי לקבל את תפריט הצד
 public class MainActivity extends BaseActivity {

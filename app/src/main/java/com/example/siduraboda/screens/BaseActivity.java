@@ -1,7 +1,5 @@
 package com.example.siduraboda.screens;
 
-import static android.content.ContentValues.TAG;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -207,8 +205,7 @@ public abstract class BaseActivity extends AppCompatActivity
         if (cars.isEmpty()) {
             carSubMenu.add(Menu.NONE, Menu.NONE, Menu.NONE, "אין לך רכבים עדיין")
                     .setEnabled(false); // הופך את הפריט ללא לחיץ
-        }
-        else {
+        } else {
             for (int i = 0; i < cars.size(); i++) {
                 Car car = cars.get(i);
                 String carTitle = "רכב " + (i + 1) + ": " + car.getType();
@@ -237,12 +234,12 @@ public abstract class BaseActivity extends AppCompatActivity
         menu.add("התנתק")
                 .setIcon(R.drawable.logout)
                 .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(@NonNull MenuItem item) {
-                signOut();
-                return true;
-            }
-        });
+                    @Override
+                    public boolean onMenuItemClick(@NonNull MenuItem item) {
+                        signOut();
+                        return true;
+                    }
+                });
 
     }
 

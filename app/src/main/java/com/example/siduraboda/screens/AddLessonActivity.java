@@ -215,7 +215,8 @@ public class AddLessonActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailed(Exception e) {}
+            public void onFailed(Exception e) {
+            }
         });
 
         DatabaseService.getInstance().getUser(teacherId, new DatabaseService.DatabaseCallback<Teacher>() {
@@ -227,7 +228,8 @@ public class AddLessonActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailed(Exception e) {}
+            public void onFailed(Exception e) {
+            }
         });
     }
 

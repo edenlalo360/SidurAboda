@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.VectorDrawable;
 import android.util.Base64;
 import android.widget.ImageView;
 
@@ -21,6 +20,7 @@ import java.io.ByteArrayOutputStream;
 public class ImageUtil {
 
     /// Request permissions for camera and storage
+    ///
     /// @param activity The activity to request permissions from
     /// @see ActivityCompat#requestPermissions(Activity, String[], int)
     public static void requestPermission(@NotNull Activity activity) {
@@ -34,6 +34,7 @@ public class ImageUtil {
     }
 
     /// Convert an image to a base64 string
+    ///
     /// @param postImage The image to convert
     /// @return The base64 string representation of the image
     public static @Nullable String convertTo64Base(@NotNull final ImageView postImage) {
@@ -48,6 +49,7 @@ public class ImageUtil {
     }
 
     /// Convert a base64 string to an image
+    ///
     /// @param base64Code The base64 string to convert
     /// @return The image represented by the base64 string
     public static @Nullable Bitmap convertFrom64base(@NotNull final String base64Code) {

@@ -1,7 +1,6 @@
 package com.example.siduraboda.models;
 
 import androidx.annotation.NonNull;
-
 import java.util.Date;
 
 public class Student {
@@ -16,13 +15,14 @@ public class Student {
     private Boolean checkeye;
     private Boolean healthdec;
     private String teacherId;
+    private String status; // שדה חדש: "בתהליך", "בטסט", "עבר"
 
     public Student() {
     }
 
     public Student(String id, String Name, Date birthdate, String address,
                    String phone, String password, boolean theory,
-                   boolean checkeye, boolean healthdec, String teacherId) {
+                   boolean checkeye, boolean healthdec, String teacherId, String status) {
         this.id = id;
         this.Name = Name;
         this.birthdate = birthdate;
@@ -33,87 +33,42 @@ public class Student {
         this.checkeye = checkeye;
         this.healthdec = healthdec;
         this.teacherId = teacherId;
+        this.status = status;
     }
 
-    public String getId() {
-        return id;
-    }
+    // Getters and Setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public String getName() { return Name; }
+    public void setName(String name) { Name = name; }
 
-    public String getName() {
-        return Name;
-    }
+    public Date getBirthdate() { return birthdate; }
+    public void setBirthdate(Date birthdate) { this.birthdate = birthdate; }
 
-    public void setName(String name) {
-        Name = name;
-    }
+    public String getAddress() { return address; }
+    public void setAddress(String address) { this.address = address; }
 
-    public Date getBirthdate() {
-        return birthdate;
-    }
+    public String getPhone() { return phone; }
+    public void setPhone(String phone) { this.phone = phone; }
 
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
-    }
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
 
-    public String getAddress() {
-        return address;
-    }
+    public Boolean getTheory() { return theory; }
+    public void setTheory(Boolean theory) { this.theory = theory; }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    public Boolean getCheckeye() { return checkeye; }
+    public void setCheckeye(Boolean checkeye) { this.checkeye = checkeye; }
 
-    public String getPhone() {
-        return phone;
-    }
+    public Boolean getHealthdec() { return healthdec; }
+    public void setHealthdec(Boolean healthdec) { this.healthdec = healthdec; }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+    public String getTeacherId() { return teacherId; }
+    public void setTeacherId(String teacherId) { this.teacherId = teacherId; }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Boolean getTheory() {
-        return theory;
-    }
-
-    public void setTheory(Boolean theory) {
-        this.theory = theory;
-    }
-
-    public Boolean getCheckeye() {
-        return checkeye;
-    }
-
-    public void setCheckeye(Boolean checkeye) {
-        this.checkeye = checkeye;
-    }
-
-    public Boolean getHealthdec() {
-        return healthdec;
-    }
-
-    public void setHealthdec(Boolean healthdec) {
-        this.healthdec = healthdec;
-    }
-
-    public String getTeacherId() {
-        return teacherId;
-    }
-
-    public void setTeacherId(String teacherId) {
-        this.teacherId = teacherId;
-    }
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 
     @NonNull
     @Override
@@ -121,14 +76,8 @@ public class Student {
         return "Student{" +
                 "id='" + id + '\'' +
                 ", Name='" + Name + '\'' +
-                ", birthdate=" + birthdate +
-                ", address='" + address + '\'' +
+                ", status='" + status + '\'' +
                 ", phone='" + phone + '\'' +
-                ", password='" + password + '\'' +
-                ", theory=" + theory +
-                ", checkeye=" + checkeye +
-                ", healthdec=" + healthdec +
-                ", teacherId='" + teacherId + '\'' +
                 '}';
     }
 }

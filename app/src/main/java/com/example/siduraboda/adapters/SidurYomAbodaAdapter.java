@@ -19,16 +19,9 @@ import java.util.Optional;
 
 public class SidurYomAbodaAdapter extends RecyclerView.Adapter<SidurYomAbodaAdapter.ViewHolder> {
 
-    public interface OnClickListener {
-        void onClick(Lesson lesson);
-
-        void onLongClick(Lesson lesson);
-    }
-
     private final List<Lesson> SidurYomAboda;
     private final List<Student> studentList;
     private final SidurYomAbodaAdapter.OnClickListener onClickListener;
-
     public SidurYomAbodaAdapter(@Nullable final SidurYomAbodaAdapter.OnClickListener onClickListener) {
         SidurYomAboda = new ArrayList<>();
         studentList = new ArrayList<>();
@@ -55,7 +48,6 @@ public class SidurYomAbodaAdapter extends RecyclerView.Adapter<SidurYomAbodaAdap
         student.ifPresent(s -> holder.tvStudentName.setText(s.getName()));
         holder.tv_start_time.setText(lesson.getDayAndHours().getStartTime().toString());
         holder.tv_end_time.setText(lesson.getDayAndHours().getEndTime().toString());
-
 
 
         holder.itemView.setOnClickListener(v -> {
@@ -108,6 +100,12 @@ public class SidurYomAbodaAdapter extends RecyclerView.Adapter<SidurYomAbodaAdap
         if (index == -1) return;
         SidurYomAboda.remove(index);
         notifyItemRemoved(index);
+    }
+
+    public interface OnClickListener {
+        void onClick(Lesson lesson);
+
+        void onLongClick(Lesson lesson);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

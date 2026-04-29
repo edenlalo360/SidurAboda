@@ -43,12 +43,12 @@ public class AddStudentActivity extends AppCompatActivity {
         });
         Button button14 = findViewById(R.id.addstudentTOmain); //הוספת תלמיד לדף הבית
         button14.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddStudentActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        }
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(AddStudentActivity.this, MainActivity.class);
+                                            startActivity(intent);
+                                        }
+                                    }
         );
 
         Name = findViewById(R.id.studentName);
