@@ -90,15 +90,6 @@
                 android:fontFamily="@font/round_font"
                 android:text="הוספת תלמיד" />
 
-            <Button
-                android:id="@+id/mainTOinfocar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:backgroundTint="#388FC3"
-                android:fontFamily="@font/round_font"
-                android:text="ניהול רכב" />
-
 
             <Button
                 android:id="@+id/mainTOupdate"

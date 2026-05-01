@@ -69,7 +69,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         }
 
         if (!Validator.isPasswordValid(password)) {
-            etPassword.setError("Password must be at least 6 characters long");
+            etPassword.setError("Password must be at least 4 characters long");
             etPassword.requestFocus();
             return false;
         }

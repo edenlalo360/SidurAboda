@@ -38,6 +38,9 @@
                 android:backgroundTint="#0B4F86"
                 android:fontFamily="@font/round_font"
                 android:gravity="right"
+                android:textDirection="rtl"
+                android:drawableEnd="@drawable/ic_user"
+                android:drawablePadding="8dp"
                 android:hint="שם פרטי"
                 android:textColorHint="#0B4F86"
                 android:textSize="18sp" />
@@ -50,6 +53,9 @@
                 android:backgroundTint="#0B4F86"
                 android:fontFamily="@font/round_font"
                 android:gravity="right"
+                android:textDirection="rtl"
+                android:drawableEnd="@drawable/ic_user"
+                android:drawablePadding="8dp"
                 android:hint="שם משפחה"
                 android:textColorHint="#0B4F86"
                 android:textSize="18sp" />
@@ -62,6 +68,9 @@
                 android:backgroundTint="#0B4F86"
                 android:fontFamily="@font/round_font"
                 android:gravity="right"
+                android:textDirection="rtl"
+                android:drawableEnd="@drawable/ic_phone"
+                android:drawablePadding="8dp"
                 android:hint="מספר טלפון"
                 android:inputType="phone"
                 android:textColorHint="#0B4F86"
@@ -75,23 +84,38 @@
                 android:backgroundTint="#0B4F86"
                 android:fontFamily="@font/round_font"
                 android:gravity="right"
+                android:textDirection="rtl"
+                android:drawableEnd="@drawable/ic_license"
+                android:drawablePadding="8dp"
                 android:hint="מספר רישיון נהיגה"
                 android:inputType="number"
                 android:textColorHint="#0B4F86"
                 android:textSize="18sp" />
 
-            <EditText
-                android:id="@+id/et_register_password"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:backgroundTint="#0B4F86"
-                android:fontFamily="@font/round_font"
-                android:gravity="right"
-                android:hint="סיסמא"
-                android:inputType="number"
-                android:textColorHint="#0B4F86"
-                android:textSize="18sp" />
+                app:hintEnabled="false"
+                app:boxBackgroundMode="none"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="#0B4F86">
+
+                <EditText
+                    android:id="@+id/et_register_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:backgroundTint="#0B4F86"
+                    android:fontFamily="@font/round_font"
+                    android:gravity="right"
+                    android:textDirection="rtl"
+                    android:drawableEnd="@drawable/ic_lock"
+                    android:drawablePadding="8dp"
+                    android:hint="סיסמא"
+                    android:inputType="numberPassword"
+                    android:textColorHint="#0B4F86"
+                    android:textSize="18sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
             <Button
                 android:id="@+id/btnupdate"

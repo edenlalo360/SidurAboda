@@ -11,16 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="12dp"
-        android:layout_direction="rtl">
+        android:padding="12dp">
 
         <TextView
             android:id="@+id/item_lesson_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="12/05/2026"
-            android:textStyle="bold"
-            android:textColor="#0B4F86" />
+            android:textColor="#0B4F86"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/item_lesson_time"

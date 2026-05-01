@@ -46,10 +46,6 @@ public class MainActivity extends BaseActivity {
         findViewById(R.id.mainTOaddstudent).setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, AddStudentActivity.class)));
 
-        // ניהול רכב
-        findViewById(R.id.mainTOinfocar).setOnClickListener(v ->
-                startActivity(new Intent(MainActivity.this, InfoCarActivity.class)));
-
         // עדכון פרטים
         findViewById(R.id.mainTOupdate).setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, UpDateActivity.class)));

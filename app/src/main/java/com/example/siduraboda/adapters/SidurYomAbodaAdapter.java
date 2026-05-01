@@ -22,6 +22,7 @@ public class SidurYomAbodaAdapter extends RecyclerView.Adapter<SidurYomAbodaAdap
     private final List<Lesson> SidurYomAboda;
     private final List<Student> studentList;
     private final SidurYomAbodaAdapter.OnClickListener onClickListener;
+
     public SidurYomAbodaAdapter(@Nullable final SidurYomAbodaAdapter.OnClickListener onClickListener) {
         SidurYomAboda = new ArrayList<>();
         studentList = new ArrayList<>();

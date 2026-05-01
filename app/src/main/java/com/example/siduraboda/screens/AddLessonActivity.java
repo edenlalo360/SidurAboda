@@ -39,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.TimeZone;
 
 public class AddLessonActivity extends AppCompatActivity {
@@ -172,7 +173,7 @@ public class AddLessonActivity extends AppCompatActivity {
             DayAndHours dayAndHours = new DayAndHours(weekday, startTime, endTime);
 
             String lessonId = DatabaseService.getInstance().generateLessonId();
-            Lesson lesson = new Lesson(lessonId, teacherId, selectedStudent.getId(), selectedCar, dayAndHours, selectedDateStr);
+            Lesson lesson = new Lesson(lessonId, teacherId, selectedStudent.getId(), selectedCar, dayAndHours, selectedDateStr, "");
 
             DatabaseService.getInstance().createNewLesson(lesson, new DatabaseService.DatabaseCallback<Void>() {
                 @Override
@@ -211,6 +212,9 @@ public class AddLessonActivity extends AppCompatActivity {
         DatabaseService.getInstance().getStudentList(new DatabaseService.DatabaseCallback<List<Student>>() {
             @Override
             public void onCompleted(List<Student> students) {
+                String teacherId = SharedPreferencesUtil.getTeacherId(AddLessonActivity.this);
+                students.removeIf(student -> !Objects.equals(student.getTeacherId(), teacherId));
+
                 setupStudentSpinner(students);
             }
 

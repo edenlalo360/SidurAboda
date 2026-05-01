@@ -44,13 +44,6 @@ public class UpDateActivity extends AppCompatActivity {
             return insets;
         });
 
-        // כפתור חזרה לבית
-        Button button18 = findViewById(R.id.updateTOmain);
-        button18.setOnClickListener(v ->
-        {
-            Intent intent = new Intent(UpDateActivity.this, MainActivity.class);
-            startActivity(intent);
-        });
 
 
         // שירות DB

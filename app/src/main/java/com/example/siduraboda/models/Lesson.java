@@ -9,7 +9,7 @@ public class Lesson {
     private Car car;
     private DayAndHours dayAndHours;
     private String date;
-    private String teacherNotes; // שדה חדש להערות המורה
+    private String teacherNotes;
 
     public Lesson() {
     }
@@ -25,26 +25,61 @@ public class Lesson {
     }
 
     // Getters and Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public String getId() {
+        return id;
+    }
 
-    public String getTeacherId() { return teacherId; }
-    public void setTeacherId(String teacherId) { this.teacherId = teacherId; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public String getStudentId() { return studentId; }
-    public void setStudentId(String studentId) { this.studentId = studentId; }
+    public String getTeacherId() {
+        return teacherId;
+    }
 
-    public Car getCar() { return car; }
-    public void setCar(Car car) { this.car = car; }
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
+    }
 
-    public DayAndHours getDayAndHours() { return dayAndHours; }
-    public void setDayAndHours(DayAndHours dayAndHours) { this.dayAndHours = dayAndHours; }
+    public String getStudentId() {
+        return studentId;
+    }
 
-    public String getDate() { return date; }
-    public void setDate(String date) { this.date = date; }
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
 
-    public String getTeacherNotes() { return teacherNotes; }
-    public void setTeacherNotes(String teacherNotes) { this.teacherNotes = teacherNotes; }
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public DayAndHours getDayAndHours() {
+        return dayAndHours;
+    }
+
+    public void setDayAndHours(DayAndHours dayAndHours) {
+        this.dayAndHours = dayAndHours;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTeacherNotes() {
+        return teacherNotes;
+    }
+
+    public void setTeacherNotes(String teacherNotes) {
+        this.teacherNotes = teacherNotes;
+    }
 
     @NonNull
     @Override

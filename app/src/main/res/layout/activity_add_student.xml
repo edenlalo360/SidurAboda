@@ -53,6 +53,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:gravity="right"
+                    android:textDirection="rtl"
+                    android:drawableEnd="@drawable/ic_user"
+                    android:drawablePadding="8dp"
                     android:hint="שם התלמיד" />
 
                 <EditText
@@ -60,6 +64,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:gravity="right"
+                    android:textDirection="rtl"
+                    android:drawableEnd="@drawable/ic_calendar"
+                    android:drawablePadding="8dp"
                     android:hint="תאריך לידה"
                     android:inputType="date" />
 
@@ -68,6 +76,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:gravity="right"
+                    android:textDirection="rtl"
+                    android:drawableEnd="@drawable/ic_location"
+                    android:drawablePadding="8dp"
                     android:hint="כתובת מגורים" />
 
                 <EditText
@@ -75,15 +87,34 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
+                    android:gravity="right"
+                    android:textDirection="rtl"
+                    android:drawableEnd="@drawable/ic_phone"
+                    android:drawablePadding="8dp"
                     android:hint="מספר טלפון"
                     android:inputType="phone" />
 
-                <EditText
-                    android:id="@+id/studentPassword"
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:hint="קבע סיסמא לתלמיד" />
+                    app:hintEnabled="false"
+                    app:boxBackgroundMode="none"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="#0B4F86">
+
+                    <EditText
+                        android:id="@+id/studentPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:backgroundTint="#0B4F86"
+                        android:gravity="right"
+                        android:textDirection="rtl"
+                        android:drawableEnd="@drawable/ic_lock"
+                        android:drawablePadding="8dp"
+                        android:hint="קבע סיסמא לתלמיד"
+                        android:inputType="numberPassword" />
+                </com.google.android.material.textfield.TextInputLayout>
 
 
                 <Switch
@@ -126,18 +157,5 @@
         android:layout_marginBottom="26dp"
         android:gravity="center"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-
-        <Button
-            android:id="@+id/addstudentTOmain"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:layout_weight="1"
-            android:backgroundTint="#388FC3"
-            android:fontFamily="@font/round_font"
-            android:text="בית" />
-
-    </LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

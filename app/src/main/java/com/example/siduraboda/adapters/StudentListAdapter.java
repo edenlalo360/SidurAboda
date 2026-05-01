@@ -20,6 +20,7 @@ public class StudentListAdapter extends RecyclerView.Adapter<StudentListAdapter.
 
     private final List<Student> studentList;
     private final OnClickListener onClickListener;
+
     public StudentListAdapter(@Nullable final OnClickListener onClickListener) {
         studentList = new ArrayList<>();
         this.onClickListener = onClickListener;

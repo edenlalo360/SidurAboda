@@ -10,10 +10,10 @@
     android:focusable="true"
     android:foreground="@drawable/ic_launcher_foreground"
     app:cardCornerRadius="12dp"
-
     app:cardElevation="2dp">
 
     <LinearLayout
+        android:background="#9DAFFAFA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
                 android:text="John Doe"
-                android:textColor="?attr/colorOnSurface"
+                android:textColor="#388FC3"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="@tools:sample/full_names" />

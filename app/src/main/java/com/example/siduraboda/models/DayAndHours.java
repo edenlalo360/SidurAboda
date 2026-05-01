@@ -1,5 +1,7 @@
 package com.example.siduraboda.models;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 
@@ -46,5 +48,15 @@ public class DayAndHours {
     @Exclude
     public boolean checkIfClosed() {
         return this.startTime.equals(this.endTime);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "DayAndHours{" +
+                "day=" + day +
+                ", startTime=" + startTime +
+                ", endTime=" + endTime +
+                '}';
     }
 }

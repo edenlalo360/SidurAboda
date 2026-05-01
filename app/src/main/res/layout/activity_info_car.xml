@@ -26,10 +26,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="110dp"
         android:layout_marginEnd="24dp"
         app:cardCornerRadius="28dp"
         app:cardElevation="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -48,10 +48,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:drawableEnd="@drawable/ic_car"
+                android:drawablePadding="8dp"
                 android:fontFamily="@font/round_font"
                 android:gravity="right"
                 android:hint="סוג רכב"
                 android:textColor="#0B4F86"
+                android:textDirection="rtl"
                 android:textSize="18sp" />
 
             <Spinner
@@ -67,12 +70,15 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:backgroundTint="#0B4F86"
+                android:drawableEnd="@drawable/ic_car"
+                android:drawablePadding="8dp"
                 android:editable="false"
                 android:fontFamily="@font/round_font"
                 android:gravity="right"
                 android:hint="מספר רכב"
                 android:inputType="number"
                 android:textColorHint="#0B4F86"
+                android:textDirection="rtl"
                 android:textSize="18sp" />
 
             <EditText
@@ -81,11 +87,14 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:backgroundTint="#0B4F86"
+                android:drawableEnd="@drawable/ic_calendar"
+                android:drawablePadding="8dp"
                 android:fontFamily="@font/round_font"
                 android:gravity="right"
                 android:hint="תאריך ביטוח אחרון"
                 android:inputType="date"
                 android:textColorHint="#0B4F86"
+                android:textDirection="rtl"
                 android:textSize="18sp" />
 
             <EditText
@@ -94,11 +103,14 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:backgroundTint="#0B4F86"
+                android:drawableEnd="@drawable/ic_calendar"
+                android:drawablePadding="8dp"
                 android:fontFamily="@font/round_font"
                 android:gravity="right"
                 android:hint="תאריך רישיון רכב אחרון"
                 android:inputType="date"
                 android:textColorHint="#0B4F86"
+                android:textDirection="rtl"
                 android:textSize="18sp" />
 
             <Button
@@ -112,16 +124,4 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <Button
-        android:id="@+id/updateTOmain"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="30dp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#388FC3"
-        android:fontFamily="@font/round_font"
-        android:text="בית"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

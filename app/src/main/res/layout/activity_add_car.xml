@@ -31,7 +31,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.8">
 
         <LinearLayout
@@ -47,10 +47,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
+                android:drawableEnd="@drawable/ic_car"
+                android:drawablePadding="8dp"
                 android:fontFamily="@font/round_font"
                 android:gravity="right"
                 android:hint="סוג רכב"
                 android:textColor="#0B4F86"
+                android:textDirection="rtl"
                 android:textSize="18sp" />
 
             <Spinner
@@ -66,12 +69,15 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:backgroundTint="#0B4F86"
+                android:drawableEnd="@drawable/ic_car"
+                android:drawablePadding="8dp"
                 android:editable="false"
                 android:fontFamily="@font/round_font"
                 android:gravity="right"
                 android:hint="מספר רכב"
                 android:inputType="number"
                 android:textColorHint="#0B4F86"
+                android:textDirection="rtl"
                 android:textSize="18sp" />
 
             <EditText
@@ -80,8 +86,12 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:clickable="true"
+                android:drawableEnd="@drawable/ic_calendar"
+                android:drawablePadding="8dp"
                 android:focusable="false"
+                android:gravity="right"
                 android:hint="תאריך ביטוח אחרון"
+                android:textDirection="rtl"
                 android:textSize="18sp" />
 
             <EditText
@@ -91,11 +101,14 @@
                 android:layout_margin="20dp"
                 android:backgroundTint="#0B4F86"
                 android:clickable="true"
+                android:drawableEnd="@drawable/ic_calendar"
+                android:drawablePadding="8dp"
                 android:focusable="false"
                 android:fontFamily="@font/round_font"
                 android:gravity="right"
                 android:hint="תאריך רישיון רכב אחרון"
                 android:textColorHint="#0B4F86"
+                android:textDirection="rtl"
                 android:textSize="18sp" />
 
 

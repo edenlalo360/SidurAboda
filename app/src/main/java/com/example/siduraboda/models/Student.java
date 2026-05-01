@@ -1,6 +1,7 @@
 package com.example.siduraboda.models;
 
 import androidx.annotation.NonNull;
+
 import java.util.Date;
 
 public class Student {
@@ -15,7 +16,7 @@ public class Student {
     private Boolean checkeye;
     private Boolean healthdec;
     private String teacherId;
-    private String status; // שדה חדש: "בתהליך", "בטסט", "עבר"
+    private String status; //"בתהליך", "בטסט", "עבר"
 
     public Student() {
     }
@@ -37,38 +38,93 @@ public class Student {
     }
 
     // Getters and Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public String getId() {
+        return id;
+    }
 
-    public String getName() { return Name; }
-    public void setName(String name) { Name = name; }
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public Date getBirthdate() { return birthdate; }
-    public void setBirthdate(Date birthdate) { this.birthdate = birthdate; }
+    public String getName() {
+        return Name;
+    }
 
-    public String getAddress() { return address; }
-    public void setAddress(String address) { this.address = address; }
+    public void setName(String name) {
+        Name = name;
+    }
 
-    public String getPhone() { return phone; }
-    public void setPhone(String phone) { this.phone = phone; }
+    public Date getBirthdate() {
+        return birthdate;
+    }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
+    }
 
-    public Boolean getTheory() { return theory; }
-    public void setTheory(Boolean theory) { this.theory = theory; }
+    public String getAddress() {
+        return address;
+    }
 
-    public Boolean getCheckeye() { return checkeye; }
-    public void setCheckeye(Boolean checkeye) { this.checkeye = checkeye; }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-    public Boolean getHealthdec() { return healthdec; }
-    public void setHealthdec(Boolean healthdec) { this.healthdec = healthdec; }
+    public String getPhone() {
+        return phone;
+    }
 
-    public String getTeacherId() { return teacherId; }
-    public void setTeacherId(String teacherId) { this.teacherId = teacherId; }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Boolean getTheory() {
+        return theory;
+    }
+
+    public void setTheory(Boolean theory) {
+        this.theory = theory;
+    }
+
+    public Boolean getCheckeye() {
+        return checkeye;
+    }
+
+    public void setCheckeye(Boolean checkeye) {
+        this.checkeye = checkeye;
+    }
+
+    public Boolean getHealthdec() {
+        return healthdec;
+    }
+
+    public void setHealthdec(Boolean healthdec) {
+        this.healthdec = healthdec;
+    }
+
+    public String getTeacherId() {
+        return teacherId;
+    }
+
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     @NonNull
     @Override

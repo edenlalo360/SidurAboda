@@ -78,15 +78,6 @@ public class SidurYomAbodaActivity extends AppCompatActivity {
         // 5. הגדרת כפתורי החצים (+ ו -)
         findViewById(R.id.button9).setOnClickListener(v -> moveWeek(7));  // שבוע קדימה
         findViewById(R.id.button10).setOnClickListener(v -> moveWeek(-7)); // שבוע אחורה
-
-        Button button6 = findViewById(R.id.siduryomavodaTOmain); //סידור יום עבודה לעמוד בית
-        button6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(SidurYomAbodaActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
 

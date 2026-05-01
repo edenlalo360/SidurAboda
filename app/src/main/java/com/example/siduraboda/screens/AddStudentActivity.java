@@ -30,6 +30,8 @@ public class AddStudentActivity extends AppCompatActivity {
     private Switch switchTheory, switchEyes, switchHealth;
 
     private Button btnAddStudent;
+    private String editingStudentId = null;
+    private Student editingStudent = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +43,8 @@ public class AddStudentActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        Button button14 = findViewById(R.id.addstudentTOmain); //הוספת תלמיד לדף הבית
-        button14.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            Intent intent = new Intent(AddStudentActivity.this, MainActivity.class);
-                                            startActivity(intent);
-                                        }
-                                    }
-        );
+
+        editingStudentId = getIntent().getStringExtra("EDIT_STUDENT_ID");
 
         Name = findViewById(R.id.studentName);
         date = findViewById(R.id.studentBirth);
@@ -61,10 +56,13 @@ public class AddStudentActivity extends AppCompatActivity {
         switchEyes = findViewById(R.id.switchEyes);
         switchHealth = findViewById(R.id.switchHealth);
 
+        if (editingStudentId != null) {
+            btnAddStudent.setText("עדכון תלמיד");
+            loadStudentData();
+        }
+
         date.setOnClickListener(v -> {
             final Calendar calendar = Calendar.getInstance();
-
-            // 1. חישוב התאריך המקסימלי (היום פחות 16 שנים ו-6 חודשים)
             Calendar maxDate = Calendar.getInstance();
             maxDate.add(Calendar.YEAR, -16);
             maxDate.add(Calendar.MONTH, -6);
@@ -76,9 +74,7 @@ public class AddStudentActivity extends AppCompatActivity {
                     maxDate.get(Calendar.MONTH),
                     maxDate.get(Calendar.DAY_OF_MONTH));
 
-            // 2. הגבלת הלוח כך שלא יהיה ניתן לבחור תאריך מאוחר יותר מהחישוב הנ"ל
             picker.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
-
             picker.show();
         });
 
@@ -95,8 +91,6 @@ public class AddStudentActivity extends AppCompatActivity {
 
 
             if (check(nameStr, phoneStr, addressStr, dateStr, passwordStr)) {
-
-                // המרת תאריך
                 Date dateObj;
                 try {
                     dateObj = new java.text.SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(dateStr);
@@ -106,10 +100,10 @@ public class AddStudentActivity extends AppCompatActivity {
                     return;
                 }
 
-                String studentId = DatabaseService.getInstance().generateStudentId();
+                String studentId = editingStudentId != null ? editingStudentId : DatabaseService.getInstance().generateStudentId();
                 String teacherId = SharedPreferencesUtil.getTeacherId(this);
+                String status = editingStudent != null ? editingStudent.getStatus() : "בתהליך";
 
-                // יצירת אובייקט תלמיד
                 Student newStudent = new Student(
                         studentId,
                         nameStr,
@@ -117,19 +111,22 @@ public class AddStudentActivity extends AppCompatActivity {
                         addressStr,
                         phoneStr,
                         passwordStr,
-                        theoryIsChecked,   // theory
-                        eyesIsChecked,   // checkeye
-                        healthIsChecked,    // healthdec
-                        teacherId
+                        theoryIsChecked,
+                        eyesIsChecked,
+                        healthIsChecked,
+                        teacherId,
+                        status
                 );
 
                 DatabaseService.getInstance().createNewStudent(newStudent, new DatabaseService.DatabaseCallback<Void>() {
                     @Override
                     public void onCompleted(Void object) {
                         runOnUiThread(() -> {
-                            Toast.makeText(AddStudentActivity.this, "Student added successfully!", Toast.LENGTH_SHORT).show();
+                            String msg = editingStudentId != null ? "Student updated successfully!" : "Student added successfully!";
+                            Toast.makeText(AddStudentActivity.this, msg, Toast.LENGTH_SHORT).show();
+                            if (editingStudentId != null) finish();
+                            else ClearFields();
                         });
-                        ClearFields();
                     }
 
                     @Override
@@ -140,9 +137,32 @@ public class AddStudentActivity extends AppCompatActivity {
                     }
                 });
             }
-
         });
+    }
 
+    private void loadStudentData() {
+        DatabaseService.getInstance().getStudent(editingStudentId, new DatabaseService.DatabaseCallback<Student>() {
+            @Override
+            public void onCompleted(Student student) {
+                if (student != null) {
+                    editingStudent = student;
+                    Name.setText(student.getName());
+                    if (student.getBirthdate() != null) {
+                        date.setText(new java.text.SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(student.getBirthdate()));
+                    }
+                    address.setText(student.getAddress());
+                    phone.setText(student.getPhone());
+                    password.setText(student.getPassword());
+                    switchTheory.setChecked(student.getTheory() != null && student.getTheory());
+                    switchEyes.setChecked(student.getCheckeye() != null && student.getCheckeye());
+                    switchHealth.setChecked(student.getHealthdec() != null && student.getHealthdec());
+                }
+            }
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(AddStudentActivity.this, "שגיאה בטעינת נתוני תלמיד", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private boolean check(String name, String phoneNumber, String addressText, String dateText, String Password) {
@@ -151,19 +171,16 @@ public class AddStudentActivity extends AppCompatActivity {
             Name.requestFocus();
             return false;
         }
-
         if (!Validator.isPhoneValid(phoneNumber)) {
             phone.setError("Invalid Phone address");
             phone.requestFocus();
             return false;
         }
-
-        if (addressText == "") {
+        if (addressText.isEmpty()) {
             address.setError("Enter address");
             address.requestFocus();
             return false;
         }
-
         if (dateText.isEmpty()) {
             date.setError("Please enter a date");
             date.requestFocus();
@@ -174,8 +191,6 @@ public class AddStudentActivity extends AppCompatActivity {
             password.requestFocus();
             return false;
         }
-
-
         return true;
     }
 
@@ -188,8 +203,5 @@ public class AddStudentActivity extends AppCompatActivity {
         switchTheory.setChecked(false);
         switchEyes.setChecked(false);
         switchHealth.setChecked(false);
-
-
     }
-
 }
