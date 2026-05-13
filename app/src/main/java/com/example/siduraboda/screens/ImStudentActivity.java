@@ -116,17 +116,17 @@ public class ImStudentActivity extends AppCompatActivity {
             public void onCompleted(Student student) {
                 if (student != null) {
                     tvStudentName.setText("שלום, " + student.getName());
-                    tvStudentPhone.setText("טלפון: " + (student.getPhone() != null ? student.getPhone() : ""));
-                    tvStudentAddress.setText("כתובת: " + (student.getAddress() != null ? student.getAddress() : ""));
+                    tvStudentPhone.setText("📞טלפון: " + (student.getPhone() != null ? student.getPhone() : ""));
+                    tvStudentAddress.setText("📍כתובת: " + (student.getAddress() != null ? student.getAddress() : ""));
                     
                     if (student.getBirthdate() != null) {
                         SimpleDateFormat birthSdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                        tvStudentBirth.setText("תאריך לידה: " + birthSdf.format(student.getBirthdate()));
+                        tvStudentBirth.setText("📅תאריך לידה: " + birthSdf.format(student.getBirthdate()));
                     }
-                    
-                    tvStudentTheory.setText("תיאוריה: " + (student.getTheory() != null && student.getTheory() ? "בוצע" : "לא בוצע"));
-                    tvStudentEyes.setText("בדיקת עיניים: " + (student.getCheckeye() != null && student.getCheckeye() ? "בוצע" : "לא בוצע"));
-                    tvStudentHealth.setText("הצהרת בריאות: " + (student.getHealthdec() != null && student.getHealthdec() ? "בוצע" : "לא בוצע"));
+
+                    tvStudentTheory.setText("📝תיאוריה: " + (student.getTheory() != null && student.getTheory() ? "בוצע" : "לא בוצע"));
+                    tvStudentEyes.setText("👁️בדיקת עיניים: " + (student.getCheckeye() != null && student.getCheckeye() ? "בוצע" : "לא בוצע"));
+                    tvStudentHealth.setText("🏥הצהרת בריאות: " + (student.getHealthdec() != null && student.getHealthdec() ? "בוצע" : "לא בוצע"));
 
                     updateStatusUI(student.getStatus());
 

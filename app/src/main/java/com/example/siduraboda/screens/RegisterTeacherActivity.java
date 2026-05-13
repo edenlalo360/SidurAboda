@@ -96,7 +96,7 @@ public class RegisterTeacherActivity extends AppCompatActivity implements View.O
         }
 
         if (!Validator.isPasswordValid(password)) {
-            Password.setError("Password must be at least 6 characters long");
+            Password.setError("Password must be at least 4 characters long");
             Password.requestFocus();
             return false;
         }

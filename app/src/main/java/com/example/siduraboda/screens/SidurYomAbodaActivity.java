@@ -1,10 +1,9 @@
 package com.example.siduraboda.screens;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-
+import android.widget.TextView;
+import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -12,23 +11,27 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.siduraboda.R;
 import com.example.siduraboda.adapters.SidurYomAbodaAdapter;
 import com.example.siduraboda.models.Lesson;
 import com.example.siduraboda.models.Student;
 import com.example.siduraboda.services.DatabaseService;
-
+import com.example.siduraboda.utils.SharedPreferencesUtil;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SidurYomAbodaActivity extends AppCompatActivity {
 
-    private final java.util.List<Lesson> allLessons = new java.util.ArrayList<>(); // כל השיעורים מה-DB
-    SidurYomAbodaAdapter adapter;
-    RecyclerView rvWorkday;
-    private java.time.LocalDate startOfDisplayedWeek; // יום ראשון של השבוע שמוצג
-    private Button[] dayButtons; // מערך לכפתורי הימים
-    private android.widget.TextView tvDateHeader; // התאריך למעלה
+    private final List<Lesson> allLessons = new ArrayList<>();
+    private SidurYomAbodaAdapter adapter;
+    private RecyclerView rvWorkday;
+    private LocalDate startOfDisplayedWeek;
+    private Button[] dayButtons;
+    private TextView tvDateHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,42 +47,24 @@ public class SidurYomAbodaActivity extends AppCompatActivity {
         rvWorkday = findViewById(R.id.rv_sidur_yom_aboda);
         rvWorkday.setLayoutManager(new LinearLayoutManager(this));
         adapter = new SidurYomAbodaAdapter(new SidurYomAbodaAdapter.OnClickListener() {
-            @Override
-            public void onClick(Lesson lesson) {
-
-            }
-
-            @Override
-            public void onLongClick(Lesson lesson) {
-
-            }
+            @Override public void onClick(Lesson lesson) {}
+            @Override public void onLongClick(Lesson lesson) {}
         });
-
         rvWorkday.setAdapter(adapter);
-        // 1. קישור התאריך למעלה
-        tvDateHeader = findViewById(R.id.textView2);
 
-        // 2. קישור כפתורי הימים למערך (לפי ה-IDs ב-XML שלך)
+        tvDateHeader = findViewById(R.id.textView2);
         dayButtons = new Button[]{
-                findViewById(R.id.button20), // א'
-                findViewById(R.id.button19), // ב'
-                findViewById(R.id.button18), // ג'
-                findViewById(R.id.button15), // ד'
-                findViewById(R.id.button14), // ה'
-                findViewById(R.id.button13)  // ו'
+                findViewById(R.id.button20), findViewById(R.id.button19),
+                findViewById(R.id.button18), findViewById(R.id.button15),
+                findViewById(R.id.button14), findViewById(R.id.button13)
         };
 
-        // 3. הגדרת השבוע הנוכחי (מתחיל ביום ראשון הקרוב/הנוכחי)
-        startOfDisplayedWeek = java.time.LocalDate.now().with(java.time.temporal.TemporalAdjusters.previousOrSame(java.time.DayOfWeek.SUNDAY));
-
-        // 4. עדכון הטקסט על הכפתורים
+        startOfDisplayedWeek = LocalDate.now().with(TemporalAdjusters.previousOrSame(java.time.DayOfWeek.SUNDAY));
         updateCalendarUI();
 
-        // 5. הגדרת כפתורי החצים (+ ו -)
-        findViewById(R.id.button9).setOnClickListener(v -> moveWeek(7));  // שבוע קדימה
-        findViewById(R.id.button10).setOnClickListener(v -> moveWeek(-7)); // שבוע אחורה
+        findViewById(R.id.button9).setOnClickListener(v -> moveWeek(7));
+        findViewById(R.id.button10).setOnClickListener(v -> moveWeek(-7));
     }
-
 
     @Override
     protected void onResume() {
@@ -89,88 +74,75 @@ public class SidurYomAbodaActivity extends AppCompatActivity {
     }
 
     private void loadLessons() {
-        String teacherId = com.example.siduraboda.utils.SharedPreferencesUtil.getTeacherId(this);
-
-        DatabaseService.getInstance().getLessonList(new DatabaseService.DatabaseCallback<>() {
+        String teacherId = SharedPreferencesUtil.getTeacherId(this);
+        DatabaseService.getInstance().getLessonList(new DatabaseService.DatabaseCallback<List<Lesson>>() {
             @Override
-            public void onCompleted(java.util.List<Lesson> lessons) {
+            public void onCompleted(List<Lesson> lessons) {
                 allLessons.clear();
-                // סינון רק השיעורים ששייכים למורה המחובר
                 for (Lesson lesson : lessons) {
                     if (lesson.getTeacherId() != null && lesson.getTeacherId().equals(teacherId)) {
                         allLessons.add(lesson);
                     }
                 }
-                // אחרי שהמידע נטען, נציג את השיעורים של היום הנוכחי
-                filterLessonsByDate(java.time.LocalDate.now());
+                filterLessonsByDate(LocalDate.now());
             }
-
-            @Override
-            public void onFailed(Exception e) {
-                android.widget.Toast.makeText(SidurYomAbodaActivity.this, "שגיאה בטעינת שיעורים", android.widget.Toast.LENGTH_SHORT).show();
-            }
+            @Override public void onFailed(Exception e) { Toast.makeText(SidurYomAbodaActivity.this, "שגיאה בטעינה", Toast.LENGTH_SHORT).show(); }
         });
     }
 
     private void loadUsers() {
         DatabaseService.getInstance().getStudentList(new DatabaseService.DatabaseCallback<List<Student>>() {
-
-            @Override
-            public void onCompleted(List<Student> studentList) {
-                adapter.setStudentList(studentList);
-            }
-
-            @Override
-            public void onFailed(Exception e) {
-
-            }
+            @Override public void onCompleted(List<Student> list) { adapter.setStudentList(list); }
+            @Override public void onFailed(Exception e) {}
         });
-
     }
 
-    // פונקציה שמעדכנת את הכפתורים לפי השבוע הנבחר
     private void updateCalendarUI() {
-        java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("dd.MM");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM");
         String[] dayNames = {"א'", "ב'", "ג'", "ד'", "ה'", "ו'"};
-
         for (int i = 0; i < dayButtons.length; i++) {
-            java.time.LocalDate date = startOfDisplayedWeek.plusDays(i);
+            LocalDate date = startOfDisplayedWeek.plusDays(i);
             dayButtons[i].setText(dayNames[i] + "\n" + date.format(formatter));
-
-            // כשלוחצים על יום, נסנן את הרשימה
-            final java.time.LocalDate finalDate = date;
-            dayButtons[i].setOnClickListener(v -> filterLessonsByDate(finalDate));
+            dayButtons[i].setOnClickListener(v -> filterLessonsByDate(date));
         }
-
-        // עדכון התאריך למעלה
         tvDateHeader.setText(startOfDisplayedWeek.getMonth().name() + " " + startOfDisplayedWeek.getYear());
     }
 
-    // פונקציה להזזת שבוע
     private void moveWeek(int days) {
         startOfDisplayedWeek = startOfDisplayedWeek.plusDays(days);
         updateCalendarUI();
-        // הצגת השיעורים של יום ראשון בשבוע החדש
         filterLessonsByDate(startOfDisplayedWeek);
     }
 
-    // פונקציה לסינון השיעורים לפי תאריך
-    private void filterLessonsByDate(java.time.LocalDate date) {
-        // הפיכת ה-LocalDate לפורמט dd/MM/yyyy כפי שנשמר ב-Firebase
-        java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        String dateStr = date.format(formatter);
+    private void filterLessonsByDate(LocalDate date) {
+        for (int i = 0; i < dayButtons.length; i++) {
+            LocalDate buttonDate = startOfDisplayedWeek.plusDays(i);
 
-        java.util.List<Lesson> filtered = new java.util.ArrayList<>();
+            if (buttonDate.equals(date)) {
+                // יום נבחר - עיגול כחול כהה וטקסט לבן
+                dayButtons[i].setBackgroundResource(R.drawable.button_selected);
+                dayButtons[i].setTextColor(android.graphics.Color.WHITE);
+            } else {
+                // יום רגיל - שקוף וטקסט כחול
+                dayButtons[i].setBackgroundResource(R.drawable.button_border);
+                dayButtons[i].setTextColor(android.graphics.Color.parseColor("#388FC3"));
+            }
+            // ביטול ה-Tint כדי שהצבעים של ה-Drawables יעבדו
+            dayButtons[i].setBackgroundTintList(null);
+        }
 
+        String dateStr = date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        List<Lesson> filtered = new ArrayList<>();
         for (Lesson lesson : allLessons) {
-            // השוואה בין התאריך שנבחר לתאריך של השיעור
             if (lesson.getDate() != null && lesson.getDate().equals(dateStr)) {
                 filtered.add(lesson);
             }
         }
-        adapter.setList(filtered);
 
-        // סימון ויזואלי של היום הנבחר בכותרת
-        tvDateHeader.setText(date.format(java.time.format.DateTimeFormatter.ofPattern("MMMM yyyy", new java.util.Locale("he"))));
+        // --- מיון לפי שעה ---
+        filtered.sort((l1, l2) -> l1.getDayAndHours().getStartTime().toString().compareTo(l2.getDayAndHours().getStartTime().toString()));
+
+        adapter.setList(filtered);
+        tvDateHeader.setText(date.format(DateTimeFormatter.ofPattern("MMMM yyyy", new Locale("he"))));
     }
 }

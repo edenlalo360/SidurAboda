@@ -55,6 +55,9 @@ public class AddLessonActivity extends AppCompatActivity {
     private String selectedStartTimeStr = "";
     private String selectedEndTimeStr = "";
 
+    // רשימה לשמירת השיעורים הקיימים לבדיקת חפיפה
+    private List<Lesson> allExistingLessons = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,20 +85,31 @@ public class AddLessonActivity extends AppCompatActivity {
         btnEndTime.setOnClickListener(v -> showTimePicker(btnEndTime, "שעת סיום", false));
 
         loadSpinnersData();
+        loadExistingLessons(); // טעינת השיעורים מה-DB לצורך בדיקת חפיפה
         btnSubmitLesson.setOnClickListener(v -> CreateLesson());
     }
 
+    private void loadExistingLessons() {
+        DatabaseService.getInstance().getLessonList(new DatabaseService.DatabaseCallback<List<Lesson>>() {
+            @Override
+            public void onCompleted(List<Lesson> lessons) {
+                allExistingLessons = lessons;
+            }
+
+            @Override
+            public void onFailed(Exception e) {}
+        });
+    }
+
     private void showDatePicker() {
-        // 1. יצירת אילוצים (Constraints) - חסימת תאריכים שעברו
         CalendarConstraints constraints = new CalendarConstraints.Builder()
-                .setValidator(DateValidatorPointForward.now()) // מאפשר רק מהיום והלאה
+                .setValidator(DateValidatorPointForward.now())
                 .build();
 
-        // 2. בניית ה-DatePicker עם האילוצים
         MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
                 .setTitleText("בחר תאריך לשיעור")
                 .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                .setCalendarConstraints(constraints) // החלת האילוצים כאן
+                .setCalendarConstraints(constraints)
                 .build();
 
         datePicker.show(getSupportFragmentManager(), "DATE_PICKER");
@@ -127,15 +141,18 @@ public class AddLessonActivity extends AppCompatActivity {
         });
     }
 
+    private int getMinutes(String time) {
+        try {
+            String[] parts = time.split(":");
+            return (Integer.parseInt(parts[0]) * 60) + Integer.parseInt(parts[1]);
+        } catch (Exception e) { return 0; }
+    }
+
     private void calculateDuration() {
         if (!selectedStartTimeStr.isEmpty() && !selectedEndTimeStr.isEmpty()) {
             try {
-                String[] startParts = selectedStartTimeStr.split(":");
-                String[] endParts = selectedEndTimeStr.split(":");
-
-                int startTotalMinutes = (Integer.parseInt(startParts[0]) * 60) + Integer.parseInt(startParts[1]);
-                int endTotalMinutes = (Integer.parseInt(endParts[0]) * 60) + Integer.parseInt(endParts[1]);
-
+                int startTotalMinutes = getMinutes(selectedStartTimeStr);
+                int endTotalMinutes = getMinutes(selectedEndTimeStr);
                 int durationMinutes = endTotalMinutes - startTotalMinutes;
 
                 if (durationMinutes > 0) {
@@ -152,6 +169,25 @@ public class AddLessonActivity extends AppCompatActivity {
                 tvDuration.setText("שגיאה בחישוב המשך");
             }
         }
+    }
+
+    private boolean isLessonOverlapping() {
+        int newStart = getMinutes(selectedStartTimeStr);
+        int newEnd = getMinutes(selectedEndTimeStr);
+
+        for (Lesson lesson : allExistingLessons) {
+            // בודקים רק שיעורים באותו תאריך
+            if (lesson.getDate().equals(selectedDateStr)) {
+                int existStart = getMinutes(lesson.getDayAndHours().getStartTime().toString());
+                int existEnd = getMinutes(lesson.getDayAndHours().getEndTime().toString());
+
+                // לוגיקת חפיפה: אם השיעור החדש מתחיל לפני שהקיים מסתיים, ונגמר אחרי שהקיים מתחיל
+                if (newStart < existEnd && newEnd > existStart) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private void CreateLesson() {
@@ -205,6 +241,24 @@ public class AddLessonActivity extends AppCompatActivity {
             Toast.makeText(this, "אנא בחר תאריך ושעות", Toast.LENGTH_SHORT).show();
             return false;
         }
+
+        int duration = getMinutes(selectedEndTimeStr) - getMinutes(selectedStartTimeStr);
+
+        if (duration <= 0) {
+            Toast.makeText(this, "שעת סיום חייבת להיות אחרי שעת התחלה", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (duration < 40) {
+            Toast.makeText(this, "שיעור חייב להיות לפחות 40 דקות", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (isLessonOverlapping()) {
+            Toast.makeText(this, "קיימת חפיפה בשעה עם שיעור אחר בתאריך זה", Toast.LENGTH_LONG).show();
+            return false;
+        }
+
         return true;
     }
 
@@ -214,13 +268,9 @@ public class AddLessonActivity extends AppCompatActivity {
             public void onCompleted(List<Student> students) {
                 String teacherId = SharedPreferencesUtil.getTeacherId(AddLessonActivity.this);
                 students.removeIf(student -> !Objects.equals(student.getTeacherId(), teacherId));
-
                 setupStudentSpinner(students);
             }
-
-            @Override
-            public void onFailed(Exception e) {
-            }
+            @Override public void onFailed(Exception e) {}
         });
 
         DatabaseService.getInstance().getUser(teacherId, new DatabaseService.DatabaseCallback<Teacher>() {
@@ -230,21 +280,14 @@ public class AddLessonActivity extends AppCompatActivity {
                     setupCarSpinner(teacher.getCars());
                 }
             }
-
-            @Override
-            public void onFailed(Exception e) {
-            }
+            @Override public void onFailed(Exception e) {}
         });
     }
 
     private void setupStudentSpinner(List<Student> students) {
         List<Student> studentList = new ArrayList<>();
-
-        // יצירת אובייקט עם ערכי ברירת מחדל בלי קונסטרקטור חדש
         Student placeholder = new Student();
         placeholder.setName("בחר תלמיד");
-        // אם אין לך קונסטרקטור ריק, תשתמש בקיים ותשלח גרשיים ריקים: new Student("", "בחר תלמיד", ...)
-
         studentList.add(placeholder);
         if (students != null) studentList.addAll(students);
 
@@ -255,7 +298,6 @@ public class AddLessonActivity extends AppCompatActivity {
                 label.setText(getItem(position).getName());
                 return label;
             }
-
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 TextView label = (TextView) super.getDropDownView(position, convertView, parent);
@@ -269,11 +311,8 @@ public class AddLessonActivity extends AppCompatActivity {
 
     private void setupCarSpinner(List<Car> cars) {
         List<Car> carList = new ArrayList<>();
-
-        // יצירת אובייקט ברירת מחדל לרכב
         Car placeholder = new Car();
         placeholder.setType("בחר רכב");
-
         carList.add(placeholder);
         if (cars != null) carList.addAll(cars);
 
@@ -283,23 +322,14 @@ public class AddLessonActivity extends AppCompatActivity {
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView label = (TextView) super.getView(position, convertView, parent);
                 Car current = getItem(position);
-                if (position == 0) {
-                    label.setText(current.getType());
-                } else {
-                    label.setText(current.getType() + " (" + current.getCarNumber() + ")");
-                }
+                label.setText(position == 0 ? current.getType() : current.getType() + " (" + current.getCarNumber() + ")");
                 return label;
             }
-
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 TextView label = (TextView) super.getDropDownView(position, convertView, parent);
                 Car current = getItem(position);
-                if (position == 0) {
-                    label.setText(current.getType());
-                } else {
-                    label.setText(current.getType() + " - " + current.getCarNumber());
-                }
+                label.setText(position == 0 ? current.getType() : current.getType() + " - " + current.getCarNumber());
                 return label;
             }
         };

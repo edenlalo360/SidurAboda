@@ -8,215 +8,243 @@
     android:background="#E0F7FA"
     tools:context=".screens.ImStudentActivity">
 
+    <!-- כותרת עליונה מרשימה -->
     <TextView
         android:id="@+id/tv_im_student"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="32dp"
         android:fontFamily="@font/round_font"
-        android:gravity="center"
         android:text="דף תלמיד אישי"
         android:textColor="#0B4F86"
-        android:textSize="36sp"
+        android:textSize="32sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/card"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="16dp"
-        app:cardBackgroundColor="#E0F7FA"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="6dp"
-        app:layout_constraintBottom_toTopOf="@+id/signoutStudent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_im_student"
-        app:layout_constraintWidth_percent="0.85">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ScrollView
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/signoutStudent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_im_student">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <LinearLayout
+            <!-- כרטיס פרופיל ראשי -->
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#9DAFFAFA"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:padding="36dp">
-
-                <TextView
-                    android:id="@+id/tv_student_name_display"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="תלמיד:"
-                    android:textColor="#0B4F86"
-                    android:textSize="22sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_teacher_name_display"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="מורה: "
-                    android:textColor="#455A64"
-                    android:textSize="16sp" />
+                app:cardCornerRadius="20dp"
+                app:cardBackgroundColor="#9DAFFAFA">
 
                 <LinearLayout
-                    android:layoutDirection="rtl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:background="#9DAFFAFA"
+                    android:gravity="center"
                     android:orientation="vertical"
-                    android:padding="12dp">
+                    android:padding="24dp">
+
+                    <TextView
+                        android:id="@+id/tv_student_name_display"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="שלום, ישראל ישראלי"
+                        android:textColor="#0B4F86"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_teacher_name_display"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="מורה נהיגה: אבי לוי"
+                        android:textColor="#546E7A"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- כרטיס פרטים אישיים -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardBackgroundColor="#9DAFFAFA">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layoutDirection="rtl"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="פרטים אישיים:"
+                        android:layout_marginBottom="12dp"
+                        android:text="פרטים אישיים"
                         android:textColor="#0B4F86"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tv_student_phone"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="טלפון: -" />
-
+                        android:text="📞 טלפון: -"
+                        android:layout_marginBottom="4dp"/>
                     <TextView
                         android:id="@+id/tv_student_address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="כתובת: -" />
-
+                        android:text="📍 כתובת: -"
+                        android:layout_marginBottom="4dp"/>
                     <TextView
                         android:id="@+id/tv_student_birthdate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="תאריך לידה: -" />
-
+                        android:text="📅 תאריך לידה: -"
+                        android:layout_marginBottom="4dp"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E0E0E0"
+                        android:layout_marginVertical="8dp"/>
                     <TextView
                         android:id="@+id/tv_student_theory"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="תיאוריה: -" />
-
+                        android:text="📝 תיאוריה: -"
+                        android:layout_marginBottom="4dp"/>
                     <TextView
                         android:id="@+id/tv_student_eyes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="בדיקת עיניים: -" />
-
+                        android:text="👁️ בדיקת עיניים: -"
+                        android:layout_marginBottom="4dp"/>
                     <TextView
                         android:id="@+id/tv_student_health"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="הצהרת בריאות: -" />
+                        android:text="🏥 הצהרת בריאות: -" />
+
+
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:layoutDirection="rtl">
-
-                    <TextView
-                        android:id="@+id/status_process"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_status_inactive"
-                        android:padding="10dp"
-                        android:text="בתהליך"
-                        android:textColor="#FFFFFF" />
-
-                    <View
-                        android:layout_width="30dp"
-                        android:layout_height="2dp"
-                        android:background="#0B4F86" />
-
-                    <TextView
-                        android:id="@+id/status_test"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_status_inactive"
-                        android:padding="10dp"
-                        android:text="בטסט"
-                        android:textColor="#FFFFFF" />
-
-                    <View
-                        android:layout_width="30dp"
-                        android:layout_height="2dp"
-                        android:background="#0B4F86" />
-
-                    <TextView
-                        android:id="@+id/status_passed"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/bg_status_inactive"
-                        android:padding="10dp"
-                        android:text="עבר"
-                        android:textColor="#FFFFFF" />
-                </LinearLayout>
+            <!-- ציר זמן סטטוס למידה -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layoutDirection="rtl">
 
                 <TextView
+                    android:id="@+id/status_process"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="שיעורים עתידיים:"
-                    android:textStyle="bold" />
+                    android:background="@drawable/bg_status_inactive"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    android:text="בתהליך"
+                    android:textColor="#FFFFFF" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_future_lessons"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp" />
+                <View android:layout_width="30dp" android:layout_height="2dp" android:background="#0B4F86" />
 
                 <TextView
-                    android:id="@+id/tv_no_future_lessons"
+                    android:id="@+id/status_test"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="אין עדיין שיעורים עתידיים"
-                    android:textColor="#757575"
-                    android:visibility="gone" />
+                    android:background="@drawable/bg_status_inactive"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    android:text="בטסט"
+                    android:textColor="#FFFFFF" />
+
+                <View android:layout_width="30dp" android:layout_height="2dp" android:background="#0B4F86" />
 
                 <TextView
+                    android:id="@+id/status_passed"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="שיעורים שהסתיימו והערות:"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_past_lessons"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:nestedScrollingEnabled="false" />
-
-                <TextView
-                    android:id="@+id/tv_no_past_lessons"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="אין עדיין שיעורים שהסתיימו"
-                    android:textColor="#757575"
-                    android:visibility="gone" />
-
-
+                    android:background="@drawable/bg_status_inactive"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    android:text="עבר"
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
-        </ScrollView>
-    </com.google.android.material.card.MaterialCardView>
+
+            <!-- שיעורים עתידיים -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_gravity="right"
+                android:text="שיעורים עתידיים"
+                android:textColor="#0B4F86"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_future_lessons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:nestedScrollingEnabled="false" />
+
+            <TextView
+                android:id="@+id/tv_no_future_lessons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="אין עדיין שיעורים עתידיים"
+                android:textColor="#757575"
+                android:visibility="gone" />
+
+            <!-- שיעורים שהסתיימו -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_gravity="right"
+                android:text="שיעורים שהסתיימו"
+                android:textColor="#0B4F86"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_past_lessons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:nestedScrollingEnabled="false" />
+
+            <TextView
+                android:id="@+id/tv_no_past_lessons"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:text="אין עדיין שיעורים שהסתיימו"
+                android:textColor="#757575"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <Button
         android:id="@+id/signoutStudent"
@@ -229,6 +257,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
