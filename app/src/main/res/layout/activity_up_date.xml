@@ -9,10 +9,10 @@
     tools:context=".screens.InfoCarActivity">
 
     <TextView
-        android:id="@+id/titleInfoCar"
+        android:id="@+id/titleUpdate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/round_font"
         android:gravity="center"
         android:text="עדכון פרטים"
@@ -26,120 +26,145 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="6dp"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.8">
+        app:layout_constraintTop_toBottomOf="@id/titleUpdate">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#9DAFFAFA"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="0dp">
+            android:scrollbars="none">
 
-            <EditText
-                android:id="@+id/et_register_first_name"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:backgroundTint="#0B4F86"
-                android:fontFamily="@font/round_font"
-                android:gravity="right"
-                android:textDirection="rtl"
-                android:drawableEnd="@drawable/ic_user"
-                android:drawablePadding="8dp"
-                android:hint="שם פרטי"
-                android:textColorHint="#0B4F86"
-                android:textSize="18sp" />
+                android:background="#9DAFFAFA"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="24dp">
 
-            <EditText
-                android:id="@+id/et_register_last_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:backgroundTint="#0B4F86"
-                android:fontFamily="@font/round_font"
-                android:gravity="right"
-                android:textDirection="rtl"
-                android:drawableEnd="@drawable/ic_user"
-                android:drawablePadding="8dp"
-                android:hint="שם משפחה"
-                android:textColorHint="#0B4F86"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/et_register_phone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:backgroundTint="#0B4F86"
-                android:fontFamily="@font/round_font"
-                android:gravity="right"
-                android:textDirection="rtl"
-                android:drawableEnd="@drawable/ic_phone"
-                android:drawablePadding="8dp"
-                android:hint="מספר טלפון"
-                android:inputType="phone"
-                android:textColorHint="#0B4F86"
-                android:textSize="18sp" />
-
-            <EditText
-                android:id="@+id/et_register_num_license"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:backgroundTint="#0B4F86"
-                android:fontFamily="@font/round_font"
-                android:gravity="right"
-                android:textDirection="rtl"
-                android:drawableEnd="@drawable/ic_license"
-                android:drawablePadding="8dp"
-                android:hint="מספר רישיון נהיגה"
-                android:inputType="number"
-                android:textColorHint="#0B4F86"
-                android:textSize="18sp" />
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:hintEnabled="false"
-                app:boxBackgroundMode="none"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleTint="#0B4F86">
-
+                <!-- שם פרטי -->
                 <EditText
-                    android:id="@+id/et_register_password"
+                    android:id="@+id/et_register_first_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:fontFamily="@font/round_font"
+                    android:gravity="right|center_vertical"
+                    android:hint="👤 שם פרטי"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="#0B4F86"
+                    android:textColorHint="#0B4F86"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:drawableStart="@null"
+                    android:drawableEnd="@null" />
+
+                <!-- שם משפחה -->
+                <EditText
+                    android:id="@+id/et_register_last_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:fontFamily="@font/round_font"
+                    android:gravity="right|center_vertical"
+                    android:hint="👤 שם משפחה"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="#0B4F86"
+                    android:textColorHint="#0B4F86"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:drawableStart="@null"
+                    android:drawableEnd="@null" />
+
+                <!-- מספר טלפון -->
+                <EditText
+                    android:id="@+id/et_register_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:fontFamily="@font/round_font"
+                    android:gravity="right|center_vertical"
+                    android:hint="מספר טלפון 📞"
+                    android:inputType="phone"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="#0B4F86"
+                    android:textColorHint="#0B4F86"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:drawableStart="@null"
+                    android:drawableEnd="@null" />
+
+                <!-- מספר רישיון -->
+                <EditText
+                    android:id="@+id/et_register_num_license"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:fontFamily="@font/round_font"
+                    android:gravity="right|center_vertical"
+                    android:hint="🪪 מספר רישיון"
+                    android:inputType="number"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="#0B4F86"
+                    android:textColorHint="#0B4F86"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:drawableStart="@null"
+                    android:drawableEnd="@null" />
+
+                <!-- סיסמה -->
+                <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:backgroundTint="#0B4F86"
+                    app:hintEnabled="false"
+                    app:boxBackgroundMode="none"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="#0B4F86">
+
+                    <EditText
+                        android:id="@+id/et_register_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginBottom="24dp"
+                        android:background="@drawable/rounded_edittext"
+                        android:fontFamily="@font/round_font"
+                        android:gravity="right|center_vertical"
+                        android:hint=" סיסמה"
+                        android:inputType="numberPassword"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="#0B4F86"
+                        android:textColorHint="#0B4F86"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:drawableStart="@null"
+                        android:drawableEnd="@null" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- כפתור עדכון -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnupdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:backgroundTint="#388FC3"
                     android:fontFamily="@font/round_font"
-                    android:gravity="right"
-                    android:textDirection="rtl"
-                    android:drawableEnd="@drawable/ic_lock"
-                    android:drawablePadding="8dp"
-                    android:hint="סיסמא"
-                    android:inputType="numberPassword"
-                    android:textColorHint="#0B4F86"
-                    android:textSize="18sp" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:text=" עדכון פרטים 🔄"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="30dp"
+                    app:elevation="6dp" />
 
-            <Button
-                android:id="@+id/btnupdate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:backgroundTint="#388FC3"
-                android:fontFamily="@font/round_font"
-                android:text="עדכון" />
-
-        </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

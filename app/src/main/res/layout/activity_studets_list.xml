@@ -6,51 +6,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E0F7FA"
-
     tools:context=".screens.StudentsListActivity">
 
-    <LinearLayout
-        android:id="@+id/topRow"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/searchCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="4dp"
+        app:strokeWidth="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/editTextText"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="חיפוש תלמיד"
-            android:inputType="text" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#FFFFFF"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="16dp">
 
-        <Button
-            android:id="@+id/plusstudents"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#388FC3"
-            android:fontFamily="@font/round_font"
-            android:text="+" />
 
-    </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/plusstudents"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:backgroundTint="#388FC3"
+                android:fontFamily="@font/round_font"
+                android:text="+"
+                android:textColor="#FFFFFF"
+                android:textSize="28sp"
+                android:gravity="center"
+                android:padding="0dp"
+                app:paddingStart="0dp"
+                app:paddingEnd="0dp"
+                app:cornerRadius="12dp" />
+
+            <EditText
+                android:id="@+id/editTextText"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="12dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:drawableEnd="@android:drawable/ic_menu_search"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/round_font"
+                android:gravity="right|center_vertical"
+                android:hint="חיפוש תלמיד..."
+                android:inputType="text"
+                android:textColor="#0B4F86"
+                android:textColorHint="#800B4F86"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/studentsRecycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topRow"
+        app:layout_constraintTop_toBottomOf="@+id/searchCard"
         tools:listitem="@layout/item_student" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

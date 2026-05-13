@@ -8,12 +8,11 @@
     android:background="#E0F7FA"
     tools:context=".screens.AddStudentActivity">
 
-
     <TextView
         android:id="@+id/addStudentTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/round_font"
         android:gravity="center"
         android:text="הוספת תלמיד"
@@ -27,18 +26,18 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="6dp"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.85">
+        app:layout_constraintTop_toBottomOf="@id/addStudentTitle">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,54 +45,83 @@
                 android:background="#9DAFFAFA"
                 android:gravity="center_horizontal"
                 android:orientation="vertical"
-                android:padding="36dp">
+                android:padding="24dp">
 
+                <!-- שם התלמיד -->
                 <EditText
                     android:id="@+id/studentName"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:gravity="right"
-                    android:textDirection="rtl"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/rounded_edittext"
                     android:drawableEnd="@drawable/ic_user"
-                    android:drawablePadding="8dp"
-                    android:hint="שם התלמיד" />
+                    android:drawablePadding="12dp"
+                    android:fontFamily="@font/round_font"
+                    android:gravity="right|center_vertical"
+                    android:hint="שם התלמיד"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="#0B4F86"
+                    android:textColorHint="#0B4F86"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
 
+                <!-- תאריך לידה -->
                 <EditText
                     android:id="@+id/studentBirth"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:gravity="right"
-                    android:textDirection="rtl"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/rounded_edittext"
                     android:drawableEnd="@drawable/ic_calendar"
-                    android:drawablePadding="8dp"
+                    android:drawablePadding="12dp"
+                    android:fontFamily="@font/round_font"
+                    android:gravity="right|center_vertical"
                     android:hint="תאריך לידה"
-                    android:inputType="date" />
+                    android:inputType="date"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="#0B4F86"
+                    android:textColorHint="#0B4F86"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
 
+                <!-- כתובת מגורים -->
                 <EditText
                     android:id="@+id/studentAddress"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:gravity="right"
-                    android:textDirection="rtl"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/rounded_edittext"
                     android:drawableEnd="@drawable/ic_location"
-                    android:drawablePadding="8dp"
-                    android:hint="כתובת מגורים" />
+                    android:drawablePadding="12dp"
+                    android:fontFamily="@font/round_font"
+                    android:gravity="right|center_vertical"
+                    android:hint="כתובת מגורים"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="#0B4F86"
+                    android:textColorHint="#0B4F86"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
 
+                <!-- מספר טלפון -->
                 <EditText
                     android:id="@+id/studentPhone"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:gravity="right"
-                    android:textDirection="rtl"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/rounded_edittext"
                     android:drawableEnd="@drawable/ic_phone"
-                    android:drawablePadding="8dp"
+                    android:drawablePadding="12dp"
+                    android:fontFamily="@font/round_font"
+                    android:gravity="right|center_vertical"
                     android:hint="מספר טלפון"
-                    android:inputType="phone" />
+                    android:inputType="phone"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="#0B4F86"
+                    android:textColorHint="#0B4F86"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
 
+                <!-- סיסמה עם עין לחשיפה -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -105,57 +133,78 @@
                     <EditText
                         android:id="@+id/studentPassword"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:backgroundTint="#0B4F86"
-                        android:gravity="right"
-                        android:textDirection="rtl"
+                        android:layout_height="55dp"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/rounded_edittext"
                         android:drawableEnd="@drawable/ic_lock"
-                        android:drawablePadding="8dp"
+                        android:drawablePadding="12dp"
+                        android:fontFamily="@font/round_font"
+                        android:gravity="right|center_vertical"
                         android:hint="קבע סיסמא לתלמיד"
-                        android:inputType="numberPassword" />
+                        android:inputType="numberPassword"
+                        android:paddingHorizontal="20dp"
+                        android:textColor="#0B4F86"
+                        android:textColorHint="#0B4F86"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-
-                <Switch
-                    android:id="@+id/switchTheory"
+                <!-- אזור הסטטוסים (Switches) -->
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="תיאוריה" />
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="8dp">
 
-                <Switch
-                    android:id="@+id/switchEyes"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="בדיקת עיניים" />
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchTheory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/round_font"
+                        android:text=" עבר תיאוריה ✅"
+                        android:textColor="#0B4F86"
+                        android:textStyle="bold"
+                        android:textDirection="rtl" />
 
-                <Switch
-                    android:id="@+id/switchHealth"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:text="הצהרת בריאות" />
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchEyes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/round_font"
+                        android:text=" בדיקת עיניים 👁"
+                        android:textColor="#0B4F86"
+                        android:textStyle="bold"
+                        android:textDirection="rtl" />
 
-                <Button
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/switchHealth"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/round_font"
+                        android:text=" הצהרת בריאות 📜"
+                        android:textColor="#0B4F86"
+                        android:textStyle="bold"
+                        android:textDirection="rtl" />
+                </LinearLayout>
+
+                <!-- כפתור הוספה -->
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_AddStudent"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_height="60dp"
                     android:backgroundTint="#388FC3"
                     android:fontFamily="@font/round_font"
-                    android:text="הוספה" />
+                    android:text="הוספת תלמיד"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="30dp"
+                    app:elevation="4dp" />
 
             </LinearLayout>
         </ScrollView>
     </com.google.android.material.card.MaterialCardView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="26dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

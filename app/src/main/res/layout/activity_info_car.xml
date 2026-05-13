@@ -12,7 +12,7 @@
         android:id="@+id/titleInfoCar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/round_font"
         android:gravity="center"
         android:text="אודות הרכב"
@@ -26,102 +26,120 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.8">
+        app:layout_constraintTop_toBottomOf="@id/titleInfoCar">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#9DAFFAFA"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="36dp">
+            android:layout_height="wrap_content"
+            android:scrollbars="none">
 
-            <EditText
-                android:id="@+id/type"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:drawableEnd="@drawable/ic_car"
-                android:drawablePadding="8dp"
-                android:fontFamily="@font/round_font"
-                android:gravity="right"
-                android:hint="סוג רכב"
-                android:textColor="#0B4F86"
-                android:textDirection="rtl"
-                android:textSize="18sp" />
+                android:background="#9DAFFAFA"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="24dp">
 
-            <Spinner
-                android:id="@+id/spinnerRank"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:backgroundTint="#0B4F86" />
+                <!-- סוג רכב - הוסר ה-drawableEnd -->
+                <EditText
+                    android:id="@+id/type"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:fontFamily="@font/round_font"
+                    android:gravity="right|center_vertical"
+                    android:hint="🚘 סוג רכב"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="#0B4F86"
+                    android:textColorHint="#0B4F86"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/carNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:backgroundTint="#0B4F86"
-                android:drawableEnd="@drawable/ic_car"
-                android:drawablePadding="8dp"
-                android:editable="false"
-                android:fontFamily="@font/round_font"
-                android:gravity="right"
-                android:hint="מספר רכב"
-                android:inputType="number"
-                android:textColorHint="#0B4F86"
-                android:textDirection="rtl"
-                android:textSize="18sp" />
+                <!-- בחירת דרגה -->
 
-            <EditText
-                android:id="@+id/insuranceDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:backgroundTint="#0B4F86"
-                android:drawableEnd="@drawable/ic_calendar"
-                android:drawablePadding="8dp"
-                android:fontFamily="@font/round_font"
-                android:gravity="right"
-                android:hint="תאריך ביטוח אחרון"
-                android:inputType="date"
-                android:textColorHint="#0B4F86"
-                android:textDirection="rtl"
-                android:textSize="18sp" />
+                <Spinner
+                    android:id="@+id/spinnerRank"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/rounded_edittext" />
 
-            <EditText
-                android:id="@+id/licensecarDate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:backgroundTint="#0B4F86"
-                android:drawableEnd="@drawable/ic_calendar"
-                android:drawablePadding="8dp"
-                android:fontFamily="@font/round_font"
-                android:gravity="right"
-                android:hint="תאריך רישיון רכב אחרון"
-                android:inputType="date"
-                android:textColorHint="#0B4F86"
-                android:textDirection="rtl"
-                android:textSize="18sp" />
+                <!-- מספר רכב - הוסר ה-drawableEnd -->
+                <EditText
+                    android:id="@+id/carNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:fontFamily="@font/round_font"
+                    android:gravity="right|center_vertical"
+                    android:hint="🔢 מספר רכב"
+                    android:inputType="number"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="#0B4F86"
+                    android:textColorHint="#0B4F86"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
 
-            <Button
-                android:id="@+id/editBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#388FC3"
-                android:fontFamily="@font/round_font"
-                android:text="עריכה" />
+                <!-- תאריך ביטוח - הוסר ה-drawableEnd -->
+                <EditText
+                    android:id="@+id/insuranceDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:fontFamily="@font/round_font"
+                    android:gravity="right|center_vertical"
+                    android:hint="🛡️ תאריך ביטוח אחרון"
+                    android:inputType="date"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="#0B4F86"
+                    android:textColorHint="#0B4F86"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
 
-        </LinearLayout>
+                <!-- תאריך רישיון רכב - הוסר ה-drawableEnd -->
+                <EditText
+                    android:id="@+id/licensecarDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginBottom="24dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:fontFamily="@font/round_font"
+                    android:gravity="right|center_vertical"
+                    android:hint="📄 רישיון רכב אחרון"
+                    android:inputType="date"
+                    android:paddingHorizontal="20dp"
+                    android:textColor="#0B4F86"
+                    android:textColorHint="#0B4F86"
+                    android:textStyle="bold"
+                    android:textSize="16sp" />
+
+                <!-- כפתור עריכה -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/editBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:backgroundTint="#388FC3"
+                    android:fontFamily="@font/round_font"
+                    android:text=" עריכת פרטים 🔄"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="30dp"
+                    app:elevation="6dp" />
+
+            </LinearLayout>
+        </ScrollView>
     </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

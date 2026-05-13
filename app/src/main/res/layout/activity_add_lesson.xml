@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E0F7FA"
-
     tools:context=".screens.AddLessonActivity">
 
+    <!-- כותרת עליונה -->
     <TextView
         android:id="@+id/tv_add_lesson"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/round_font"
         android:gravity="center"
         android:text="קביעת שיעור"
@@ -22,98 +22,148 @@
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- כרטיס הזנת נתונים -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="24dp"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.8">
+        app:layout_constraintTop_toBottomOf="@id/tv_add_lesson">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#9DAFFAFA"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:padding="36dp">
+            android:padding="24dp">
 
-            <Button
+            <!-- בחירת תאריך -->
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_date_picker"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="#388FC3"
+                android:layout_height="60dp"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="#FFFFFF"
                 android:fontFamily="@font/round_font"
-                android:text="בחר תאריך" />
+                android:text=" בחר תאריך 📅"
+                android:textColor="#0B4F86"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:cornerRadius="15dp"
+                app:strokeColor="#388FC3"
+                app:strokeWidth="2dp" />
 
-            <Button
-                android:id="@+id/btn_start_time_picker"
+            <!-- שורת זמנים (התחלה וסיום) -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="#388FC3"
-                android:fontFamily="@font/round_font"
-                android:text="שעת התחלה" />
+                android:orientation="horizontal"
+                android:weightSum="2">
 
-            <Button
-                android:id="@+id/btn_end_time_picker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:layout_marginBottom="16dp"
-                android:backgroundTint="#388FC3"
-                android:fontFamily="@font/round_font"
-                android:text="שעת סיום" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_end_time_picker"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_height="60dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:fontFamily="@font/round_font"
+                    android:text="🕘 סיום"
+                    android:textColor="#0B4F86"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="15dp"
+                    app:strokeColor="#388FC3"
+                    app:strokeWidth="2dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_start_time_picker"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:fontFamily="@font/round_font"
+                    android:text="🕒 התחלה"
+                    android:textColor="#0B4F86"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="15dp"
+                    app:strokeColor="#388FC3"
+                    app:strokeWidth="2dp" />
+
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_lesson_duration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="30dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
                 android:fontFamily="@font/round_font"
-                android:text="משך השיעור: "
+                android:text="משך השיעור: --"
                 android:textAlignment="center"
-                android:textColor="#388FC3"
-                android:textSize="16sp"
+                android:textColor="#0B4F86"
+                android:textSize="14sp"
                 android:textStyle="bold" />
+
+            <!-- בחירת תלמיד ורכב (Spinners מעוצבים כתיבות) -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="👤 בחר תלמיד:"
+                android:textColor="#0B4F86"
+                android:textSize="14sp"
+                android:layout_marginHorizontal="8dp"
+                android:textStyle="bold"/>
 
             <Spinner
                 android:id="@+id/sp_choose_student"
                 android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="12dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:backgroundTint="#0B4F86" />
+                android:text="🚗 בחר רכב:"
+                android:textColor="#0B4F86"
+                android:textSize="14sp"
+                android:layout_marginHorizontal="8dp"
+                android:textStyle="bold"/>
 
             <Spinner
                 android:id="@+id/sp_choose_car"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:backgroundTint="#0B4F86" />
+                android:layout_height="45dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="24dp"/>
 
-
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_lesson_submit"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:layout_marginBottom="16dp"
+                android:layout_height="60dp"
                 android:backgroundTint="#388FC3"
                 android:fontFamily="@font/round_font"
-                android:text="קבע" />
-
+                android:text=" קבע שיעור ✅"
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:cornerRadius="30dp"
+                app:elevation="6dp" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

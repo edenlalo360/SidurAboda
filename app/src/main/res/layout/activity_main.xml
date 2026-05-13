@@ -8,13 +8,13 @@
     android:background="#E0F7FA"
     tools:context=".screens.MainActivity">
 
+    <!-- כותרת עליונה -->
     <TextView
         android:id="@+id/mainTitle"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="50dp"
         android:fontFamily="@font/round_font"
-        android:gravity="center"
         android:text="תפריט ראשי"
         android:textColor="#0B4F86"
         android:textSize="36sp"
@@ -23,83 +23,183 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/subTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/round_font"
+        android:text="מרכז השליטה למורה הנהיגה 🚗"
+        android:textColor="#0B4F86"
+        android:alpha="0.8"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/mainTitle" />
+
+    <!-- הכרטיס המרכזי -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="110dp"
-        android:layout_marginEnd="24dp"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="6dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        app:cardCornerRadius="32dp"
+        app:cardElevation="12dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.8">
+        app:layout_constraintTop_toBottomOf="@id/subTitle">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#9DAFFAFA"
-            android:gravity="center_horizontal"
+            android:gravity="center"
             android:orientation="vertical"
-            android:padding="36dp">
+            android:padding="16dp">
 
-            <Button
-                android:id="@+id/mainTOsiduryomavoda"
+            <!-- שורה 1 -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:backgroundTint="#388FC3"
-                android:fontFamily="@font/round_font"
-                android:text="סידור יום עבודה" />
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/mainTOaddlesson"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mainTOsiduryomavoda"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:drawableTop="@drawable/ic_calendar"
+                    android:fontFamily="@font/round_font"
+                    android:text="📅\nסידור יום"
+                    android:textColor="#0B4F86"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="24dp"
+                    app:strokeColor="#388FC3"
+                    app:strokeWidth="2dp"
+                    app:iconGravity="top"
+                    app:iconPadding="8dp"
+                    app:iconTint="#388FC3" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mainTOaddlesson"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:fontFamily="@font/round_font"
+                    android:text="🕐\nקביעת שיעור"
+                    android:textColor="#0B4F86"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="24dp"
+                    app:strokeColor="#388FC3"
+                    app:strokeWidth="2dp"
+                    app:iconGravity="top"
+                    app:iconPadding="8dp"
+                    app:iconTint="#388FC3" />
+            </LinearLayout>
+
+            <!-- שורה 2 -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:backgroundTint="#388FC3"
-                android:fontFamily="@font/round_font"
-                android:text="קביעת שיעור" />
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/mainTOstudentslist"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mainTOstudentslist"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:fontFamily="@font/round_font"
+                    android:text="👥\nתלמידים"
+                    android:textColor="#0B4F86"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="24dp"
+                    app:strokeColor="#388FC3"
+                    app:strokeWidth="2dp"
+                    app:iconGravity="top"
+                    app:iconPadding="8dp"
+                    app:iconTint="#388FC3" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mainTOtestslist"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:fontFamily="@font/round_font"
+                    android:text="📋\nטסטים"
+                    android:textColor="#0B4F86"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="24dp"
+                    app:strokeColor="#388FC3"
+                    app:strokeWidth="2dp"
+                    app:iconGravity="top"
+                    app:iconPadding="8dp"
+                    app:iconTint="#388FC3" />
+            </LinearLayout>
+
+            <!-- שורה 3 -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:backgroundTint="#388FC3"
-                android:fontFamily="@font/round_font"
-                android:text="רשימת תלמידים" />
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/mainTOtestslist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:backgroundTint="#388FC3"
-                android:fontFamily="@font/round_font"
-                android:text="רשימת טסטים" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mainTOaddstudent"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:fontFamily="@font/round_font"
+                    android:text="➕\nהוספת תלמיד"
+                    android:textColor="#0B4F86"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="24dp"
+                    app:strokeColor="#388FC3"
+                    app:strokeWidth="2dp"
+                    app:iconGravity="top"
+                    app:iconPadding="8dp"
+                    app:iconTint="#388FC3" />
 
-            <Button
-                android:id="@+id/mainTOaddstudent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:backgroundTint="#388FC3"
-                android:fontFamily="@font/round_font"
-                android:text="הוספת תלמיד" />
-
-
-            <Button
-                android:id="@+id/mainTOupdate"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="15dp"
-                android:backgroundTint="#388FC3"
-                android:fontFamily="@font/round_font"
-                android:text="עדכון פרטים" />
-
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/mainTOupdate"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_margin="8dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="#FFFFFF"
+                    android:fontFamily="@font/round_font"
+                    android:text="⚙️\nעדכון פרטים"
+                    android:textColor="#0B4F86"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:cornerRadius="24dp"
+                    app:strokeColor="#388FC3"
+                    app:strokeWidth="2dp"
+                    app:iconGravity="top"
+                    app:iconPadding="8dp"
+                    app:iconTint="#388FC3" />
+            </LinearLayout>
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
