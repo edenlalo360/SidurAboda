@@ -113,24 +113,19 @@ public class RegisterTeacherActivity extends AppCompatActivity implements View.O
         databaseService.checkIfPhoneExists(phone, new DatabaseService.DatabaseCallback<Boolean>() {
             @Override
             public void onCompleted(Boolean phoneExists) {
-
                 if (phoneExists) {
                     Toast.makeText(RegisterTeacherActivity.this, "מספר טלפון כבר קיים", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 databaseService.checkIfLicenseNum(license, new DatabaseService.DatabaseCallback<Boolean>() {
                     @Override
                     public void onCompleted(Boolean licenseExists) {
-
                         if (licenseExists) {
                             Toast.makeText(RegisterTeacherActivity.this, "מספר רישיון כבר קיים", Toast.LENGTH_SHORT).show();
                             return;
                         }
-
                         createTeacherInDatabase(teacher);
                     }
-
                     @Override
                     public void onFailed(Exception e) {
                         Toast.makeText(RegisterTeacherActivity.this, "שגיאה בבדיקת מספר רישיון", Toast.LENGTH_SHORT).show();

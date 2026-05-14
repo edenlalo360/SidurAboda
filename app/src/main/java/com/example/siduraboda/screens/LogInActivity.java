@@ -49,18 +49,15 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
         if (v.getId() == btnLogin.getId()) {
             String phone = etPhone.getText().toString();
             String password = etPassword.getText().toString();
-
             /// Validate input
             if (!checkInput(phone, password)) {
                 /// stop if input is invalid
                 return;
             }
-
             /// Login teacher
             loginTeacher(phone, password);
         }
     }
-
     private boolean checkInput(String phone, String password) {
         if (!Validator.isPhoneValid(phone)) {
             etPhone.setError("Invalid phone address");

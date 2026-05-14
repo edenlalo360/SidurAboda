@@ -32,12 +32,11 @@ public class SplashActivity extends AppCompatActivity {
             return insets;
         });
 
-        // שימוש ב-Handler כדי לבצע פעולה לאחר עיכוב (במקום Thread כמו בדוגמה של המורה - זה יותר מקובל באנדרואיד)
+        // שימוש ב-Handler כדי לבצע פעולה לאחר עיכוב
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 // יצירת Intent כדי לעבור ל-MainActivity
-                // שים לב: ודא שיש לך Activity בשם MainActivity (או שנה את השם למה שקיים אצלך)
                 Intent intent = new Intent(SplashActivity.this, LandingActivity.class);
 
                 // הוספת הדגלים החשובים כדי שלא יהיה ניתן לחזור לספלאש

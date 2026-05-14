@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.siduraboda.R;
 
-// שינוי קריטי: יורשים מ-BaseActivity כדי לקבל את תפריט הצד
+//  יורשים מ-BaseActivity כדי לקבל את תפריט הצד
 public class MainActivity extends BaseActivity {
 
     @Override
@@ -25,7 +25,7 @@ public class MainActivity extends BaseActivity {
         });
 
 
-        // אתחול הכפתורים הקיימים שלך
+        // אתחול הכפתורים הקיימים
         setupButtons();
     }
 

@@ -176,12 +176,11 @@ public class AddLessonActivity extends AppCompatActivity {
         int newEnd = getMinutes(selectedEndTimeStr);
 
         for (Lesson lesson : allExistingLessons) {
-            // בודקים רק שיעורים באותו תאריך
             if (lesson.getDate().equals(selectedDateStr)) {
                 int existStart = getMinutes(lesson.getDayAndHours().getStartTime().toString());
                 int existEnd = getMinutes(lesson.getDayAndHours().getEndTime().toString());
 
-                // לוגיקת חפיפה: אם השיעור החדש מתחיל לפני שהקיים מסתיים, ונגמר אחרי שהקיים מתחיל
+                // חפיפה אם השיעור החדש מתחיל לפני שהקיים מסתיים, ונגמר אחרי שהקיים מתחיל
                 if (newStart < existEnd && newEnd > existStart) {
                     return true;
                 }
