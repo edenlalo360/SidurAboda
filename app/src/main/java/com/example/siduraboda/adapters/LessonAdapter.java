@@ -51,13 +51,20 @@ public class LessonAdapter extends RecyclerView.Adapter<LessonAdapter.ViewHolder
     private String getHebrewDay(com.example.siduraboda.models.Weekday day) {
         if (day == null) return "";
         switch (day) {
-            case SUNDAY: return "יום ראשון";
-            case MONDAY: return "יום שני";
-            case TUESDAY: return "יום שלישי";
-            case WEDNESDAY: return "יום רביעי";
-            case THURSDAY: return "יום חמישי";
-            case FRIDAY: return "יום שישי";
-            default: return "";
+            case SUNDAY:
+                return "יום ראשון";
+            case MONDAY:
+                return "יום שני";
+            case TUESDAY:
+                return "יום שלישי";
+            case WEDNESDAY:
+                return "יום רביעי";
+            case THURSDAY:
+                return "יום חמישי";
+            case FRIDAY:
+                return "יום שישי";
+            default:
+                return "";
         }
     }
 

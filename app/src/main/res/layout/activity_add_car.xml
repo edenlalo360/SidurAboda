@@ -59,8 +59,8 @@
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <Spinner
                     android:id="@+id/sp_add_car_rank"
@@ -83,8 +83,8 @@
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/et_add_car_insurance_date"
@@ -100,8 +100,8 @@
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/et_add_car_license_car_date"
@@ -117,8 +117,8 @@
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_add_car_submit"

@@ -1,8 +1,6 @@
 package com.example.siduraboda.screens;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,7 +18,6 @@ import com.example.siduraboda.models.Car;
 import com.example.siduraboda.models.Teacher;
 import com.example.siduraboda.services.DatabaseService;
 import com.example.siduraboda.utils.SharedPreferencesUtil;
-import com.example.siduraboda.utils.Validator;
 
 import java.util.ArrayList;
 
@@ -58,7 +55,7 @@ public class InfoCarActivity extends AppCompatActivity {
 
         initViews();
         setupSpinner();
-        
+
         if (currentCar != null) {
             populateFields();
         } else {

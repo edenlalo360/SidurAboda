@@ -13,9 +13,9 @@
     app:cardElevation="2dp">
 
     <LinearLayout
-        android:background="#9DAFFAFA"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="#9DAFFAFA"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="16dp">

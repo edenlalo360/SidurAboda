@@ -60,8 +60,8 @@
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <!-- בחירת דרגה -->
 
@@ -87,8 +87,8 @@
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <!-- תאריך ביטוח - הוסר ה-drawableEnd -->
                 <EditText
@@ -104,8 +104,8 @@
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <!-- תאריך רישיון רכב - הוסר ה-drawableEnd -->
                 <EditText
@@ -121,8 +121,8 @@
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <!-- כפתור עריכה -->
                 <com.google.android.material.button.MaterialButton

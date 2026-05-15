@@ -71,8 +71,8 @@
                     android:id="@+id/btn_end_time_picker"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="0dp"
-                    android:layout_marginEnd="6dp"
                     android:layout_height="60dp"
+                    android:layout_marginEnd="6dp"
                     android:layout_weight="1"
                     android:backgroundTint="#FFFFFF"
                     android:fontFamily="@font/round_font"
@@ -121,34 +121,34 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
                 android:text="👤 בחר תלמיד:"
                 android:textColor="#0B4F86"
                 android:textSize="14sp"
-                android:layout_marginHorizontal="8dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/sp_choose_student"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="12dp"/>
+                android:layout_marginBottom="12dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
                 android:text="🚗 בחר רכב:"
                 android:textColor="#0B4F86"
                 android:textSize="14sp"
-                android:layout_marginHorizontal="8dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <Spinner
                 android:id="@+id/sp_choose_car"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginBottom="24dp"/>
+                android:layout_marginBottom="24dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_add_lesson_submit"

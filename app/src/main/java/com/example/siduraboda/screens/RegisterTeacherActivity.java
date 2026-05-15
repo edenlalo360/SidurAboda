@@ -126,6 +126,7 @@ public class RegisterTeacherActivity extends AppCompatActivity implements View.O
                         }
                         createTeacherInDatabase(teacher);
                     }
+
                     @Override
                     public void onFailed(Exception e) {
                         Toast.makeText(RegisterTeacherActivity.this, "שגיאה בבדיקת מספר רישיון", Toast.LENGTH_SHORT).show();

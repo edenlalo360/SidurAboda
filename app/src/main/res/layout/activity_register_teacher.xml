@@ -36,13 +36,13 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:backgroundTint="#0B4F86"
-                android:fontFamily="@font/round_font"
-                android:gravity="right"
-                android:textDirection="rtl"
                 android:drawableEnd="@drawable/ic_user"
                 android:drawablePadding="8dp"
+                android:fontFamily="@font/round_font"
+                android:gravity="right"
                 android:hint="שם פרטי"
                 android:textColorHint="#0B4F86"
+                android:textDirection="rtl"
                 android:textSize="18sp" />
 
             <EditText
@@ -51,13 +51,13 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:backgroundTint="#0B4F86"
-                android:fontFamily="@font/round_font"
-                android:gravity="right"
-                android:textDirection="rtl"
                 android:drawableEnd="@drawable/ic_user"
                 android:drawablePadding="8dp"
+                android:fontFamily="@font/round_font"
+                android:gravity="right"
                 android:hint="שם משפחה"
                 android:textColorHint="#0B4F86"
+                android:textDirection="rtl"
                 android:textSize="18sp" />
 
             <EditText
@@ -66,14 +66,14 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:backgroundTint="#0B4F86"
-                android:fontFamily="@font/round_font"
-                android:gravity="right"
-                android:textDirection="rtl"
                 android:drawableEnd="@drawable/ic_phone"
                 android:drawablePadding="8dp"
+                android:fontFamily="@font/round_font"
+                android:gravity="right"
                 android:hint="מספר טלפון"
                 android:inputType="phone"
                 android:textColorHint="#0B4F86"
+                android:textDirection="rtl"
                 android:textSize="18sp" />
 
             <EditText
@@ -82,21 +82,21 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:backgroundTint="#0B4F86"
-                android:fontFamily="@font/round_font"
-                android:gravity="right"
-                android:textDirection="rtl"
                 android:drawableEnd="@drawable/ic_license"
                 android:drawablePadding="8dp"
+                android:fontFamily="@font/round_font"
+                android:gravity="right"
                 android:hint="מספר רישיון נהיגה"
                 android:inputType="number"
                 android:textColorHint="#0B4F86"
+                android:textDirection="rtl"
                 android:textSize="18sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintEnabled="false"
                 app:boxBackgroundMode="none"
+                app:hintEnabled="false"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="#0B4F86">
 
@@ -106,14 +106,14 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="20dp"
                     android:backgroundTint="#0B4F86"
-                    android:fontFamily="@font/round_font"
-                    android:gravity="right"
-                    android:textDirection="rtl"
                     android:drawableEnd="@drawable/ic_lock"
                     android:drawablePadding="8dp"
+                    android:fontFamily="@font/round_font"
+                    android:gravity="right"
                     android:hint="סיסמא"
                     android:inputType="numberPassword"
                     android:textColorHint="#0B4F86"
+                    android:textDirection="rtl"
                     android:textSize="18sp" />
             </com.google.android.material.textfield.TextInputLayout>
 

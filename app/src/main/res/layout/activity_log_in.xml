@@ -49,23 +49,23 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
                 android:backgroundTint="#0B4F86"
+                android:drawableRight="@drawable/ic_phone"
+                android:drawablePadding="10dp"
                 android:ems="10"
                 android:fontFamily="@font/round_font"
                 android:gravity="right"
-                android:textDirection="rtl"
                 android:hint="הכנס מספר טלפון"
                 android:inputType="phone"
-                android:drawableRight="@drawable/ic_phone"
-                android:drawablePadding="10dp"
                 android:textColorHint="#0B4F86"
+                android:textDirection="rtl"
                 android:textSize="18sp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="30dp"
-                app:hintEnabled="false"
                 app:boxBackgroundMode="none"
+                app:hintEnabled="false"
                 app:passwordToggleEnabled="true"
                 app:passwordToggleTint="#0B4F86">
 
@@ -74,15 +74,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#0B4F86"
+                    android:drawableRight="@drawable/ic_lock"
+                    android:drawablePadding="10dp"
                     android:ems="10"
                     android:fontFamily="@font/round_font"
                     android:gravity="right"
-                    android:textDirection="rtl"
                     android:hint="הכנס סיסמא"
                     android:inputType="numberPassword"
-                    android:drawableRight="@drawable/ic_lock"
-                    android:drawablePadding="10dp"
                     android:textColorHint="#0B4F86"
+                    android:textDirection="rtl"
                     android:textSize="18sp" />
             </com.google.android.material.textfield.TextInputLayout>
 

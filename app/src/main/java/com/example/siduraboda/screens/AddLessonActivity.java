@@ -97,7 +97,8 @@ public class AddLessonActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailed(Exception e) {}
+            public void onFailed(Exception e) {
+            }
         });
     }
 
@@ -145,7 +146,9 @@ public class AddLessonActivity extends AppCompatActivity {
         try {
             String[] parts = time.split(":");
             return (Integer.parseInt(parts[0]) * 60) + Integer.parseInt(parts[1]);
-        } catch (Exception e) { return 0; }
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     private void calculateDuration() {
@@ -269,7 +272,10 @@ public class AddLessonActivity extends AppCompatActivity {
                 students.removeIf(student -> !Objects.equals(student.getTeacherId(), teacherId));
                 setupStudentSpinner(students);
             }
-            @Override public void onFailed(Exception e) {}
+
+            @Override
+            public void onFailed(Exception e) {
+            }
         });
 
         DatabaseService.getInstance().getUser(teacherId, new DatabaseService.DatabaseCallback<Teacher>() {
@@ -279,7 +285,10 @@ public class AddLessonActivity extends AppCompatActivity {
                     setupCarSpinner(teacher.getCars());
                 }
             }
-            @Override public void onFailed(Exception e) {}
+
+            @Override
+            public void onFailed(Exception e) {
+            }
         });
     }
 
@@ -297,6 +306,7 @@ public class AddLessonActivity extends AppCompatActivity {
                 label.setText(getItem(position).getName());
                 return label;
             }
+
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 TextView label = (TextView) super.getDropDownView(position, convertView, parent);
@@ -324,6 +334,7 @@ public class AddLessonActivity extends AppCompatActivity {
                 label.setText(position == 0 ? current.getType() : current.getType() + " (" + current.getCarNumber() + ")");
                 return label;
             }
+
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 TextView label = (TextView) super.getDropDownView(position, convertView, parent);

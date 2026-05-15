@@ -76,7 +76,7 @@ public class StudentsListActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.activity_im_student);
-        
+
         Window window = dialog.getWindow();
         if (window != null) {
             window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
@@ -90,29 +90,29 @@ public class StudentsListActivity extends AppCompatActivity {
         TextView tvTheory = dialog.findViewById(R.id.tv_student_theory);
         TextView tvEyes = dialog.findViewById(R.id.tv_student_eyes);
         TextView tvHealth = dialog.findViewById(R.id.tv_student_health);
-        
+
         TextView tvNoFuture = dialog.findViewById(R.id.tv_no_future_lessons);
         TextView tvNoPast = dialog.findViewById(R.id.tv_no_past_lessons);
-        
+
         RecyclerView rvFuture = dialog.findViewById(R.id.rv_future_lessons);
         RecyclerView rvPast = dialog.findViewById(R.id.rv_past_lessons);
-        
+
         Button btnEdit = dialog.findViewById(R.id.signoutStudent);
         btnEdit.setText("עריכת פרטי תלמיד");
 
         tvName.setText("תלמיד: " + student.getName());
         tvPhone.setText("טלפון: " + (student.getPhone() != null ? student.getPhone() : "-"));
         tvAddress.setText("כתובת: " + (student.getAddress() != null ? student.getAddress() : "-"));
-        
+
         if (student.getBirthdate() != null) {
             SimpleDateFormat birthSdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
             tvBirth.setText("תאריך לידה: " + birthSdf.format(student.getBirthdate()));
         }
-        
+
         tvTheory.setText("תיאוריה: " + (student.getTheory() != null && student.getTheory() ? "בוצע" : "לא בוצע"));
         tvEyes.setText("בדיקת עיניים: " + (student.getCheckeye() != null && student.getCheckeye() ? "בוצע" : "לא בוצע"));
         tvHealth.setText("הצהרת בריאות: " + (student.getHealthdec() != null && student.getHealthdec() ? "בוצע" : "לא בוצע"));
-        
+
         DatabaseService.getInstance().getUser(student.getTeacherId(), new DatabaseService.DatabaseCallback<Teacher>() {
             @Override
             public void onCompleted(Teacher teacher) {
@@ -120,8 +120,10 @@ public class StudentsListActivity extends AppCompatActivity {
                     tvTeacher.setText("מורה: " + teacher.getFirstName() + " " + teacher.getLastName());
                 }
             }
+
             @Override
-            public void onFailed(Exception e) {}
+            public void onFailed(Exception e) {
+            }
         });
 
         updateStatusUI(dialog, student.getStatus());
@@ -135,7 +137,7 @@ public class StudentsListActivity extends AppCompatActivity {
         ArrayList<Lesson> pastLessons = new ArrayList<>();
         LessonAdapter futureAdapter = new LessonAdapter(futureLessons);
         LessonAdapter pastAdapter = new LessonAdapter(pastLessons);
-        
+
         rvFuture.setLayoutManager(new LinearLayoutManager(this));
         rvFuture.setAdapter(futureAdapter);
         rvPast.setLayoutManager(new LinearLayoutManager(this));
@@ -150,7 +152,7 @@ public class StudentsListActivity extends AppCompatActivity {
                 Calendar now = Calendar.getInstance();
                 int currentHour = now.get(Calendar.HOUR_OF_DAY);
                 int currentMinute = now.get(Calendar.MINUTE);
-                
+
                 for (Lesson lesson : lessons) {
                     if (Objects.equals(lesson.getStudentId(), student.getId())) {
                         try {
@@ -170,7 +172,7 @@ public class StudentsListActivity extends AppCompatActivity {
                         }
                     }
                 }
-                
+
                 tvNoFuture.setVisibility(futureLessons.isEmpty() ? View.VISIBLE : View.GONE);
                 tvNoPast.setVisibility(pastLessons.isEmpty() ? View.VISIBLE : View.GONE);
                 rvFuture.setVisibility(futureLessons.isEmpty() ? View.GONE : View.VISIBLE);
@@ -179,8 +181,10 @@ public class StudentsListActivity extends AppCompatActivity {
                 futureAdapter.notifyDataSetChanged();
                 pastAdapter.notifyDataSetChanged();
             }
+
             @Override
-            public void onFailed(Exception e) {}
+            public void onFailed(Exception e) {
+            }
         });
 
         btnEdit.setOnClickListener(v -> {
@@ -248,8 +252,10 @@ public class StudentsListActivity extends AppCompatActivity {
                 students.removeIf(student -> !Objects.equals(student.getTeacherId(), teacherId));
                 listAdapter.setList(students);
             }
+
             @Override
-            public void onFailed(Exception e) {}
+            public void onFailed(Exception e) {
+            }
         });
     }
 }

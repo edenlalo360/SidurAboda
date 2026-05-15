@@ -1,6 +1,5 @@
 package com.example.siduraboda.screens;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -43,7 +42,6 @@ public class UpDateActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
 
 
         // שירות DB

@@ -1,9 +1,7 @@
 package com.example.siduraboda.screens;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -158,6 +156,7 @@ public class AddStudentActivity extends AppCompatActivity {
                     switchHealth.setChecked(student.getHealthdec() != null && student.getHealthdec());
                 }
             }
+
             @Override
             public void onFailed(Exception e) {
                 Toast.makeText(AddStudentActivity.this, "שגיאה בטעינת נתוני תלמיד", Toast.LENGTH_SHORT).show();

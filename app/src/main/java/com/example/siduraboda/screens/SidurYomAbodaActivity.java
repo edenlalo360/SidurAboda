@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -11,12 +12,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.siduraboda.R;
 import com.example.siduraboda.adapters.SidurYomAbodaAdapter;
 import com.example.siduraboda.models.Lesson;
 import com.example.siduraboda.models.Student;
 import com.example.siduraboda.services.DatabaseService;
 import com.example.siduraboda.utils.SharedPreferencesUtil;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
@@ -47,8 +50,13 @@ public class SidurYomAbodaActivity extends AppCompatActivity {
         rvWorkday = findViewById(R.id.rv_sidur_yom_aboda);
         rvWorkday.setLayoutManager(new LinearLayoutManager(this));
         adapter = new SidurYomAbodaAdapter(new SidurYomAbodaAdapter.OnClickListener() {
-            @Override public void onClick(Lesson lesson) {}
-            @Override public void onLongClick(Lesson lesson) {}
+            @Override
+            public void onClick(Lesson lesson) {
+            }
+
+            @Override
+            public void onLongClick(Lesson lesson) {
+            }
         });
         rvWorkday.setAdapter(adapter);
 
@@ -86,14 +94,24 @@ public class SidurYomAbodaActivity extends AppCompatActivity {
                 }
                 filterLessonsByDate(LocalDate.now());
             }
-            @Override public void onFailed(Exception e) { Toast.makeText(SidurYomAbodaActivity.this, "שגיאה בטעינה", Toast.LENGTH_SHORT).show(); }
+
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(SidurYomAbodaActivity.this, "שגיאה בטעינה", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 
     private void loadUsers() {
         DatabaseService.getInstance().getStudentList(new DatabaseService.DatabaseCallback<List<Student>>() {
-            @Override public void onCompleted(List<Student> list) { adapter.setStudentList(list); }
-            @Override public void onFailed(Exception e) {}
+            @Override
+            public void onCompleted(List<Student> list) {
+                adapter.setStudentList(list);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+            }
         });
     }
 

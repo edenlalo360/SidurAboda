@@ -2,7 +2,6 @@ package com.example.siduraboda.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -101,6 +100,7 @@ public class ImStudentActivity extends AppCompatActivity {
         rvFutureLessons.setNestedScrollingEnabled(false);
         rvPastLessons.setNestedScrollingEnabled(false);
     }
+
     protected void signOut() {
         SharedPreferencesUtil.signOutStudent(getApplicationContext());
         Intent landingIntent = new Intent(getApplicationContext(), LandingActivity.class);
@@ -118,7 +118,7 @@ public class ImStudentActivity extends AppCompatActivity {
                     tvStudentName.setText("שלום, " + student.getName());
                     tvStudentPhone.setText("📞טלפון: " + (student.getPhone() != null ? student.getPhone() : ""));
                     tvStudentAddress.setText("📍כתובת: " + (student.getAddress() != null ? student.getAddress() : ""));
-                    
+
                     if (student.getBirthdate() != null) {
                         SimpleDateFormat birthSdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                         tvStudentBirth.setText("📅תאריך לידה: " + birthSdf.format(student.getBirthdate()));
@@ -135,6 +135,7 @@ public class ImStudentActivity extends AppCompatActivity {
                     }
                 }
             }
+
             @Override
             public void onFailed(Exception e) {
                 Toast.makeText(ImStudentActivity.this, "שגיאה בטעינת נתונים", Toast.LENGTH_SHORT).show();
@@ -183,8 +184,10 @@ public class ImStudentActivity extends AppCompatActivity {
                 futureAdapter.notifyDataSetChanged();
                 pastAdapter.notifyDataSetChanged();
             }
+
             @Override
-            public void onFailed(Exception e) {}
+            public void onFailed(Exception e) {
+            }
         });
     }
 
@@ -196,8 +199,10 @@ public class ImStudentActivity extends AppCompatActivity {
                     tvTeacherName.setText("מורה: " + teacher.getFirstName() + " " + teacher.getLastName());
                 }
             }
+
             @Override
-            public void onFailed(Exception e) {}
+            public void onFailed(Exception e) {
+            }
         });
     }
 
@@ -206,8 +211,11 @@ public class ImStudentActivity extends AppCompatActivity {
         statusTest.setBackgroundResource(R.drawable.bg_status_inactive);
         statusPassed.setBackgroundResource(R.drawable.bg_status_inactive);
         if (status == null) return;
-        if (status.equals("בתהליך")) statusProcess.setBackgroundResource(R.drawable.bg_status_active);
-        else if (status.equals("בטסט")) statusTest.setBackgroundResource(R.drawable.bg_status_active);
-        else if (status.equals("עבר")) statusPassed.setBackgroundResource(R.drawable.bg_status_active);
+        if (status.equals("בתהליך"))
+            statusProcess.setBackgroundResource(R.drawable.bg_status_active);
+        else if (status.equals("בטסט"))
+            statusTest.setBackgroundResource(R.drawable.bg_status_active);
+        else if (status.equals("עבר"))
+            statusPassed.setBackgroundResource(R.drawable.bg_status_active);
     }
 }

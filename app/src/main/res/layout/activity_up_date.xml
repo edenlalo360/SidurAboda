@@ -54,16 +54,16 @@
                     android:layout_height="55dp"
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/rounded_edittext"
+                    android:drawableStart="@null"
+                    android:drawableEnd="@null"
                     android:fontFamily="@font/round_font"
                     android:gravity="right|center_vertical"
                     android:hint="👤 שם פרטי"
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:drawableStart="@null"
-                    android:drawableEnd="@null" />
+                    android:textStyle="bold" />
 
                 <!-- שם משפחה -->
                 <EditText
@@ -72,16 +72,16 @@
                     android:layout_height="55dp"
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/rounded_edittext"
+                    android:drawableStart="@null"
+                    android:drawableEnd="@null"
                     android:fontFamily="@font/round_font"
                     android:gravity="right|center_vertical"
                     android:hint="👤 שם משפחה"
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:drawableStart="@null"
-                    android:drawableEnd="@null" />
+                    android:textStyle="bold" />
 
                 <!-- מספר טלפון -->
                 <EditText
@@ -90,6 +90,8 @@
                     android:layout_height="55dp"
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/rounded_edittext"
+                    android:drawableStart="@null"
+                    android:drawableEnd="@null"
                     android:fontFamily="@font/round_font"
                     android:gravity="right|center_vertical"
                     android:hint="מספר טלפון 📞"
@@ -97,10 +99,8 @@
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:drawableStart="@null"
-                    android:drawableEnd="@null" />
+                    android:textStyle="bold" />
 
                 <!-- מספר רישיון -->
                 <EditText
@@ -109,6 +109,8 @@
                     android:layout_height="55dp"
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/rounded_edittext"
+                    android:drawableStart="@null"
+                    android:drawableEnd="@null"
                     android:fontFamily="@font/round_font"
                     android:gravity="right|center_vertical"
                     android:hint="🪪 מספר רישיון"
@@ -116,17 +118,15 @@
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
                     android:textSize="16sp"
-                    android:drawableStart="@null"
-                    android:drawableEnd="@null" />
+                    android:textStyle="bold" />
 
                 <!-- סיסמה -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:hintEnabled="false"
                     app:boxBackgroundMode="none"
+                    app:hintEnabled="false"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="#0B4F86">
 
@@ -136,6 +136,8 @@
                         android:layout_height="55dp"
                         android:layout_marginBottom="24dp"
                         android:background="@drawable/rounded_edittext"
+                        android:drawableStart="@null"
+                        android:drawableEnd="@null"
                         android:fontFamily="@font/round_font"
                         android:gravity="right|center_vertical"
                         android:hint=" סיסמה"
@@ -143,10 +145,8 @@
                         android:paddingHorizontal="20dp"
                         android:textColor="#0B4F86"
                         android:textColorHint="#0B4F86"
-                        android:textStyle="bold"
                         android:textSize="16sp"
-                        android:drawableStart="@null"
-                        android:drawableEnd="@null" />
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- כפתור עדכון -->

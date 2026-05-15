@@ -28,10 +28,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:alpha="0.8"
         android:fontFamily="@font/round_font"
         android:text="מרכז השליטה למורה הנהיגה 🚗"
         android:textColor="#0B4F86"
-        android:alpha="0.8"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,11 +80,11 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:cornerRadius="24dp"
-                    app:strokeColor="#388FC3"
-                    app:strokeWidth="2dp"
                     app:iconGravity="top"
                     app:iconPadding="8dp"
-                    app:iconTint="#388FC3" />
+                    app:iconTint="#388FC3"
+                    app:strokeColor="#388FC3"
+                    app:strokeWidth="2dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/mainTOaddlesson"
@@ -100,11 +100,11 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:cornerRadius="24dp"
-                    app:strokeColor="#388FC3"
-                    app:strokeWidth="2dp"
                     app:iconGravity="top"
                     app:iconPadding="8dp"
-                    app:iconTint="#388FC3" />
+                    app:iconTint="#388FC3"
+                    app:strokeColor="#388FC3"
+                    app:strokeWidth="2dp" />
             </LinearLayout>
 
             <!-- שורה 2 -->
@@ -127,11 +127,11 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:cornerRadius="24dp"
-                    app:strokeColor="#388FC3"
-                    app:strokeWidth="2dp"
                     app:iconGravity="top"
                     app:iconPadding="8dp"
-                    app:iconTint="#388FC3" />
+                    app:iconTint="#388FC3"
+                    app:strokeColor="#388FC3"
+                    app:strokeWidth="2dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/mainTOtestslist"
@@ -147,11 +147,11 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:cornerRadius="24dp"
-                    app:strokeColor="#388FC3"
-                    app:strokeWidth="2dp"
                     app:iconGravity="top"
                     app:iconPadding="8dp"
-                    app:iconTint="#388FC3" />
+                    app:iconTint="#388FC3"
+                    app:strokeColor="#388FC3"
+                    app:strokeWidth="2dp" />
             </LinearLayout>
 
             <!-- שורה 3 -->
@@ -174,11 +174,11 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:cornerRadius="24dp"
-                    app:strokeColor="#388FC3"
-                    app:strokeWidth="2dp"
                     app:iconGravity="top"
                     app:iconPadding="8dp"
-                    app:iconTint="#388FC3" />
+                    app:iconTint="#388FC3"
+                    app:strokeColor="#388FC3"
+                    app:strokeWidth="2dp" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/mainTOupdate"
@@ -194,11 +194,11 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     app:cornerRadius="24dp"
-                    app:strokeColor="#388FC3"
-                    app:strokeWidth="2dp"
                     app:iconGravity="top"
                     app:iconPadding="8dp"
-                    app:iconTint="#388FC3" />
+                    app:iconTint="#388FC3"
+                    app:strokeColor="#388FC3"
+                    app:strokeWidth="2dp" />
             </LinearLayout>
 
         </LinearLayout>

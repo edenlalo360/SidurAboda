@@ -58,6 +58,7 @@ public class LogInActivity extends AppCompatActivity implements View.OnClickList
             loginTeacher(phone, password);
         }
     }
+
     private boolean checkInput(String phone, String password) {
         if (!Validator.isPhoneValid(phone)) {
             etPhone.setError("Invalid phone address");

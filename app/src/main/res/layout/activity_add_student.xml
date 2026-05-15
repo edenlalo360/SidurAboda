@@ -62,8 +62,8 @@
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <!-- תאריך לידה -->
                 <EditText
@@ -81,8 +81,8 @@
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <!-- כתובת מגורים -->
                 <EditText
@@ -99,8 +99,8 @@
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <!-- מספר טלפון -->
                 <EditText
@@ -118,15 +118,15 @@
                     android:paddingHorizontal="20dp"
                     android:textColor="#0B4F86"
                     android:textColorHint="#0B4F86"
-                    android:textStyle="bold"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <!-- סיסמה עם עין לחשיפה -->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:hintEnabled="false"
                     app:boxBackgroundMode="none"
+                    app:hintEnabled="false"
                     app:passwordToggleEnabled="true"
                     app:passwordToggleTint="#0B4F86">
 
@@ -145,8 +145,8 @@
                         android:paddingHorizontal="20dp"
                         android:textColor="#0B4F86"
                         android:textColorHint="#0B4F86"
-                        android:textStyle="bold"
-                        android:textSize="16sp" />
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- אזור הסטטוסים (Switches) -->
@@ -165,8 +165,8 @@
                         android:fontFamily="@font/round_font"
                         android:text=" עבר תיאוריה ✅"
                         android:textColor="#0B4F86"
-                        android:textStyle="bold"
-                        android:textDirection="rtl" />
+                        android:textDirection="rtl"
+                        android:textStyle="bold" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switchEyes"
@@ -175,8 +175,8 @@
                         android:fontFamily="@font/round_font"
                         android:text=" בדיקת עיניים 👁"
                         android:textColor="#0B4F86"
-                        android:textStyle="bold"
-                        android:textDirection="rtl" />
+                        android:textDirection="rtl"
+                        android:textStyle="bold" />
 
                     <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switchHealth"
@@ -185,8 +185,8 @@
                         android:fontFamily="@font/round_font"
                         android:text=" הצהרת בריאות 📜"
                         android:textColor="#0B4F86"
-                        android:textStyle="bold"
-                        android:textDirection="rtl" />
+                        android:textDirection="rtl"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
                 <!-- כפתור הוספה -->
