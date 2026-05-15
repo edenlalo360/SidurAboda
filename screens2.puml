@@ -1,0 +1,60 @@
+@startuml
+class com.example.siduraboda.screens.LandingActivity {
+~ Teacher teacher
+~ Student student
+# void onCreate(Bundle)
+}
+
+
+class com.example.siduraboda.screens.DatePickerActivity {
+- TextView tvSelectedDate
+# void onCreate(Bundle)
+- void showDatePicker()
+}
+
+
+class com.example.siduraboda.screens.InfoCarActivity {
+- Spinner spinner
+- EditText typeCar
+- Button editBtn
+- boolean isEditing
+- Car currentCar
+- String[] options
+# void onCreate(Bundle)
+- void initViews()
+- void setupSpinner()
+- void populateFields()
+- void enableEditing(boolean)
+- void saveChanges()
+}
+
+
+class com.example.siduraboda.screens.ImStudentActivity {
+- TextView tvStudentName
+- TextView tvStudentBirth
+- TextView statusProcess
+- TextView tvNoFutureLessons
+- RecyclerView rvFutureLessons
+- Button btnSignOut
+- String currentStudentId
+- ArrayList<Lesson> futureLessonsList
+- ArrayList<Lesson> pastLessonsList
+- LessonAdapter futureAdapter
+- LessonAdapter pastAdapter
+# void onCreate(Bundle)
+- void initViews()
+- void setupRecyclerViews()
+# void signOut()
+- void loadData()
+- void loadTeacher(String)
+- void updateStatusUI(String)
+}
+
+
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.LandingActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.DatePickerActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.InfoCarActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.ImStudentActivity
+@enduml

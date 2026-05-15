@@ -1,0 +1,51 @@
+@startuml
+class com.example.siduraboda.screens.UpDateActivity {
+- {static} String TAG
+~ EditText firstName
+~ Button updateBtn
+~ boolean isEditing
+~ DatabaseService databaseService
+~ Teacher currentTeacher
+# void onCreate(Bundle)
+- void showTeacherDetails()
+- void checkPhoneNumber(String,DatabaseService.DatabaseCallback<Boolean>)
+- void checkLicenseNum(String,DatabaseService.DatabaseCallback<Boolean>)
+- void validateAndUpdate()
+- void updateTeacherDetails()
+- void lockFields()
+- void unlockFields()
+}
+
+
+class com.example.siduraboda.screens.TestsListActivity {
+# void onCreate(Bundle)
+}
+
+class com.example.siduraboda.screens.SplashActivity {
+- {static} int SPLASH_DISPLAY_TIME
+# void onCreate(Bundle)
+}
+
+
+class com.example.siduraboda.screens.TimePickerActivity {
+# void onCreate(Bundle)
+}
+
+class com.example.siduraboda.screens.StudentsListActivity {
+~ StudentListAdapter listAdapter
+# void onCreate(Bundle)
+- void showStudentDetailsDialog(Student)
+- void updateStudentStatus(String,String,Dialog)
+- void updateStatusUI(Dialog,String)
+# void onResume()
+}
+
+
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.UpDateActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.TestsListActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.SplashActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.TimePickerActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.StudentsListActivity
+@enduml

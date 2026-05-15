@@ -1,0 +1,235 @@
+@startuml
+class com.example.siduraboda.screens.LandingActivity {
+~ Teacher teacher
+~ Student student
+# void onCreate(Bundle)
+}
+
+
+class com.example.siduraboda.screens.TestsListActivity {
+# void onCreate(Bundle)
+}
+
+class com.example.siduraboda.screens.AddLessonActivity {
+~ Spinner spStudent
+~ Button btnSubmitLesson
+~ Button btnDatePicker
+~ TextView tvDuration
+~ String teacherId
+- String selectedDateStr
+- String selectedStartTimeStr
+- String selectedEndTimeStr
+- List<Lesson> allExistingLessons
+# void onCreate(Bundle)
+- void loadExistingLessons()
+- void showDatePicker()
+- void showTimePicker(Button,String,boolean)
+- int getMinutes(String)
+- void calculateDuration()
+- boolean isLessonOverlapping()
+- void CreateLesson()
+- boolean checkInputLesson(int,int)
+- void loadSpinnersData()
+- void setupStudentSpinner(List<Student>)
+- void setupCarSpinner(List<Car>)
+}
+
+
+abstract class com.example.siduraboda.screens.BaseActivity {
+- {static} String TAG
+# DatabaseService databaseService
+# DrawerLayout drawerLayout
+# Toolbar toolbar
+# NavigationView navigationView
+- ImageView profileImageView
+- ActivityResultLauncher<Intent> selectImageLauncher
+- ActivityResultLauncher<Intent> captureImageLauncher
+# void onCreate(Bundle)
+- void initImageLaunchers()
+- void updateProfileImage(Bitmap)
+- void showImageSourceDialog()
+# void onResume()
++ void setContentView(int)
+- void updateHeader()
+- void addCarsToMenu()
++ boolean onNavigationItemSelected(MenuItem)
++ void onBackPressed()
+# void signOut()
+}
+
+
+class com.example.siduraboda.screens.AddStudentActivity {
+- EditText Name
+- Switch switchTheory
+- Button btnAddStudent
+- String editingStudentId
+- Student editingStudent
+# void onCreate(Bundle)
+- void loadStudentData()
+- boolean check(String,String,String,String,String)
++ void ClearFields()
+}
+
+
+class com.example.siduraboda.screens.TimePickerActivity {
+# void onCreate(Bundle)
+}
+
+class com.example.siduraboda.screens.SplashActivity {
+- {static} int SPLASH_DISPLAY_TIME
+# void onCreate(Bundle)
+}
+
+
+class com.example.siduraboda.screens.UpDateActivity {
+- {static} String TAG
+~ EditText firstName
+~ Button updateBtn
+~ boolean isEditing
+~ DatabaseService databaseService
+~ Teacher currentTeacher
+# void onCreate(Bundle)
+- void showTeacherDetails()
+- void checkPhoneNumber(String,DatabaseService.DatabaseCallback<Boolean>)
+- void checkLicenseNum(String,DatabaseService.DatabaseCallback<Boolean>)
+- void validateAndUpdate()
+- void updateTeacherDetails()
+- void lockFields()
+- void unlockFields()
+}
+
+
+class com.example.siduraboda.screens.RegisterTeacherActivity {
+~ DatabaseService databaseService
+- EditText firstName
+- Button btnRegister
+# void onCreate(Bundle)
++ void onClick(View)
+- boolean checkInput(String,String,String,String,String)
+- void registerTeacher(String,String,String,String,String)
+- void createTeacherInDatabase(Teacher)
+}
+
+
+class com.example.siduraboda.screens.LogInActivity {
+- EditText etPhone
+- Button btnLogin
+# void onCreate(Bundle)
++ void onClick(View)
+- boolean checkInput(String,String)
+- void loginTeacher(String,String)
+- void getStudentByPhoneAndPassword(String,String)
++ void onPointerCaptureChanged(boolean)
+}
+
+
+class com.example.siduraboda.screens.DatePickerActivity {
+- TextView tvSelectedDate
+# void onCreate(Bundle)
+- void showDatePicker()
+}
+
+
+class com.example.siduraboda.screens.AddCarActivity {
+~ EditText etType
+~ Spinner spRank
+~ Button btnSubmit
+# void onCreate(Bundle)
+- boolean checkInput(String,String,String,LocalDate,LocalDate)
+- LocalDate convertStringToDate(String)
+}
+
+
+class com.example.siduraboda.screens.MainActivity {
+# void onCreate(Bundle)
+- void setupButtons()
+}
+
+class com.example.siduraboda.screens.InfoCarActivity {
+- Spinner spinner
+- EditText typeCar
+- Button editBtn
+- boolean isEditing
+- Car currentCar
+- String[] options
+# void onCreate(Bundle)
+- void initViews()
+- void setupSpinner()
+- void populateFields()
+- void enableEditing(boolean)
+- void saveChanges()
+}
+
+
+class com.example.siduraboda.screens.ImStudentActivity {
+- TextView tvStudentName
+- TextView tvStudentBirth
+- TextView statusProcess
+- TextView tvNoFutureLessons
+- RecyclerView rvFutureLessons
+- Button btnSignOut
+- String currentStudentId
+- ArrayList<Lesson> futureLessonsList
+- ArrayList<Lesson> pastLessonsList
+- LessonAdapter futureAdapter
+- LessonAdapter pastAdapter
+# void onCreate(Bundle)
+- void initViews()
+- void setupRecyclerViews()
+# void signOut()
+- void loadData()
+- void loadTeacher(String)
+- void updateStatusUI(String)
+}
+
+
+class com.example.siduraboda.screens.StudentsListActivity {
+~ StudentListAdapter listAdapter
+# void onCreate(Bundle)
+- void showStudentDetailsDialog(Student)
+- void updateStudentStatus(String,String,Dialog)
+- void updateStatusUI(Dialog,String)
+# void onResume()
+}
+
+
+class com.example.siduraboda.screens.SidurYomAbodaActivity {
+- List<Lesson> allLessons
+- SidurYomAbodaAdapter adapter
+- RecyclerView rvWorkday
+- LocalDate startOfDisplayedWeek
+- Button[] dayButtons
+- TextView tvDateHeader
+# void onCreate(Bundle)
+# void onResume()
+- void loadLessons()
+- void loadUsers()
+- void updateCalendarUI()
+- void moveWeek(int)
+- void filterLessonsByDate(LocalDate)
+}
+
+
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.LandingActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.TestsListActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.AddLessonActivity
+com.example.siduraboda.screens.OnNavigationItemSelectedListener <|.. com.example.siduraboda.screens.BaseActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.BaseActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.AddStudentActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.TimePickerActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.SplashActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.UpDateActivity
+com.example.siduraboda.screens.OnClickListener <|.. com.example.siduraboda.screens.RegisterTeacherActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.RegisterTeacherActivity
+com.example.siduraboda.screens.OnClickListener <|.. com.example.siduraboda.screens.LogInActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.LogInActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.DatePickerActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.AddCarActivity
+com.example.siduraboda.screens.BaseActivity <|-- com.example.siduraboda.screens.MainActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.InfoCarActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.ImStudentActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.StudentsListActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.SidurYomAbodaActivity
+@enduml

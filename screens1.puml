@@ -1,0 +1,80 @@
+@startuml
+class com.example.siduraboda.screens.AddLessonActivity {
+~ Spinner spStudent
+~ Button btnSubmitLesson
+~ Button btnDatePicker
+~ TextView tvDuration
+~ String teacherId
+- String selectedDateStr
+- String selectedStartTimeStr
+- String selectedEndTimeStr
+- List<Lesson> allExistingLessons
+# void onCreate(Bundle)
+- void loadExistingLessons()
+- void showDatePicker()
+- void showTimePicker(Button,String,boolean)
+- int getMinutes(String)
+- void calculateDuration()
+- boolean isLessonOverlapping()
+- void CreateLesson()
+- boolean checkInputLesson(int,int)
+- void loadSpinnersData()
+- void setupStudentSpinner(List<Student>)
+- void setupCarSpinner(List<Car>)
+}
+
+
+class com.example.siduraboda.screens.AddCarActivity {
+~ EditText etType
+~ Spinner spRank
+~ Button btnSubmit
+# void onCreate(Bundle)
+- boolean checkInput(String,String,String,LocalDate,LocalDate)
+- LocalDate convertStringToDate(String)
+}
+
+
+abstract class com.example.siduraboda.screens.BaseActivity {
+- {static} String TAG
+# DatabaseService databaseService
+# DrawerLayout drawerLayout
+# Toolbar toolbar
+# NavigationView navigationView
+- ImageView profileImageView
+- ActivityResultLauncher<Intent> selectImageLauncher
+- ActivityResultLauncher<Intent> captureImageLauncher
+# void onCreate(Bundle)
+- void initImageLaunchers()
+- void updateProfileImage(Bitmap)
+- void showImageSourceDialog()
+# void onResume()
++ void setContentView(int)
+- void updateHeader()
+- void addCarsToMenu()
++ boolean onNavigationItemSelected(MenuItem)
++ void onBackPressed()
+# void signOut()
+}
+
+
+class com.example.siduraboda.screens.AddStudentActivity {
+- EditText Name
+- Switch switchTheory
+- Button btnAddStudent
+- String editingStudentId
+- Student editingStudent
+# void onCreate(Bundle)
+- void loadStudentData()
+- boolean check(String,String,String,String,String)
++ void ClearFields()
+}
+
+
+
+
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.AddLessonActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.AddCarActivity
+com.example.siduraboda.screens.OnNavigationItemSelectedListener <|.. com.example.siduraboda.screens.BaseActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.BaseActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.AddStudentActivity
+@enduml

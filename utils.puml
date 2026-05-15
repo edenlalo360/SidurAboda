@@ -1,0 +1,48 @@
+@startuml
+class com.example.siduraboda.utils.Validator {
++ {static} boolean isPasswordValid(String)
++ {static} boolean isPhoneValid(String)
++ {static} boolean isNameValid(String)
++ {static} boolean isLicenseValid(String)
++ {static} boolean isTypeValid(String)
++ {static} boolean isCarNumberValid(String)
++ {static} boolean isInsuranceDateValid(LocalDate)
++ {static} boolean isLicenseDateValid(LocalDate)
++ {static} boolean isSpinnerValid(String)
++ {static} boolean isLessonDateValid(LocalDate)
++ {static} boolean isTimeValid(LocalTime)
++ {static} boolean isSpinnerStudentValid(String)
++ {static} boolean isSpinnerCarValid(String)
+}
+
+class com.example.siduraboda.utils.ImageUtil {
++ {static} void requestPermission(Activity)
++ {static} String convertTo64Base(ImageView)
++ {static} Bitmap convertFrom64base(String)
+}
+
+class com.example.siduraboda.utils.SharedPreferencesUtil {
+- {static} String PREF_NAME
+- {static} void saveString(Context,String,String)
+- {static} String getString(Context,String,String)
+- {static} void saveInt(Context,String,int)
+- {static} int getInt(Context,String,int)
++ {static} void clear(Context)
+- {static} void remove(Context,String)
+- {static} boolean contains(Context,String)
+- {static} void saveObject(Context,String,T)
+- {static} T getObject(Context,String,Class<T>)
++ {static} void saveTeacher(Context,Teacher)
++ {static} void saveStudent(Context,Student)
++ {static} Teacher getTeacher(Context)
++ {static} void signOutTeacher(Context)
++ {static} boolean isTeacherLoggedIn(Context)
++ {static} String getTeacherId(Context)
++ {static} Student getStudent(Context)
++ {static} void signOutStudent(Context)
++ {static} boolean isStudentLoggedIn(Context)
++ {static} String getStudentId(Context)
+}
+
+
+@enduml

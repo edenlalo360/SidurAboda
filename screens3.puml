@@ -1,0 +1,56 @@
+@startuml
+class com.example.siduraboda.screens.RegisterTeacherActivity {
+~ DatabaseService databaseService
+- EditText firstName
+- Button btnRegister
+# void onCreate(Bundle)
++ void onClick(View)
+- boolean checkInput(String,String,String,String,String)
+- void registerTeacher(String,String,String,String,String)
+- void createTeacherInDatabase(Teacher)
+}
+
+
+class com.example.siduraboda.screens.LogInActivity {
+- EditText etPhone
+- Button btnLogin
+# void onCreate(Bundle)
++ void onClick(View)
+- boolean checkInput(String,String)
+- void loginTeacher(String,String)
+- void getStudentByPhoneAndPassword(String,String)
++ void onPointerCaptureChanged(boolean)
+}
+
+
+class com.example.siduraboda.screens.MainActivity {
+# void onCreate(Bundle)
+- void setupButtons()
+}
+
+class com.example.siduraboda.screens.SidurYomAbodaActivity {
+- List<Lesson> allLessons
+- SidurYomAbodaAdapter adapter
+- RecyclerView rvWorkday
+- LocalDate startOfDisplayedWeek
+- Button[] dayButtons
+- TextView tvDateHeader
+# void onCreate(Bundle)
+# void onResume()
+- void loadLessons()
+- void loadUsers()
+- void updateCalendarUI()
+- void moveWeek(int)
+- void filterLessonsByDate(LocalDate)
+}
+
+
+
+
+com.example.siduraboda.screens.OnClickListener <|.. com.example.siduraboda.screens.RegisterTeacherActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.RegisterTeacherActivity
+com.example.siduraboda.screens.OnClickListener <|.. com.example.siduraboda.screens.LogInActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.LogInActivity
+com.example.siduraboda.screens.BaseActivity <|-- com.example.siduraboda.screens.MainActivity
+androidx.appcompat.app.AppCompatActivity <|-- com.example.siduraboda.screens.SidurYomAbodaActivity
+@enduml

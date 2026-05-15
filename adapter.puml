@@ -1,0 +1,76 @@
+@startuml
+class com.example.siduraboda.adapters.SidurYomAbodaAdapter {
+- List<Lesson> SidurYomAboda
+- List<Student> studentList
+- SidurYomAbodaAdapter.OnClickListener onClickListener
++ SidurYomAbodaAdapter.ViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(SidurYomAbodaAdapter.ViewHolder,int)
++ int getItemCount()
++ void setList(List<Lesson>)
++ void setStudentList(List<Student>)
++ void add(Lesson)
++ void update(Lesson)
++ void remove(Lesson)
+}
+
+
+interface com.example.siduraboda.adapters.SidurYomAbodaAdapter$OnClickListener {
+~ void onClick(Lesson)
+~ void onLongClick(Lesson)
+}
+
+class com.example.siduraboda.adapters.SidurYomAbodaAdapter$ViewHolder {
+~ TextView tvStudentName
+~ TextView tv_start_time
+~ TextView tv_end_time
+}
+
+class com.example.siduraboda.adapters.StudentListAdapter {
+- List<Student> studentList
+- OnClickListener onClickListener
++ StudentListAdapter.ViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(ViewHolder,int)
++ int getItemCount()
++ void setList(List<Student>)
++ void add(Student)
++ void update(Student)
++ void remove(Student)
+}
+
+
+interface com.example.siduraboda.adapters.StudentListAdapter$OnClickListener {
+~ void onClick(Student)
+~ void onLongClick(Student)
+}
+
+class com.example.siduraboda.adapters.StudentListAdapter$ViewHolder {
+~ TextView tvName
+}
+
+class com.example.siduraboda.adapters.LessonAdapter {
+- List<Lesson> lessons
++ ViewHolder onCreateViewHolder(ViewGroup,int)
++ void onBindViewHolder(ViewHolder,int)
+- String getHebrewDay(com.example.siduraboda.models.Weekday)
++ int getItemCount()
+}
+
+
+class com.example.siduraboda.adapters.LessonAdapter$ViewHolder {
+~ TextView tvDate
+}
+
+
+
+com.example.siduraboda.adapters.Adapter <|-- com.example.siduraboda.adapters.SidurYomAbodaAdapter
+com.example.siduraboda.adapters.SidurYomAbodaAdapter +.. com.example.siduraboda.adapters.SidurYomAbodaAdapter$OnClickListener
+com.example.siduraboda.adapters.SidurYomAbodaAdapter +.. com.example.siduraboda.adapters.SidurYomAbodaAdapter$ViewHolder
+com.example.siduraboda.adapters.ViewHolder <|-- com.example.siduraboda.adapters.SidurYomAbodaAdapter$ViewHolder
+com.example.siduraboda.adapters.Adapter <|-- com.example.siduraboda.adapters.StudentListAdapter
+com.example.siduraboda.adapters.StudentListAdapter +.. com.example.siduraboda.adapters.StudentListAdapter$OnClickListener
+com.example.siduraboda.adapters.StudentListAdapter +.. com.example.siduraboda.adapters.StudentListAdapter$ViewHolder
+com.example.siduraboda.adapters.ViewHolder <|-- com.example.siduraboda.adapters.StudentListAdapter$ViewHolder
+com.example.siduraboda.adapters.Adapter <|-- com.example.siduraboda.adapters.LessonAdapter
+com.example.siduraboda.adapters.LessonAdapter +.. com.example.siduraboda.adapters.LessonAdapter$ViewHolder
+com.example.siduraboda.adapters.ViewHolder <|-- com.example.siduraboda.adapters.LessonAdapter$ViewHolder
+@enduml
