@@ -226,7 +226,8 @@ public abstract class BaseActivity extends AppCompatActivity
         menu.add("הוסף רכב").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem item) {
-                startActivity(new Intent(getApplicationContext(), AddCarActivity.class));
+                Intent intent = new Intent(BaseActivity.this, AddCarActivity.class);
+                startActivity(intent);
                 return true;
             }
         });

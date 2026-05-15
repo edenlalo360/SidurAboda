@@ -109,7 +109,7 @@ public class UpDateActivity extends AppCompatActivity {
     }
 
     private void checkPhoneNumber(String phone, DatabaseService.DatabaseCallback<Boolean> callback) {
-        databaseService.checkIfPhoneExists(phone, new DatabaseService.DatabaseCallback<Boolean>() {
+        databaseService.checkIfPhoneExistsForTeachers(phone, new DatabaseService.DatabaseCallback<Boolean>() {
             @Override
             public void onCompleted(Boolean exists) {
                 callback.onCompleted(exists);

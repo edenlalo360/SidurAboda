@@ -110,7 +110,7 @@ public class RegisterTeacherActivity extends AppCompatActivity implements View.O
 
         Teacher teacher = new Teacher(uid, password, fName, lName, license, phone, false, new ArrayList<>(), "");
 
-        databaseService.checkIfPhoneExists(phone, new DatabaseService.DatabaseCallback<Boolean>() {
+        databaseService.checkIfPhoneExistsForTeachers(phone, new DatabaseService.DatabaseCallback<Boolean>() {
             @Override
             public void onCompleted(Boolean phoneExists) {
                 if (phoneExists) {

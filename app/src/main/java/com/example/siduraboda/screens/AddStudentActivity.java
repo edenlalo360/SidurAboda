@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -18,6 +17,7 @@ import com.example.siduraboda.models.Student;
 import com.example.siduraboda.services.DatabaseService;
 import com.example.siduraboda.utils.SharedPreferencesUtil;
 import com.example.siduraboda.utils.Validator;
+import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -25,7 +25,7 @@ import java.util.Locale;
 
 public class AddStudentActivity extends AppCompatActivity {
     private EditText Name, address, phone, date, password;
-    private Switch switchTheory, switchEyes, switchHealth;
+    private SwitchMaterial switchTheory, switchEyes, switchHealth;
 
     private Button btnAddStudent;
     private String editingStudentId = null;
@@ -115,25 +115,50 @@ public class AddStudentActivity extends AppCompatActivity {
                         teacherId,
                         status
                 );
-
-                DatabaseService.getInstance().createNewStudent(newStudent, new DatabaseService.DatabaseCallback<Void>() {
+                DatabaseService.getInstance().checkIfPhoneExistsForTeachers(phoneStr, new DatabaseService.DatabaseCallback<Boolean>() {
                     @Override
-                    public void onCompleted(Void object) {
-                        runOnUiThread(() -> {
-                            String msg = editingStudentId != null ? "Student updated successfully!" : "Student added successfully!";
-                            Toast.makeText(AddStudentActivity.this, msg, Toast.LENGTH_SHORT).show();
-                            if (editingStudentId != null) finish();
-                            else ClearFields();
+                    public void onCompleted(Boolean phoneExists) {
+                        if (phoneExists) {
+                            Toast.makeText(AddStudentActivity.this, "מספר טלפון כבר קיים", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        DatabaseService.getInstance().checkIfPhoneExistsForStudent(phoneStr, new DatabaseService.DatabaseCallback<Boolean>() {
+                            @Override
+                            public void onCompleted(Boolean studentPhoneExists) {
+                                if (studentPhoneExists && (editingStudent == null || !phoneStr.equals(editingStudent.getPhone()))) {
+                                    Toast.makeText(AddStudentActivity.this, "מספר טלפון כבר קיים", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                DatabaseService.getInstance().createNewStudent(newStudent, new DatabaseService.DatabaseCallback<Void>() {
+                                    @Override
+                                    public void onCompleted(Void object) {
+                                        String msg = editingStudentId != null ? "Student updated successfully!" : "Student added successfully!";
+                                        Toast.makeText(AddStudentActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                        if (editingStudentId != null) finish();
+                                        else ClearFields();
+
+                                    }
+
+                                    @Override
+                                    public void onFailed(Exception e) {
+                                        Toast.makeText(AddStudentActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onFailed(Exception e) {
+                                Toast.makeText(AddStudentActivity.this, "שגיאה בבדיקת מספר טלפון", Toast.LENGTH_SHORT).show();
+                            }
                         });
                     }
 
                     @Override
                     public void onFailed(Exception e) {
-                        runOnUiThread(() -> {
-                            Toast.makeText(AddStudentActivity.this, "Error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
+                        Toast.makeText(AddStudentActivity.this, "שגיאה בבדיקת מספר טלפון", Toast.LENGTH_SHORT).show();
                     }
                 });
+
             }
         });
     }
@@ -186,7 +211,7 @@ public class AddStudentActivity extends AppCompatActivity {
             return false;
         }
         if (!Validator.isPasswordValid(Password)) {
-            password.setError("Password must be at least 6 characters long");
+            password.setError("Password must be at least 4 characters long");
             password.requestFocus();
             return false;
         }

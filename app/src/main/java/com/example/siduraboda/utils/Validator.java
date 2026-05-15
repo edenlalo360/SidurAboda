@@ -43,11 +43,13 @@ public class Validator {
     }
 
     public static boolean isInsuranceDateValid(@Nullable LocalDate insurance) {
-        return insurance != null;
+        LocalDate today = LocalDate.now();
+        return insurance != null && !insurance.isAfter(today) && !insurance.isBefore(today.minusYears(1));
     }
 
     public static boolean isLicenseDateValid(@Nullable LocalDate license) {
-        return license != null;
+        LocalDate today = LocalDate.now();
+        return license != null && !license.isAfter(today) && !license.isBefore(today.minusYears(1));
     }
 
     public static boolean isSpinnerValid(@Nullable String spinner) {

@@ -28,7 +28,7 @@ public class InfoCarActivity extends AppCompatActivity {
     private Button editBtn;
     private boolean isEditing = false;
     private Car currentCar;
-    private String[] options = {
+    private final String[] options = {
             "דרגת רישיון", "A אופנוע", "B רכב פרטי עד 3.5 טון",
             "C1 רכב מסחרי עד 12 טון", "C רכב מסחרי מעל 12 טון",
             "D אוטובוס", "D1 מונית", "E גורר-תומך", "טרקטור 1"
@@ -98,9 +98,9 @@ public class InfoCarActivity extends AppCompatActivity {
         licenseDate.setText(currentCar.getLicenseDate());
 
         // מציאת האינדקס של הדרגה בספינר
-        for (int i = 0; i < options.length; i++) {
-            if (options[i].equals(currentCar.getRank())) {
-                spinner.setSelection(i);
+        for (int j = 0; j < options.length; j++) {
+            if (options[j].equals(currentCar.getRank())) {
+                spinner.setSelection(j);
                 break;
             }
         }
@@ -128,41 +128,86 @@ public class InfoCarActivity extends AppCompatActivity {
             return;
         }
 
-        // עדכון האובייקט המקומי
-        currentCar.setType(type);
-        currentCar.setCarNumber(number);
-        currentCar.setInsuranceDate(insurance);
-        currentCar.setLicenseDate(license);
-        currentCar.setRank(rank);
+        editBtn.setEnabled(false);
+        final String originalNumberStr = currentCar.getCarNumber();
 
-        // עדכון ב-Database
-        Teacher teacher = SharedPreferencesUtil.getTeacher(this);
-        if (teacher != null) {
-            ArrayList<Car> cars = teacher.getCars();
-            for (int i = 0; i < cars.size(); i++) {
-                if (cars.get(i).getCarNumber().equals(currentCar.getCarNumber())) {
-                    cars.set(i, currentCar);
-                    break;
+        DatabaseService.getInstance().checkIfCarNumberExists(number, new DatabaseService.DatabaseCallback<Boolean>() {
+            @Override
+            public void onCompleted(Boolean exists) {
+                // Check if the number exists and is NOT the original number
+                String cleanNew = number.trim().replace("-", "").replace(" ", "");
+                String cleanOriginal = originalNumberStr.trim().replace("-", "").replace(" ", "");
+                
+                if (exists && !cleanNew.equals(cleanOriginal)) {
+                    Toast.makeText(InfoCarActivity.this, "מספר רכב כבר קיים במערכת (אצל מורה אחר)", Toast.LENGTH_SHORT).show();
+                    carNumber.setError("מספר רכב כבר קיים");
+                    carNumber.requestFocus();
+                    editBtn.setEnabled(true);
+                    return;
+                }
+
+                // Update local object
+                currentCar.setType(type);
+                currentCar.setCarNumber(number);
+                currentCar.setInsuranceDate(insurance);
+                currentCar.setLicenseDate(license);
+                currentCar.setRank(rank);
+
+                // Update in Database
+                Teacher teacher = SharedPreferencesUtil.getTeacher(InfoCarActivity.this);
+                if (teacher != null) {
+                    ArrayList<Car> cars = teacher.getCars();
+                    boolean found = false;
+                    for (int i = 0; i < cars.size(); i++) {
+                        if (cars.get(i).getCarNumber().equals(originalNumberStr)) {
+                            cars.set(i, currentCar);
+                            found = true;
+                            break;
+                        }
+                    }
+                    
+                    if (!found) {
+                        // If for some reason we didn't find it by original number, add it
+                        cars.add(currentCar);
+                    }
+                    
+                    teacher.setCars(cars);
+
+                    DatabaseService.getInstance().updateTeacher(teacher.getUid(), t -> {
+                        if (t != null) {
+                            t.setCars(cars);
+                        }
+                        return t;
+                    }, new DatabaseService.DatabaseCallback<Teacher>() {
+                        @Override
+                        public void onCompleted(Teacher object) {
+                            if (object != null) {
+                                SharedPreferencesUtil.saveTeacher(InfoCarActivity.this, object);
+                                Toast.makeText(InfoCarActivity.this, "פרטי הרכב עודכנו בהצלחה", Toast.LENGTH_SHORT).show();
+                                enableEditing(false);
+                                editBtn.setEnabled(true);
+                            } else {
+                                Toast.makeText(InfoCarActivity.this, "שגיאה בעדכון הנתונים", Toast.LENGTH_SHORT).show();
+                                editBtn.setEnabled(true);
+                            }
+                        }
+
+                        @Override
+                        public void onFailed(Exception e) {
+                            Toast.makeText(InfoCarActivity.this, "שגיאה בעדכון הנתונים: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            editBtn.setEnabled(true);
+                        }
+                    });
+                } else {
+                    editBtn.setEnabled(true);
                 }
             }
-            teacher.setCars(cars);
 
-            DatabaseService.getInstance().updateTeacher(teacher.getUid(), t -> {
-                if (t != null) t.setCars(cars);
-                return t;
-            }, new DatabaseService.DatabaseCallback<Teacher>() {
-                @Override
-                public void onCompleted(Teacher object) {
-                    SharedPreferencesUtil.saveTeacher(InfoCarActivity.this, object);
-                    Toast.makeText(InfoCarActivity.this, "פרטי הרכב עודכנו בהצלחה", Toast.LENGTH_SHORT).show();
-                    enableEditing(false);
-                }
-
-                @Override
-                public void onFailed(Exception e) {
-                    Toast.makeText(InfoCarActivity.this, "שגיאה בעדכון הנתונים", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(InfoCarActivity.this, "שגיאה בבדיקת מספר רכב", Toast.LENGTH_SHORT).show();
+                editBtn.setEnabled(true);
+            }
+        });
     }
 }

@@ -5,6 +5,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.siduraboda.models.Car;
 import com.example.siduraboda.models.Lesson;
 import com.example.siduraboda.models.Student;
 import com.example.siduraboda.models.Teacher;
@@ -228,8 +229,8 @@ public class DatabaseService {
     ///
     /// @param teacher  the teacher object to create
     /// @param callback the callback to call when the operation is completed
-    ///                                                                              the callback will receive void
-    ///                                                                            if the operation fails, the callback will receive an exception
+    ///                                                                                              the callback will receive void
+    ///                                                                                            if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
     /// @see Teacher
     public void createNewUser(@NotNull final Teacher teacher, @Nullable final DatabaseCallback<Void> callback) {
@@ -240,8 +241,8 @@ public class DatabaseService {
     ///
     /// @param uid      the id of the user to get
     /// @param callback the callback to call when the operation is completed
-    ///                                                                               the callback will receive the user object
-    ///                                                                             if the operation fails, the callback will receive an exception
+    ///                                                                                               the callback will receive the user object
+    ///                                                                                             if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
     /// @see Teacher
     public void getUser(@NotNull final String uid, @NotNull final DatabaseCallback<Teacher> callback) {
@@ -251,8 +252,8 @@ public class DatabaseService {
     /// get all the users from the database
     ///
     /// @param callback the callback to call when the operation is completed
-    ///                                                                              the callback will receive a list of user objects
-    ///                                                                            if the operation fails, the callback will receive an exception
+    ///                                                                                              the callback will receive a list of user objects
+    ///                                                                                            if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
     /// @see List
     /// @see Teacher
@@ -273,18 +274,20 @@ public class DatabaseService {
     /// @param phone    the phone of the user
     /// @param password the password of the user
     /// @param callback the callback to call when the operation is completed
-    ///                                                                            the callback will receive the user object
-    ///                                                                          if the operation fails, the callback will receive an exception
+    ///                                                                                            the callback will receive the user object
+    ///                                                                                          if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
     /// @see Teacher
     public void getUserByPhoneAndPassword(@NotNull final String phone, @NotNull final String password, @NotNull final DatabaseCallback<Teacher> callback) {
         getUserList(new DatabaseCallback<List<Teacher>>() {
             @Override
             public void onCompleted(List<Teacher> teachers) {
-                for (Teacher teacher : teachers) {
-                    if (Objects.equals(teacher.getPhone(), phone) && Objects.equals(teacher.getPassword(), password)) {
-                        callback.onCompleted(teacher);
-                        return;
+                if (teachers != null) {
+                    for (Teacher teacher : teachers) {
+                        if (teacher != null && Objects.equals(teacher.getPhone(), phone) && Objects.equals(teacher.getPassword(), password)) {
+                            callback.onCompleted(teacher);
+                            return;
+                        }
                     }
                 }
                 callback.onCompleted(null);
@@ -301,14 +304,16 @@ public class DatabaseService {
     ///
     /// @param phone    the email to check
     /// @param callback the callback to call when the operation is completed
-    public void checkIfPhoneExists(@NotNull final String phone, @NotNull final DatabaseCallback<Boolean> callback) {
+    public void checkIfPhoneExistsForTeachers(@NotNull final String phone, @NotNull final DatabaseCallback<Boolean> callback) {
         getUserList(new DatabaseCallback<List<Teacher>>() {
             @Override
             public void onCompleted(List<Teacher> teachers) {
-                for (Teacher teacher : teachers) {
-                    if (Objects.equals(teacher.getPhone(), phone)) {
-                        callback.onCompleted(true);
-                        return;
+                if (teachers != null) {
+                    for (Teacher teacher : teachers) {
+                        if (teacher != null && Objects.equals(teacher.getPhone(), phone)) {
+                            callback.onCompleted(true);
+                            return;
+                        }
                     }
                 }
                 callback.onCompleted(false);
@@ -325,10 +330,12 @@ public class DatabaseService {
         getUserList(new DatabaseCallback<List<Teacher>>() {
             @Override
             public void onCompleted(List<Teacher> teachers) {
-                for (Teacher teacher : teachers) {
-                    if (Objects.equals(teacher.getLicenseId(), license)) {
-                        callback.onCompleted(true);
-                        return;
+                if (teachers != null) {
+                    for (Teacher teacher : teachers) {
+                        if (teacher != null && Objects.equals(teacher.getLicenseId(), license)) {
+                            callback.onCompleted(true);
+                            return;
+                        }
                     }
                 }
                 callback.onCompleted(false);
@@ -344,6 +351,41 @@ public class DatabaseService {
     public void updateTeacher(@NotNull final String teacherId, @NotNull UnaryOperator<Teacher> function,
                               @NotNull final DatabaseCallback<Teacher> callback) {
         runTransaction(USERS_PATH + "/" + teacherId, Teacher.class, function, callback);
+    }
+
+    public void checkIfCarNumberExists(@NotNull final String carNumber, @NotNull final DatabaseCallback<Boolean> callback) {
+        final String cleanNumber = carNumber.trim().replace("-", "").replace(" ", "");
+        Log.d(TAG, "Checking car number: " + cleanNumber);
+        
+        getUserList(new DatabaseCallback<List<Teacher>>() {
+            @Override
+            public void onCompleted(List<Teacher> teachers) {
+                if (teachers != null) {
+                    for (Teacher teacher : teachers) {
+                        if (teacher != null) {
+                            ArrayList<Car> cars = teacher.getCars();
+                            for (Car car : cars) {
+                                if (car != null && car.getCarNumber() != null) {
+                                    String dbNumber = car.getCarNumber().trim().replace("-", "").replace(" ", "");
+                                    if (dbNumber.equals(cleanNumber)) {
+                                        Log.d(TAG, "Car number found in teacher: " + teacher.getUid());
+                                        callback.onCompleted(true);
+                                        return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                callback.onCompleted(false);
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.e(TAG, "Error in checkIfCarNumberExists", e);
+                callback.onFailed(e);
+            }
+        });
     }
 
     /// generate a new id for a new user in the database
@@ -363,8 +405,8 @@ public class DatabaseService {
     ///
     /// @param student  the Student object to create
     /// @param callback the callback to call when the operation is completed
-    ///                                                                              the callback will receive void
-    ///                                                                            if the operation fails, the callback will receive an exception
+    ///                                                                                              the callback will receive void
+    ///                                                                                            if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
     /// @see Student
     public void createNewStudent(@NotNull final Student student, @Nullable final DatabaseCallback<Void> callback) {
@@ -375,8 +417,8 @@ public class DatabaseService {
     ///
     /// @param id       the id of the user to get
     /// @param callback the callback to call when the operation is completed
-    ///                                                                               the callback will receive the user object
-    ///                                                                             if the operation fails, the callback will receive an exception
+    ///                                                                                               the callback will receive the user object
+    ///                                                                                             if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
     /// @see Student
     public void getStudent(@NotNull final String id, @NotNull final DatabaseCallback<Student> callback) {
@@ -386,8 +428,8 @@ public class DatabaseService {
     /// get all the users from the database
     ///
     /// @param callback the callback to call when the operation is completed
-    ///                                                                              the callback will receive a list of user objects
-    ///                                                                            if the operation fails, the callback will receive an exception
+    ///                                                                                              the callback will receive a list of user objects
+    ///                                                                                            if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
     /// @see List
     /// @see Student
@@ -408,8 +450,8 @@ public class DatabaseService {
     /// @param phone    the phone of the user
     /// @param password the password of the user
     /// @param callback the callback to call when the operation is completed
-    ///                                                                            the callback will receive the user object
-    ///                                                                          if the operation fails, the callback will receive an exception
+    ///                                                                                            the callback will receive the user object
+    ///                                                                                          if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
     /// @see Student
     public void getStudentByPhoneAndPassword(@NotNull final String phone, @NotNull final String password,
@@ -417,10 +459,12 @@ public class DatabaseService {
         getStudentList(new DatabaseCallback<List<Student>>() {
             @Override
             public void onCompleted(List<Student> students) {
-                for (Student student : students) {
-                    if (Objects.equals(student.getPhone(), phone) && Objects.equals(student.getPassword(), password)) {
-                        callback.onCompleted(student);
-                        return;
+                if (students != null) {
+                    for (Student student : students) {
+                        if (student != null && Objects.equals(student.getPhone(), phone) && Objects.equals(student.getPassword(), password)) {
+                            callback.onCompleted(student);
+                            return;
+                        }
                     }
                 }
                 callback.onCompleted(null);
@@ -441,10 +485,12 @@ public class DatabaseService {
         getStudentList(new DatabaseCallback<List<Student>>() {
             @Override
             public void onCompleted(List<Student> students) {
-                for (Student student : students) {
-                    if (Objects.equals(student.getPhone(), phone)) {
-                        callback.onCompleted(true);
-                        return;
+                if (students != null) {
+                    for (Student student : students) {
+                        if (student != null && Objects.equals(student.getPhone(), phone)) {
+                            callback.onCompleted(true);
+                            return;
+                        }
                     }
                 }
                 callback.onCompleted(false);
@@ -478,8 +524,8 @@ public class DatabaseService {
     ///
     /// @param lesson   the Lesson object to create
     /// @param callback the callback to call when the operation is completed
-    ///                                                                              the callback will receive void
-    ///                                                                            if the operation fails, the callback will receive an exception
+    ///                                                                                              the callback will receive void
+    ///                                                                                            if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
     /// @see Lesson
     public void createNewLesson(@NotNull final Lesson lesson, @Nullable final DatabaseCallback<Void> callback) {
@@ -490,8 +536,8 @@ public class DatabaseService {
     ///
     /// @param id       the id of the lesson to get
     /// @param callback the callback to call when the operation is completed
-    ///                                                                               the callback will receive the user object
-    ///                                                                             if the operation fails, the callback will receive an exception
+    ///                                                                                               the callback will receive the user object
+    ///                                                                                             if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
     /// @see Lesson
     public void getLesson(@NotNull final String id, @NotNull final DatabaseCallback<Lesson> callback) {
@@ -501,8 +547,8 @@ public class DatabaseService {
     /// get all the users from the database
     ///
     /// @param callback the callback to call when the operation is completed
-    ///                                                                              the callback will receive a list of user objects
-    ///                                                                            if the operation fails, the callback will receive an exception
+    ///                                                                                              the callback will receive a list of user objects
+    ///                                                                                            if the operation fails, the callback will receive an exception
     /// @see DatabaseCallback
     /// @see List
     /// @see Lesson
