@@ -156,10 +156,8 @@ public class SidurYomAbodaActivity extends AppCompatActivity {
                 filtered.add(lesson);
             }
         }
-
         // --- מיון לפי שעה ---
         filtered.sort((l1, l2) -> l1.getDayAndHours().getStartTime().toString().compareTo(l2.getDayAndHours().getStartTime().toString()));
-
         adapter.setList(filtered);
         tvDateHeader.setText(date.format(DateTimeFormatter.ofPattern("MMMM yyyy", new Locale("he"))));
     }

@@ -153,7 +153,7 @@ public class InfoCarActivity extends AppCompatActivity {
                 currentCar.setLicenseDate(license);
                 currentCar.setRank(rank);
 
-                // Update in Database
+                // עדכון במסד נתונים
                 Teacher teacher = SharedPreferencesUtil.getTeacher(InfoCarActivity.this);
                 if (teacher != null) {
                     ArrayList<Car> cars = teacher.getCars();
@@ -167,7 +167,6 @@ public class InfoCarActivity extends AppCompatActivity {
                     }
                     
                     if (!found) {
-                        // If for some reason we didn't find it by original number, add it
                         cars.add(currentCar);
                     }
                     

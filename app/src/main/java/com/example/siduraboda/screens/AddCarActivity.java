@@ -105,7 +105,7 @@ public class AddCarActivity extends AppCompatActivity {
                     return;
                 }
 
-                btnSubmit.setEnabled(false); // Disable to prevent multiple clicks
+                btnSubmit.setEnabled(false);
                 Toast.makeText(AddCarActivity.this, "בודק נתונים...", Toast.LENGTH_SHORT).show();
 
                 DatabaseService.getInstance().checkIfCarNumberExists(carNumber, new DatabaseService.DatabaseCallback<Boolean>() {
@@ -216,12 +216,11 @@ public class AddCarActivity extends AppCompatActivity {
 
     private LocalDate convertStringToDate(String dateStr) {
         try {
-            // שימוש בפורמט שמתאים למה שה-DatePickerDialog מחזיר (d/M/yyyy)
             java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("d/M/yyyy");
             return LocalDate.parse(dateStr, formatter);
         } catch (Exception e) {
             e.printStackTrace();
-            return null; // אם יש שגיאה בפורמט
+            return null; //
         }
     }
 }
